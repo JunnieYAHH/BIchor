@@ -1,13 +1,15 @@
 const userModel = require('../models/userModel');
 const bcrypt = require('bcryptjs');
-const registerController = async (req, res) => {
+const jwt = require('jsonwebtoken')
+
+const registerUser = async (req, res) => {
     try {
-        const existingUser = await userModel.findOne({email:req.body.email})
+        const existingUser = await userModel.findOne({ email: req.body.email })
         //validation
-        if(existingUser){
+        if (existingUser) {
             return res.status(200).send({
                 success: false,
-                message:'User already registered'
+                message: 'User already registered'
             })
         }
         //Hash Password
@@ -30,4 +32,57 @@ const registerController = async (req, res) => {
     }
 };
 
-module.exports = { registerController }
+const loginUser = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: `User ${req.body.email} not found`
+            })
+        }
+        //compare password
+        const comparePassword = await bcrypt.compare(req.body.password, user.password)
+        if (!comparePassword) {
+            return res.status(500).send({
+                success: false,
+                message: 'Invalid Credentials'
+            })
+        }
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' })
+        return res.status(200).send({
+            success: true,
+            message: 'User logged in successfully',
+            token,
+            user
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Error in Register API',
+            error
+        })
+    }
+};
+
+const currentUser = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ _id: req.body.userId })
+        return res.status(200).send({
+            success: true,
+            message: 'User Load Successfully',
+            user
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success: false,
+            message: 'Error Load User',
+            error
+        })
+    }
+}
+
+module.exports = { registerUser, loginUser, currentUser }
