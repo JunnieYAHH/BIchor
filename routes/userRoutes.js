@@ -6,12 +6,12 @@ const {
     loginUser, 
     currentUser,
 } = require('../controllers/userController');
-const userMIddleware = require('../middlewares/userMIddleware');
+const userMiddleware = require('../middlewares/userMiddleware');
 
 //routes
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 
-router.get('/name', userMIddleware, currentUser);
+router.get('/name', userMiddleware, currentUser);
 
 module.exports = router;
