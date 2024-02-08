@@ -2,7 +2,7 @@ const inventoryModel = require('../models/inventoryModel');
 const userModel = require('../models/userModel');
 
 //Create Inventory
-const createInventoryController = async (req, res) => {
+const createInventory = async (req, res) => {
     try {
         const { email, inventoryType } = req.body
         //validate
@@ -33,4 +33,29 @@ const createInventoryController = async (req, res) => {
     }
 };
 
-module.exports = { createInventoryController };
+//Get Inventory data
+const getInventory = async (req, res) => {
+    try {
+        const inventory = await inventoryModel.find({
+            organisation: req.body.userId
+        })
+            .populate('donor')
+            .populate('hospital')
+            .sort({ createdAt: -1 });
+        return res.status(200).send({
+            success: true,
+            message: 'All Records In Inventory',
+            inventory
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error Getting Inventory',
+            error
+        })
+    }
+}
+
+module.exports = { createInventory, getInventory };
