@@ -1,12 +1,15 @@
+import { userLogin } from '../redux/features/user/userActions';
+import store from '../redux/store'
+
 export const handleLogin = (e, email, password, role) => {
     e.preventDefault()
     try {
-        if(!role || !email || !password){
+        if (!role || !email || !password) {
             return alert("Please Provide all the information")
         }
-        console.log("login", e, email, password, role)
+        store.dispatch(userLogin({ email, password, role }))
     } catch (error) {
-        console.log(error)
+        console.log('Invalid Credentials', error)
     }
 };
 
@@ -24,15 +27,15 @@ export const handleRegister = (
     e.preventDefault();
     try {
         console.log("Register => ",
-        name,
-        role,
-        email,
-        password,
-        organisationName,
-        address,
-        hospitalName,
-        website,
-        phone)
+            name,
+            role,
+            email,
+            password,
+            organisationName,
+            address,
+            hospitalName,
+            website,
+            phone)
     } catch (error) {
         console.log(error)
     }

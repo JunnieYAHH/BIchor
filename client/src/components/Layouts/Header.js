@@ -1,16 +1,24 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom'; // Import Link and useLocation
 import '../../App.css';
 import '../../index.css';
 
 const Header = () => {
+    const location = useLocation(); // Get the current location
+
+    // Function to check if the user is on the login page
+    const isLoginPage = location.pathname === '/login';
+    // Function to check if the user is on the register page
+    const isRegisterPage = location.pathname === '/register';
+
     return (
-        <div>
+        <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary header">
                 <div className="container-fluid">
                     <img src="./assets/images/tuplogo.png" alt="logotup" id='tuplogo'/>
-                    <a className="navbar-brand" href="http://localhost:3000/" style={{ color: 'black' }} >
+                    <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
                         Blood Donation
-                    </a>
+                    </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
@@ -22,12 +30,18 @@ const Header = () => {
                             </form>
                         </ul>
                         <ul className="navbar-nav mb- mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link" href="http://localhost:3000/login">Login</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="http://localhost:3000/register">Register</a>
-                            </li>
+                            {/* Render login link if not on login page */}
+                            {!isLoginPage && (
+                                <li className="nav-item">
+                                    <Link to="/login" className="nav-link">Login</Link>
+                                </li>
+                            )}
+                            {/* Render register link if not on register page */}
+                            {!isRegisterPage && (
+                                <li className="nav-item">
+                                    <Link to="/register" className="nav-link">Register</Link>
+                                </li>
+                            )}
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     More
@@ -43,7 +57,7 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-        </div>
+        </header>
     );
 };
 

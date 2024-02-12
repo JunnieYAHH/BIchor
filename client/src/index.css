@@ -88,3 +88,33 @@ header */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* Add box-shadow for depth */
 }
+
+/* ////////////////////////
+/////MDB HOMEPAGE///////
+//////////////////////// */
+
+.custom-homepage {
+  background-color: #f2f2f2;
+  padding-top: 20px;
+}
+
+.custom-content {
+  margin-top: 20px;
+}
+
+.custom-card-column {
+  margin-bottom: 20px;
+}
+
+.custom-card-title {
+  color: #333;
+  font-size: 24px;
+}
+
+.custom-card-description {
+  color: #666;
+}
+
+.custom-image {
+  margin-top: 20px;
+}

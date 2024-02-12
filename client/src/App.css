@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -43,3 +44,19 @@
 
 
 /* Header.css */
+/* BODY */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.custom-toast-container {
+  /* Add your custom styles here */
+  /* For example: */
+  width: 300px;
+  border-radius: 8px;
+  background-color: #333;
+  color: #fff;
+}
