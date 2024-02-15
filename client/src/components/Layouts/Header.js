@@ -15,7 +15,7 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary header">
                 <div className="container-fluid">
-                    <img src="./assets/images/tuplogo.png" alt="logotup" id='tuplogo'/>
+                    <img src="./assets/images/tuplogo.png" alt="logotup" id='tuplogo' />
                     <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
                         Blood Donation
                     </Link>
@@ -30,25 +30,21 @@ const Header = () => {
                             </form>
                         </ul>
                         <ul className="navbar-nav mb- mb-lg-0">
-                            {/* Render login link if not on login page */}
-                            {!isLoginPage && (
-                                <li className="nav-item">
-                                    <Link to="/login" className="nav-link">Login</Link>
-                                </li>
-                            )}
-                            {/* Render register link if not on register page */}
-                            {!isRegisterPage && (
-                                <li className="nav-item">
-                                    <Link to="/register" className="nav-link">Register</Link>
-                                </li>
-                            )}
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    More
+                                    <i className='fa fa-user'></i>User
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Latest News</a></li>
-                                    <li><a className="dropdown-item" href="#">Awareness</a></li>
+                                    {!isLoginPage && (
+                                        <li className="nav-item">
+                                            <Link to="/login" className="nav-link">Login</Link>
+                                        </li>
+                                    )}
+                                    {!isRegisterPage && (
+                                        <li className="nav-item">
+                                            <Link to="/register" className="nav-link">Register</Link>
+                                        </li>
+                                    )}
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><a className="dropdown-item" href="#">About</a></li>
                                 </ul>

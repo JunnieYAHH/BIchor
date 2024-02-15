@@ -4,9 +4,7 @@ import {
   MDBRow as Row,
   MDBCol as Col,
   MDBCard as Card,
-  // MDBCardImage as CardImage,
   MDBCardBody as CardBody,
-  // MDBCardText as CardText,
   MDBCardTitle as CardTitle,
 } from 'mdb-react-ui-kit';
 import Header from '../components/Layouts/Header';
@@ -43,9 +41,9 @@ const HomePage = () => {
                     </Card>
                   </Col>
                 </Row>
-                <Row>
+                <Row className='container-fluid my-1'>
                   <Col md={12}>
-                    <img src="./assets/images/login.jpg" className="img-fluid rounded custom-image" alt="Login" />
+                    <img src="./assets/images/login.jpg" className="img-fluid rounded custom-image" alt="Login" style={{width:'50%'}} />
                   </Col>
                 </Row>
               </Col>

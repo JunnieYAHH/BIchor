@@ -20,7 +20,8 @@ const registerUser = async (req, res) => {
         await user.save()
         return res.status(201).send({
             success: true,
-            message: 'User registeredsuccessfully'
+            message: 'User Registered Successfully',
+            user
         })
     } catch (error) {
         console.log(error)
