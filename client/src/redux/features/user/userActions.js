@@ -10,7 +10,11 @@ export const userLogin = createAsyncThunk('/user/login', async ({ role, email, p
     if (data.success) {
       toast.success(data.message);
       localStorage.setItem('token', data.token);
-      //   window.location.replace("/");
+      if (role === 'admin') {
+        window.location.replace("/dashboard");
+      } else {
+        window.location.replace("/");
+      }
     }
     return data;
   } catch (error) {
@@ -50,7 +54,7 @@ export const userRegister = createAsyncThunk(
         website,
         phone
       });
-      if(data.success){
+      if (data.success) {
         toast.success('User Registered Successfully');
         window.location.replace("/login");
       }
@@ -66,3 +70,24 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
+//current user
+export const getCurrentUser = createAsyncThunk(
+  'user/getCurrentUser',
+  async ({ rejectWithValue }) => {
+    try {
+      const res = await API.get('user/current-user')
+      if (res?.data) {
+        return res?.data
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message);
+        return rejectWithValue({ error: error.response.data.message });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+)

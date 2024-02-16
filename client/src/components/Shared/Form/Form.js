@@ -68,32 +68,19 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               User
             </label>
           </div>
-          {/* <div className="form-check ms-2">
-            <input
-              type="radio"
-              className="form-check-input"
-              name="role"
-              id="hospitalRadio"
-              value={"hospital"}
-              onChange={(e) => setRole(e.target.value)}
-            />
-            <label htmlFor="hospitalRadio" className="form-check-label">
-              Hospital
-            </label>
-          </div>
           <div className="form-check ms-2">
             <input
               type="radio"
               className="form-check-input"
               name="role"
-              id="organisationRadio"
-              value={"organisation"}
+              id="adminRadio"
+              value={"admin"}
               onChange={(e) => setRole(e.target.value)}
             />
-            <label htmlFor="organisationRadio" className="form-check-label">
-              Organisation
+            <label htmlFor="adminRadio" className="form-check-label">
+              Admin
             </label>
-          </div> */}
+          </div>
         </div>
         {/* switch element */}
         {(() => {

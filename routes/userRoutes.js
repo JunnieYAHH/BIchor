@@ -12,6 +12,6 @@ const userMiddleware = require('../middlewares/userMiddleware');
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 
-router.get('/name', userMiddleware, currentUser);
+router.get('/current-user', userMiddleware, currentUser);
 
 module.exports = router;

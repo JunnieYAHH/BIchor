@@ -1,17 +1,12 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import '../../App.css';
 import '../../index.css';
-
-const Header = () => {
-    const location = useLocation();
-    const isLoginPage = location.pathname === '/login';
-    const isRegisterPage = location.pathname === '/register';
-    const isHomePage = location.pathname === '/';
+const AdminHeader = () => {
     const { user } = useSelector(state => state.user)
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -37,34 +32,12 @@ const Header = () => {
                                 <button className="btn btn-outline-success" type="submit">Search</button>
                             </form>
                         </ul>
-                        {isHomePage ? null : (
-                            <ul className="navbar-nav mb- mb-lg-0">
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle " style={{ color: 'white' }} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i className='fa fa-user' style={{ color: 'white' }}></i>Options
-                                    </a>
-                                    <ul className="dropdown-menu">
-                                        {!isLoginPage && (
-                                            <li className="nav-item">
-                                                <Link to="/login" className="nav-link">Login</Link>
-                                            </li>
-                                        )}
-                                        {!isRegisterPage && (
-                                            <li className="nav-item">
-                                                <Link to="/register" className="nav-link">Register</Link>
-                                            </li>
-                                        )}
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><a className="dropdown-item" href="#">About</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        )}
-                        {isHomePage && user && (
+                        {user && (
+
                             <ul className="navbar-nav mb- mb-lg-0">
                                 <li className='nav-item mx-3'>
                                     <p className='nav-link' style={{ color: 'white' }}> <i className="fa fa-user"></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
-                                    
+
                                 </li>
                                 <li className='nav-item mx-3'>
                                     <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
@@ -76,6 +49,6 @@ const Header = () => {
             </nav>
         </header>
     );
-};
+}
 
-export default Header;
+export default AdminHeader

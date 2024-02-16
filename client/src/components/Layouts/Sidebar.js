@@ -58,10 +58,10 @@ const Sidebar = () => {
                         </MDBModalHeader>
                         <MDBModalBody>
                             <p>
-                                <div class="clearfix">
+                                <div className="clearfix">
                                     <img
                                         src="../assets/images/bloodonate.jpg"
-                                        class="col-md-6 float-md-end mb-3 ms-md-3"
+                                        className="col-md-6 float-md-end mb-3 ms-md-3"
                                         alt="..."
                                         style={{ maxWidth: "100%", height: "auto" }}
                                     />
@@ -96,10 +96,10 @@ const Sidebar = () => {
                         </MDBModalHeader>
                         <MDBModalBody>
                             <p>
-                                <div class="clearfix">
+                                <div className="clearfix">
                                     <img
                                         src="../assets/images/bloodonate.jpg"
-                                        class="col-md-6 float-md-end mb-3 ms-md-3"
+                                        className="col-md-6 float-md-end mb-3 ms-md-3"
                                         alt="..."
                                         style={{ maxWidth: "100%", height: "auto" }}
                                     />
