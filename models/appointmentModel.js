@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const inventorySchema = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema({
     inventoryType: {
         type: String,
         required: [true, 'Inventory Type Required'],
@@ -15,12 +15,16 @@ const inventorySchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Blood Quantity Required'],
     },
-    organisation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-        required: [true, 'Organization Required'],
+    email:{
+        type:String,
+        required:[true, "Donor Email is Required"]
     },
-    hospital: {
+    event:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "event",
+        required: [true, 'Event Required'],
+    },
+    clinic: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: function () {
@@ -30,10 +34,10 @@ const inventorySchema = new mongoose.Schema({
     donor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        required: function () {
-            return this.inventoryType === "in"
-        }
-    },
+        // required: function () {
+        //     return this.inventoryType === "in"
+        // }
+    },  
 }, { timestamps: true });
 
-module.exports = mongoose.model('Inventory', inventorySchema)
+module.exports = mongoose.model('appointment ', appointmentSchema)

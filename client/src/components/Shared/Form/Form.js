@@ -49,7 +49,6 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               id="donorRadio"
               value={"donor"}
               onChange={(e) => setRole(e.target.value)}
-              defaultChecked
             />
             <label htmlFor="userRadio" className="form-check-label">
               Donor
@@ -68,19 +67,26 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               User
             </label>
           </div>
-          <div className="form-check ms-2">
-            <input
-              type="radio"
-              className="form-check-input"
-              name="role"
-              id="adminRadio"
-              value={"admin"}
-              onChange={(e) => setRole(e.target.value)}
-            />
-            <label htmlFor="adminRadio" className="form-check-label">
-              Admin
-            </label>
-          </div>
+          {(() => {
+            switch (true) {
+              case formType === 'login':
+                return (
+                  <div className="form-check ms-2">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="role"
+                      id="adminRadio"
+                      value={"admin"}
+                      onChange={(e) => setRole(e.target.value)}
+                    />
+                    <label htmlFor="adminRadio" className="form-check-label">
+                      Admin
+                    </label>
+                  </div>
+                );
+            }
+          })()}
         </div>
         {/* switch element */}
         {(() => {
@@ -135,7 +141,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                   />
 
                   <InputType
-                    inputType={'hidden'}  
+                    inputType={'hidden'}
                     labelFor={'forWebsite'}
                     name={'website'}
                     value={'N/A'}

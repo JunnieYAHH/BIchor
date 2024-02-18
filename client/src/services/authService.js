@@ -1,4 +1,4 @@
-import { userLogin, userRegister } from '../redux/features/user/userActions';
+import { userLogin, userRegister, userAddDescription } from '../redux/features/user/userActions';
 import store from '../redux/store'
 
 export const handleLogin = (e, email, password, role) => {
@@ -8,6 +8,7 @@ export const handleLogin = (e, email, password, role) => {
             return alert("Please Provide all the information")
         }
         store.dispatch(userLogin({ email, password, role }))
+        
     } catch (error) {
         console.log('Invalid Credentials', error)
     }
@@ -26,7 +27,8 @@ export const handleRegister = (
     phone) => {
     e.preventDefault();
     try {
-        store.dispatch(userRegister({name,
+        store.dispatch(userRegister({
+            name,
             role,
             email,
             password,
@@ -34,8 +36,33 @@ export const handleRegister = (
             address,
             hospitalName,
             website,
-            phone}))
+            phone
+        }))
     } catch (error) {
         console.log(error)
+    }
+};
+
+export const handleAddUserDescription = (
+    user,
+    sex,
+    birthDate,
+    bloodType,
+    yearLevel,
+    course,
+    weight
+) => {
+    try {
+        store.dispatch(userAddDescription({
+            ...user,
+            sex,
+            birthDate,
+            bloodType,
+            yearLevel,
+            course,
+            weight
+        }));
+    } catch (error) {
+        console.log(error);
     }
 };

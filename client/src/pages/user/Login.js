@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import Spinner from '../../components/Shared/Spinner'
 
 const Login = () => {
-    const { loading, error } = useSelector(state => state.user)
+    const { loading } = useSelector(state => state.user)
     return (
         <>
             {loading ? (<Spinner />) : (

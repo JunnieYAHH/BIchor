@@ -1,0 +1,13 @@
+.sidebar {
+    height: 100vh !important;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #ea3b3b, #ea3b3b);
+    box-shadow: 0 4px 8px rgb(216, 61, 61);
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+
+}
+
+.menu {
+    padding-top: 100px;
+}

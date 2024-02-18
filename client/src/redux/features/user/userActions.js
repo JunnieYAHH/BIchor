@@ -10,6 +10,7 @@ export const userLogin = createAsyncThunk('/user/login', async ({ role, email, p
     if (data.success) {
       toast.success(data.message);
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       if (role === 'admin') {
         window.location.replace("/dashboard");
       } else {
@@ -91,3 +92,26 @@ export const getCurrentUser = createAsyncThunk(
     }
   }
 )
+
+export const userAddDescription = createAsyncThunk(
+  'user/addDescription',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await API.post('/user/add-description-user', userData);
+      if (data.success) {
+        toast.success('User Description Added Successfully');
+        // You might not want to redirect here, as it's more common to stay on the same page after form submission
+        // window.location.replace("/login");
+      }
+      return data;
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message);
+        return rejectWithValue({ error: error.response.data.message });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+);

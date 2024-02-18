@@ -1,63 +1,32 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import {
-    MDBBtn,
-    MDBModal,
-    MDBModalDialog,
-    MDBModalContent,
-    MDBModalHeader,
-    MDBModalTitle,
-    MDBModalBody,
-    MDBModalFooter,
-} from "mdb-react-ui-kit";
-const Sidebar = () => {
+import {Link} from 'react-router-dom'
+import '../../styles/Layouts.css';
 
-    const [centredModal, setCentredModal] = useState(false);
-
-    const toggleOpen = () => setCentredModal(!centredModal);
-    const [centredModal1, setCentredModal1] = useState(false);
-
-    const toggleOpen1 = () => setCentredModal1(!centredModal1);
-
+const AdminSidebar = () => {
     return (
         <div className="sidebar" style={{ color: 'black' }}>
-            <h2>BIchor</h2>
-            <ul>
-                <li>
-                    <a onClick={toggleOpen} style={{ cursor: "pointer" }}>Information</a>
-                </li>
-                <li>
-                    <a onClick={toggleOpen1}>Description</a>
-                </li>
-                <li>
-                    <a href="/#">About Us</a>
-                </li>
-                <li>
-                    <a href="/#">Donation</a>
-                </li>
-                <li>
-                    <a href="/#">Hostpitals</a>
-                </li>
-                <li>
-                    <a href="/#">Maps</a>
-                </li>
-                <li style={{ cursor: 'pointer' }}>
-                    <div className="dropdown">
-                        <a data-bs-toggle="dropdown" aria-expanded="false">
-                            Settings
-                        </a>
-                        <ul className="dropdown-menu">
-                            <li>
-                                <Link className="dropdown-item" to="/profileDescription">Profile Description</Link>
-                            </li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-
-                </li>
-            </ul>
-            <MDBModal tabIndex="-1" open={centredModal} setOpen={setCentredModal}>
+            <div className='menu'>
+                <h2>Admin</h2>
+                <ul>
+                    <li>
+                        <Link to='admin/donations'><i class="fa-solid fa-droplet"></i>Donations</Link>
+                    </li>
+                    <li>
+                        <a to="/donors"><i class="fa fa-user"></i>Donors</a>
+                    </li>
+                    <li>
+                        <a href="/#">Clinics</a>
+                    </li>
+                    <li>
+                        <a href="/#">Maps</a>
+                    </li>
+                </ul>
+            </div>
+            {/* <MDBModal
+                tabIndex="-1"
+                open={centredModal}
+                setOpen={setCentredModal}
+            >
                 <MDBModalDialog centered size="">
                     <MDBModalContent>
                         <MDBModalHeader>
@@ -135,9 +104,9 @@ const Sidebar = () => {
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>
-            </MDBModal>
+            </MDBModal> */}
         </div>
     );
-};
+}
 
-export default Sidebar;
+export default AdminSidebar

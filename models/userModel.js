@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: [true, "role is required"],
-      enum: ["admin", "organisation", "user", "hospital", "donor"],
+      default: 'user',
+      enum: ["admin", "organisation", "user", "clinic", "donor"],
     },
     name: {
       type: String,
@@ -25,10 +26,10 @@ const userSchema = new mongoose.Schema(
         return false;
       },
     },
-    hospitalName: {
+    clinicName: {
       type: String,
       required: function () {
-        if (this.role === "hospital") {
+        if (this.role === "clinic") {
           return true;
         }
         return false;
@@ -52,8 +53,38 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, "phone numbe is required"],
+      required: [true, "phone number is required"],
     },
+    description: [
+      {
+        sex: {
+          type: String,
+          enum: ["male", "female"],
+        },
+        birthDate: {
+          type: Date,
+        },
+        bloodType: {
+          type: String,
+          enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-']
+        },
+        year: {
+          type: String,
+        },
+        course: {
+          type: String,
+        },
+        weight: {
+          type: Number,
+          validate: {
+            validator: function (value) {
+              return value >= 45;
+            },
+            message: 'Weight must be 45 kg or more'
+          }
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

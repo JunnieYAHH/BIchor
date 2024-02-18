@@ -43,7 +43,7 @@ const loginUser = async (req, res) => {
             })
         }
         //Check Role
-        if(user.role !== req.body.role){
+        if (user.role !== req.body.role) {
             return res.status(500).send({
                 success: false,
                 message: `Role Doesn't Match`
@@ -93,4 +93,43 @@ const currentUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, currentUser }
+const addDescriptionUser = async (req, res) => {
+    try {
+        // Extract user ID from the request body
+        const userId = req.body.user;
+
+        // Extract other description data
+        const {
+            sex,
+            birthDate,
+            bloodType,
+            yearLevel,
+            course,
+            weight
+        } = req.body;
+
+        // Construct the new description object
+        const newDescription = {
+            sex,
+            birthDate,
+            bloodType,
+            year: yearLevel, // Assuming 'yearLevel' corresponds to 'year' in the schema
+            course,
+            weight
+        };
+
+        // Update user with additional details by pushing the new description object into the array
+        const updatedUser = await userModel.findByIdAndUpdate(userId, {
+            $push: { description: newDescription }
+        }, { new: true }); // { new: true } option returns the updated document
+
+        res.status(200).json({ success: true, message: 'User description added successfully', description: updatedUser.description });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+
+
+module.exports = { registerUser, loginUser, currentUser, addDescriptionUser }

@@ -38,16 +38,12 @@ header */
 /* Sidebar.css */
 .sidebar {
   min-height: 100vh;
-  /* Set minimum height to full viewport height */
   background: linear-gradient(to bottom, #ea3b3b, #ea3b3b);
-  /* Gradient background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgb(216, 61, 61);
   color: #fff;
-  /* Text color */
   font-family: 'Roboto', sans-serif;
-  /* Stylish font */
 }
 
 .sidebar h2 {
