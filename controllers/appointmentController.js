@@ -21,6 +21,7 @@ const createAppointment = async (req, res) => {
             success: true,
             message: 'New Appartment Added'
         })
+        
 
     } catch (error) {
         console.log(error);
