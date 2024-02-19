@@ -25,8 +25,8 @@ const ProfileDescription = () => {
     const { user } = useSelector(state => state.user)
 
     if (!user) {
-        return null;
-    }
+            return null;
+        }
 
     const addDescription = async (descriptionData) => {
         try {

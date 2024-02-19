@@ -14,7 +14,7 @@ const Register = () => {
       {loading ? (<Spinner />) : (
         <>
           <Header />
-          <div className="row g-0">
+          <div className="row g-0 my-3">
             <div className="col-md-8 form-banner" >
               <img src="./assets/images/register.jpg" alt="loginImage" />
             </div>

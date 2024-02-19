@@ -30,4 +30,23 @@ const createEvent = async (req, res) => {
     }
 };
 
-module.exports = { createEvent };
+const getAllEvents = async (req, res) => {
+    try {
+        // Retrieve all events from the database
+        const events = await eventModel.find();
+        // console.log(events)
+        
+        return res.status(200).send({
+            success: true,
+            data: events
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error retrieving events'
+        });
+    }
+};
+
+module.exports = { createEvent, getAllEvents};

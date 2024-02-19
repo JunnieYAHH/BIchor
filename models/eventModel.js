@@ -9,17 +9,25 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'Title Required'],
     },
-    place:{
+    place: {
         type: String,
         required: [true, 'Place Required'],
+    },
+    details: {
+        type: String,
+        required: [true, 'Description Required'],
     },
     status: {
         type: String,
         default: 'pending'
     },
+    // status: {
+    //     type: String,
+    //     default: 'pending'
+    // },
     clinic: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"user",
+        ref: "user",
         required: [true, 'Clinic ID Required'],
     },
 }, { timestamps: true });

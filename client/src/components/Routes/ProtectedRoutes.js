@@ -22,6 +22,8 @@ const ProtectedRoutes = ({ children }) => {
   useEffect(() => {
     getUser();
   });
+  const user = JSON.parse(localStorage.getItem('user'))
+  // console.log(user)
 
   if (localStorage.getItem("token")) {
     return children;
