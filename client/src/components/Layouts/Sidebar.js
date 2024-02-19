@@ -58,7 +58,7 @@ const Sidebar = () => {
                 </li>
             </ul>
             <MDBModal tabIndex="-1" open={centredModal} setOpen={setCentredModal}>
-                <MDBModalDialog centered size="">
+                <MDBModalDialog centered size="fullscreen">
                     <MDBModalContent>
                         <MDBModalHeader>
                             <MDBModalTitle>Information</MDBModalTitle>
@@ -75,7 +75,7 @@ const Sidebar = () => {
                                         src="../assets/images/bloodonate.jpg"
                                         className="col-md-6 float-md-end mb-3 ms-md-3"
                                         alt="..."
-                                        style={{ maxWidth: "100%", height: "auto" }}
+                                        style={{ maxWidth: "20%", height: "20%" }}
                                     />
                                     Volunteering your time to help out in charities and foundations is highly admirable. But if you wish to do more, or perhaps you're trying to work around your packed schedule, donating your blood is a great option. By donating blood, you're helping secure the lives of people who may have gotten into accidents, are undergoing surgeries, or are fighting cancer and other diseases.
 

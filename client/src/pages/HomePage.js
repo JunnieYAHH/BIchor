@@ -100,8 +100,8 @@ const HomePage = () => {
                           aria-label="Default select example"
                           onChange={(e) => setBloodGroup(e.target.value)}
                         >
-                          {user.description && user.description.bloodType ? (
-                            <option selected value={user.description.bloodType}>{user.description.bloodType}</option>
+                          {user && user.description && user.description.length > 0 ? (
+                            <option selected value={user.description[0].bloodType}>{user.description[0].bloodType}</option>
                           ) : (
                             <>
                               <option selected>Select</option>

@@ -10,7 +10,6 @@ import {
     MDBCardBody as CardBody,
 } from 'mdb-react-ui-kit';
 import { useSelector, useDispatch } from 'react-redux'
-import { handleAddUserDescription } from '../../services/authService';
 import axios from 'axios'
 
 const ProfileDescription = () => {
