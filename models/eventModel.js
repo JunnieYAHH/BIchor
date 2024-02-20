@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
+    eventType: {
+        type: String,
+        required: [true, 'Event Type Required'],
+        enum: ["campain", "donation", "transfusion"],
+
+    },
     title: {
         type: String,
         required: [true, 'Title Required'],
@@ -21,10 +27,18 @@ const eventSchema = new mongoose.Schema({
         type: String,
         default: 'pending'
     },
-    // status: {
-    //     type: String,
-    //     default: 'pending'
-    // },
+    images: [
+        {
+            public_id: {
+                type: String,
+                required: true
+            },
+            url: {
+                type: String,
+                required: true
+            },
+        }
+    ],
     clinic: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",

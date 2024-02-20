@@ -69,7 +69,7 @@ const ProfileDescription = () => {
 
     return (
         <>
-            <div className="custom-homepage">
+            <div className="custom-homepage my-5">
                 <Header />
                 <div className="custom-content">
                     <Container fluid>

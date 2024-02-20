@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: [true, "role is required"],
-      default: 'user',
+      defaultValue: 'user',
       enum: ["admin", "organisation", "user", "clinic", "donor"],
     },
     name: {

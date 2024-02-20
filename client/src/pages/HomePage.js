@@ -14,6 +14,7 @@ import InputType from '../components/Shared/Form/InputType'
 import '../index.css';
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import 'mdb-react-ui-kit'
 
 
 const HomePage = () => {
@@ -60,8 +61,8 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="custom-homepage">
-        <Header />
+      <div className="custom-homepage my-5">
+        <Header sticky />
         <div className="custom-content">
           <Container fluid>
             <Row>
@@ -70,123 +71,175 @@ const HomePage = () => {
               </Col>
               <Col md={10}>
                 <Row className="mb-4">
-                  <Col md={6} className="custom-card-column">
-                    <Card>
+                  <div className="container">
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <img src="./assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
+                      <div style={{ marginLeft: '20px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                        <p style={{ fontWeight: 'bold', fontSize: '24px', textAlign: 'center' }}>Technological University of the Philippines, Taguig City</p>
+                        <p style={{ textAlign: 'center' }}>Sustaining Lifelines: Enhancing the Blood Donation System for Improved Access, Efficiency, and Awareness </p>
+                        <p style={{ textAlign: 'center' }}>- A Comprehensive Study</p>
+                    </div>
+                  </div>
+                </div>
+            </Row>
+            <Row className="mb-4">
+              <div className="container">
+                <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                  <p style={{ margin: '0' }}>DONATIONS</p>
+                </div>
+              </div>
+              {events && events.map(event => (
+                event.eventType === 'donation' && (
+                  <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
+                    <Card style={{ height: '450px', width: '100%' }}>
                       <CardBody>
                         <CardTitle className="custom-card-title" onClick={toggleOpen}>
-                          <i className="fa-solid fa-plus"></i> Donate
+                          <i className="fa-solid fa-plus" style={{cursor:"pointer"}}></i> Donate
                         </CardTitle>
-                        {events && events.map(event => (
-                          <>
-                            <div key={event._id}> {/* Use a unique key for each event */}
-                              <p className="custom-card-description">{event.title}</p> {/* Access title from each event */}
-                            </div>
-                            <div> {/* Use a unique key for each event */}
-                              <p className="custom-card-description">{event.details}</p> {/* Access title from each event */}
-                            </div>
-                          </>
-                        ))}
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          {event.images && event.images.map(image => (
+                            <img key={image.public_id} src={image.url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                          ))}
+                          <div>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Title: <p style={{ fontWeight: 'bold', color: 'red' }}>{event.title}</p></p>
+                            <p className="custom-card-description">{event.date}</p>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Place<p style={{ fontWeight: 'bold', color: 'red' }}>{event.place}</p></p>
+                            <p className="custom-card-description">{event.status}</p>
+                          </div>
+                        </div>
+                        <p style={{ fontWeight: 'bold' }}>Details:</p>
+                        <p className="custom-card-description">{event.details}</p>
                       </CardBody>
                     </Card>
                   </Col>
-                </Row>
-                <Row className='container-fluid my-1'>
-                  <Col md={12}>
-                    <img src="./assets/images/login.jpg" className="img-fluid rounded custom-image" alt="Login" style={{ width: '50%' }} />
-                  </Col>
-                </Row>
-              </Col>
+                )
+              ))}
             </Row>
+            <Row className="mb-4">
+              <div className="container">
+                <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                  <p style={{ margin: '0' }}>CAMPAINS</p>
+                </div>
+              </div>
+              {events && events.map(event => (
+                event.eventType === 'campain' && (
+                  <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
+                    <Card style={{ height: '450px', width: '100%' }}>
+                      <CardBody>
+                        <CardTitle className="custom-card-title" onClick={toggleOpen}>
+                          <i className="fa-solid fa-plus" style={{cursor:"pointer"}}></i> Apply
+                        </CardTitle>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          {event.images && event.images.map(image => (
+                            <img key={image.public_id} src={image.url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                          ))}
+                          <div>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Title: <p style={{ fontWeight: 'bold', color: 'red' }}>{event.title}</p></p>
+                            <p className="custom-card-description">{event.date}</p>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Place<p style={{ fontWeight: 'bold', color: 'red' }}>{event.place}</p></p>
+                            <p className="custom-card-description">{event.status}</p>
+                          </div>
+                        </div>
+                        <p style={{ fontWeight: 'bold' }}>Details:</p>
+                        <p className="custom-card-description">{event.details}</p>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                )
+              ))}
+            </Row>
+          </Col>
+        </Row>
 
-            <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
-              <MDBModalDialog centered size="">
-                <MDBModalContent>
-                  <MDBModalHeader>
-                    <MDBModalTitle>Donate</MDBModalTitle>
-                    <MDBBtn
-                      className="btn-close"
-                      color="none"
-                      onClick={toggleOpen}
-                    ></MDBBtn>
-                  </MDBModalHeader>
-                  <MDBModalBody>
-                    <div className="d-flex">
-                      Blood Type: &nbsp;
-                      <div className='form-check ms-3'>
-                        <input type='radio'
-                          name='inRadio'
-                          defaultChecked
-                          value={'in'}
-                          onChange={(e) => setInventoryType(e.target.value)}
-                          className='form-check-input' />
-                        <label htmlFor='in' className='form-check-label'>
-                          IN
-                        </label>
-                      </div>
-                      <div className='form-check ms-3'>
-                        <input type='radio'
-                          name='inRadio'
-                          value={'out'}
-                          onChange={(e) => setInventoryType(e.target.value)}
-                          className='form-check-input' />
-                        <label htmlFor='out' className='form-check-label'>
-                          OUT
-                        </label>
-                      </div>
-                    </div>
-                    {user && (
-                      <>
-                        <select className="form-select"
-                          aria-label="Default select example"
-                          onChange={(e) => setBloodGroup(e.target.value)}
-                        >
-                          {user && user.description && user.description.length > 0 ? (
-                            <option defaultValue value={user.description[0].bloodType}>{user.description[0].bloodType}</option>
-                          ) : (
-                            <>
-                              <option selected>Select</option>
-                              <option value={'O+'}>O+</option>
-                              <option value={'O-'}>O-</option>
-                              <option value={'A+'}>A+</option>
-                              <option value={'A-'}>A-</option>
-                              <option value={'B+'}>B+</option>
-                              <option value={'B-'}>B-</option>
-                              <option value={'AB+'}>AB+</option>
-                              <option value={'AB-'}>AB-</option>
-                            </>
-                          )}
-                        </select>
-                        <InputType labelText="Donor Email"
-                          labelFor={'donorEmail'}
-                          inputType={'email'}
-                          value={user.email}
-                          onChange={(e) => setDonorEmail(e.target.value)}
-                        />
-                        <InputType labelText="Quantity"
-                          labelFor={'quantity'}
-                          inputType={'Number'}
-                          value={quantity}
-                          onChange={(e) => setQuantity(e.target.value)}
-                        />
-                      </>
-                    )}
+        <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
+          <MDBModalDialog centered size="">
+            <MDBModalContent>
+              <MDBModalHeader>
+                <MDBModalTitle>Donate</MDBModalTitle>
+                <MDBBtn
+                  className="btn-close"
+                  color="none"
+                  onClick={toggleOpen}
+                ></MDBBtn>
+              </MDBModalHeader>
+              <MDBModalBody>
+                <div className="d-flex">
+                  Blood Type: &nbsp;
+                  <div className='form-check ms-3'>
+                    <input type='radio'
+                      name='inRadio'
+                      defaultChecked
+                      value={'in'}
+                      onChange={(e) => setInventoryType(e.target.value)}
+                      className='form-check-input' />
+                    <label htmlFor='in' className='form-check-label'>
+                      IN
+                    </label>
+                  </div>
+                  <div className='form-check ms-3'>
+                    <input type='radio'
+                      name='inRadio'
+                      value={'out'}
+                      onChange={(e) => setInventoryType(e.target.value)}
+                      className='form-check-input' />
+                    <label htmlFor='out' className='form-check-label'>
+                      OUT
+                    </label>
+                  </div>
+                </div>
+                {user && (
+                  <>
+                    <select className="form-select"
+                      aria-label="Default select example"
+                      onChange={(e) => setBloodGroup(e.target.value)}
+                    >
+                      {user && user.description && user.description.length > 0 ? (
+                        <option defaultValue value={user.description[0].bloodType}>{user.description[0].bloodType}</option>
+                      ) : (
+                        <>
+                          <option selected>Select</option>
+                          <option value={'O+'}>O+</option>
+                          <option value={'O-'}>O-</option>
+                          <option value={'A+'}>A+</option>
+                          <option value={'A-'}>A-</option>
+                          <option value={'B+'}>B+</option>
+                          <option value={'B-'}>B-</option>
+                          <option value={'AB+'}>AB+</option>
+                          <option value={'AB-'}>AB-</option>
+                        </>
+                      )}
+                    </select>
+                    <InputType labelText="Donor Email"
+                      labelFor={'donorEmail'}
+                      inputType={'email'}
+                      value={user.email}
+                      onChange={(e) => setDonorEmail(e.target.value)}
+                    />
+                    <InputType labelText="Quantity"
+                      labelFor={'quantity'}
+                      inputType={'Number'}
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />
+                  </>
+                )}
 
-                  </MDBModalBody>
-                  <MDBModalFooter>
-                    <button type='button' className="btn btn-secondary" onClick={toggleOpen}>
-                      Close
-                    </button>
-                    <button type='button' className="btn btn-primary" onClick={toggleOpen}>
-                      Submit
-                    </button>
-                  </MDBModalFooter>
-                </MDBModalContent>
-              </MDBModalDialog>
-            </MDBModal>
+              </MDBModalBody>
+              <MDBModalFooter>
+                <button type='button' className="btn btn-secondary" onClick={toggleOpen}>
+                  Close
+                </button>
+                <button type='button' className="btn btn-primary" onClick={toggleOpen}>
+                  Submit
+                </button>
+              </MDBModalFooter>
+            </MDBModalContent>
+          </MDBModalDialog>
+        </MDBModal>
 
-          </Container>
-        </div>
-      </div>
+      </Container>
+    </div >
+      </div >
     </>
   );
 };
