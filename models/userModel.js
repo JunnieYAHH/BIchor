@@ -66,7 +66,7 @@ const userSchema = new mongoose.Schema(
         },
         bloodType: {
           type: String,
-          enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-']
+          enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'K']
         },
         year: {
           type: String,
@@ -82,7 +82,19 @@ const userSchema = new mongoose.Schema(
             },
             message: 'Weight must be 45 kg or more'
           }
-        }
+        },
+        avatar: [
+          {
+            public_id: {
+              type: String,
+              required: true
+            },
+            url: {
+              type: String,
+              required: true
+            },
+          }
+        ],
       }
     ]
   },

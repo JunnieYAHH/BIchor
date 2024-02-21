@@ -1,5 +1,5 @@
 const eventModel = require('../models/eventModel');
-const userModel = require('../models/userModel');
+// const userModel = require('../models/userModel');
 const cloudinary = require('cloudinary');
 
 const createEvent = async (req, res) => {

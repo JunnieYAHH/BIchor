@@ -118,6 +118,39 @@ const HomePage = () => {
             <Row className="mb-4">
               <div className="container">
                 <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                  <p style={{ margin: '0' }}>TRANSFUSIONS</p>
+                </div>
+              </div>
+              {events && events.map(event => (
+                event.eventType === 'transfusion' && (
+                  <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
+                    <Card style={{ height: '450px', width: '100%' }}>
+                      <CardBody>
+                        <CardTitle className="custom-card-title" onClick={toggleOpen}>
+                          <i className="fa-solid fa-plus" style={{cursor:"pointer"}}></i> Apply
+                        </CardTitle>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          {event.images && event.images.map(image => (
+                            <img key={image.public_id} src={image.url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                          ))}
+                          <div>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Title: <p style={{ fontWeight: 'bold', color: 'red' }}>{event.title}</p></p>
+                            <p className="custom-card-description">{event.date}</p>
+                            <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>Place<p style={{ fontWeight: 'bold', color: 'red' }}>{event.place}</p></p>
+                            <p className="custom-card-description">{event.status}</p>
+                          </div>
+                        </div>
+                        <p style={{ fontWeight: 'bold' }}>Details:</p>
+                        <p className="custom-card-description">{event.details}</p>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                )
+              ))}
+            </Row>
+            <Row className="mb-4">
+              <div className="container">
+                <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                   <p style={{ margin: '0' }}>CAMPAINS</p>
                 </div>
               </div>

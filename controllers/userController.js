@@ -1,6 +1,8 @@
 const userModel = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
+const cloudinary = require('cloudinary');
+
 
 const registerUser = async (req, res) => {
     try {
@@ -94,40 +96,50 @@ const currentUser = async (req, res) => {
 }
 
 const addDescriptionUser = async (req, res) => {
-    try {
-        // Extract user ID from the request body
-        const userId = req.body.user;
+    const addDescriptionUser = async (req, res) => {
+        try {
+            // Extract user ID from the request body
+            const userId = req.body.user;
 
-        // Extract other description data
-        const {
-            sex,
-            birthDate,
-            bloodType,
-            yearLevel,
-            course,
-            weight
-        } = req.body;
+            // Extract other description data
+            const {
+                sex,
+                birthDate,
+                bloodType,
+                yearLevel,
+                course,
+                weight
+            } = req.body;
 
-        // Construct the new description object
-        const newDescription = {
-            sex,
-            birthDate,
-            bloodType,
-            year: yearLevel, // Assuming 'yearLevel' corresponds to 'year' in the schema
-            course,
-            weight
-        };
+            // Upload avatar image to Cloudinary and get public_id and url
+            const avatarData = [];
+            for (const file of req.files) {
+                const result = await cloudinary.uploader.upload(file.path);
+                avatarData.push({ public_id: result.public_id, url: result.secure_url });
+            }
 
-        // Update user with additional details by pushing the new description object into the array
-        const updatedUser = await userModel.findByIdAndUpdate(userId, {
-            $push: { description: newDescription }
-        }, { new: true }); // { new: true } option returns the updated document
+            // Construct the new description object
+            const newDescription = {
+                sex,
+                birthDate,
+                bloodType,
+                year: yearLevel, // Assuming 'yearLevel' corresponds to 'year' in the schema
+                course,
+                weight,
+                avatar: avatarData // Array containing objects with public_id and url
+            };
 
-        res.status(200).json({ success: true, message: 'User description added successfully', description: updatedUser.description });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
-    }
+            // Update user with additional details by pushing the new description object into the array
+            const updatedUser = await userModel.findByIdAndUpdate(userId, {
+                $push: { description: newDescription }
+            }, { new: true }); // { new: true } option returns the updated document
+
+            res.status(200).json({ success: true, message: 'User description added successfully', description: updatedUser.description });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    };
 };
 
 

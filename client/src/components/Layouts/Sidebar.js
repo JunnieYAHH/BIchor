@@ -24,8 +24,26 @@ const Sidebar = () => {
             <div className="sidebar" style={{ color: 'black' }}>
                 <h2>BIchor</h2>
                 <ul>
-                    <li>
-                        <Link style={{ cursor: "pointer", fontWeight: "bold" }}>Campain</Link>
+                    <li style={{ cursor: 'pointer', fontWeight: "bold" }}>
+                        <div className="dropdown">
+                            <a data-bs-toggle="dropdown" aria-expanded="false">
+                                Menu
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="dropdown-item" to="/donationPage">Donation</Link>
+                                    {/* <p>Donation</p> */}
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/transfusionPage">Transfusion</Link>
+                                </li>
+                                <li>
+                                    {/* <p>Campain</p> */}
+                                    <Link className="dropdown-item" to="/campainPage">Campain</Link>
+                                </li>
+                            </ul>
+                        </div>
+
                     </li>
                     <li>
                         <a href="/#" style={{ fontWeight: "bold" }}>Hostpitals</a>
