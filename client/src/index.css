@@ -24,7 +24,13 @@
 header */
 
 .header {
-  background-color: rd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Ensure the header stays on top of other elements */
+  border-color: red;
 }
 
 #tuplogo {
@@ -44,6 +50,14 @@ header */
   box-shadow: 0 4px 8px rgb(216, 61, 61);
   color: #fff;
   font-family: 'Roboto', sans-serif;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  /* Adjust the width as needed */
+  overflow-y: auto;
+  /* Allow vertical scrolling if content overflows */
 }
 
 .sidebar h2 {

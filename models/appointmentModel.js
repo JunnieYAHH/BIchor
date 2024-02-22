@@ -1,25 +1,35 @@
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
-    inventoryType: {
+    appointmentType: {
         type: String,
         required: [true, 'Inventory Type Required'],
-        enum: ['in', 'out']
+        enum: ['in', 'out', 'apply']
     },
     bloodGroup: {
         type: String,
-        required: [true, 'Blood Group Required'],
-        enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-']
+        enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-'],
+        required: function () {
+            if (this.appointmentType !== 'apply') {
+                return true;
+            }
+            return false;
+        },
     },
     quantity: {
         type: Number,
-        required: [true, 'Blood Quantity Required'],
+        required: function () {
+            if (this.appointmentType !== 'apply') {
+                return true;
+            }
+            return false;
+        },
     },
-    email:{
-        type:String,
-        required:[true, "Donor Email is Required"]
+    email: {
+        type: String,
+        required: [true, "Donor Email is Required"]
     },
-    event:{
+    event: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "event",
         required: [true, 'Event Required'],
@@ -31,13 +41,18 @@ const appointmentSchema = new mongoose.Schema({
             return this.inventoryType === "out"
         }
     },
-    donor: {
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         // required: function () {
         //     return this.inventoryType === "in"
         // }
-    },  
+    },
+    status: {
+        type: String,
+        defaultValue: 'pending',
+        required: [true, 'Status is Required']
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('appointment ', appointmentSchema)

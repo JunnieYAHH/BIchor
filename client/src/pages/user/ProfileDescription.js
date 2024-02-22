@@ -25,8 +25,8 @@ const ProfileDescription = () => {
     const { user } = useSelector(state => state.user)
 
     if (!user) {
-            return null;
-        }
+        return null;
+    }
 
     const addDescription = async (descriptionData) => {
         try {
@@ -52,7 +52,7 @@ const ProfileDescription = () => {
 
     const addUserDetailHandler = () => {
         const formData = new FormData();
-        formData.set('user', user._id); // Set the user ID directly
+        formData.set('user', user._id);
 
         // Append other form fields
         formData.set('sex', sex);
@@ -69,7 +69,7 @@ const ProfileDescription = () => {
 
     return (
         <>
-            <div className="custom-homepage">
+            <div className="custom-homepage my-5">
                 <Header />
                 <div className="custom-content">
                     <Container fluid>
@@ -87,7 +87,7 @@ const ProfileDescription = () => {
                                                     <div>Hello</div>
                                                 ) : (
                                                     <>
-                                                        <form >
+                                                        <form encType="multipart/form-data">
                                                             <div>
                                                                 <InputType
                                                                     inputType={'hidden'}
@@ -126,6 +126,7 @@ const ProfileDescription = () => {
                                                                     <option value={'B-'}>B-</option>
                                                                     <option value={'AB+'}>AB+</option>
                                                                     <option value={'AB-'}>AB-</option>
+                                                                    <option value={'K'}>K</option>
                                                                 </select>
                                                                 <a>Year Level</a>
                                                                 <select className="form-select"
