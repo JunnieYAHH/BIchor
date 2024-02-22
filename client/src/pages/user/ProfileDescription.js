@@ -8,8 +8,16 @@ import {
     MDBCol as Col,
     MDBCard as Card,
     MDBCardBody as CardBody,
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBCardImage,
+    MDBBtn,
+    MDBRipple
 } from 'mdb-react-ui-kit';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const ProfileDescription = () => {
@@ -19,6 +27,7 @@ const ProfileDescription = () => {
     const [yearLevel, setYearLevel] = useState('')
     const [course, setCourse] = useState('')
     const [weight, setWeight] = useState('')
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [success, setSuccess] = useState('')
     const [error, setErrorReview] = useState('')
 
@@ -28,39 +37,48 @@ const ProfileDescription = () => {
         return null;
     }
 
+    const onChange = (e) => {
+        setSelectedFiles(e.target.files);
+    };
+
     const addDescription = async (descriptionData) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = localStorage.getItem('token');
             const config = {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
                 }
-            }
+            };
+
             console.log(descriptionData)
 
             const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/user/add-description-user`, descriptionData, config)
             console.log('Description:', data)
             setSuccess(data.success)
-
+            window.location.reload();
         } catch (error) {
-            setErrorReview(error.response.data.message)
+            setErrorReview(error.response.data.message);
         }
-    }
-
-    // console.log(user._id)
-
+    };
     const addUserDetailHandler = () => {
-        const formData = new FormData();
-        formData.set('user', user._id);
+        // console.log(selectedFiles)
 
-        // Append other form fields
-        formData.set('sex', sex);
-        formData.set('birthDate', birthDate);
-        formData.set('bloodType', bloodType);
-        formData.set('yearLevel', yearLevel);
-        formData.set('course', course);
-        formData.set('weight', weight);
+        const formData = new FormData();
+        formData.append('user', user._id);
+        formData.append('sex', sex);
+        formData.append('birthDate', birthDate);
+        formData.append('bloodType', bloodType);
+        formData.append('yearLevel', yearLevel);
+        formData.append('course', course);
+        formData.append('weight', weight);
+        formData.append('avatar', selectedFiles[0]);
+
+        // selectedFiles.forEach(file => {
+        //     formData.append('avatar', file[0])
+        // })
+
+        // console.log('FormData:', formData);
 
         addDescription(formData)
 
@@ -82,9 +100,100 @@ const ProfileDescription = () => {
                                     <Col md={12} className="custom-card-column">
                                         <Card>
                                             <CardBody>
-                                                <h1>Description</h1>
                                                 {user.description && user.description.length > 0 ? (
-                                                    <div>Hello</div>
+                                                    <>
+                                                        <p style={{ fontWeight: 'bold' }}><a style={{ color: 'white' }}>....</a>This is your Profile Description <a style={{ color: 'white' }}>.........<Link to={'/'} class="fa-solid fa-right-from-bracket" style={{ color: 'blue' }}></Link></a></p>
+                                                        <Container className='descriptionCard'>
+                                                            <Row>
+                                                                <Col size='md'>
+                                                                    <MDBCard style={{ backgroundColor: '#D7395B' }}>
+                                                                        {user.description[0].avatar.map((avatar, index) => (
+                                                                            <MDBCardImage src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${user.description[0].avatar[0].public_id}`} position='top' alt='...' id='descriptionUserImage' />
+                                                                        ))}
+                                                                        <MDBCardBody>
+                                                                            <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
+                                                                            <MDBCardText style={{ color: 'white' }}>
+                                                                                This is the photo that will be displayed on your Profile screen
+                                                                            </MDBCardText>
+                                                                            <button href='#' className='btn btn-secondary'>Upload New</button> <button href='#' className='btn btn-primary'>Save</button>
+                                                                        </MDBCardBody>
+                                                                    </MDBCard>
+                                                                    <MDBCard className='my-3' style={{ backgroundColor: '#D7395B' }}>
+                                                                        <MDBCardBody>
+                                                                            <MDBCardTitle>Personal Information</MDBCardTitle>
+                                                                            <MDBCardText>
+                                                                                <a id='importantPanimula'>Full name</a>
+                                                                                <MDBCard>
+                                                                                    <MDBCardBody>
+                                                                                        <MDBCardText>
+                                                                                            <div><i class="fa-solid fa-circle-user"></i>{user.name}</div>
+                                                                                        </MDBCardText>
+                                                                                    </MDBCardBody>
+                                                                                </MDBCard>
+                                                                                <a id='importantPanimula'>Email</a>
+                                                                                <MDBCard>
+                                                                                    <MDBCardBody>
+                                                                                        <MDBCardText>
+                                                                                            <div><i class="fa-solid fa-envelope-circle-check"></i>{user.email}</div>
+                                                                                        </MDBCardText>
+                                                                                    </MDBCardBody>
+                                                                                </MDBCard>
+                                                                                <a id='importantPanimula'>Mobile Number</a>
+                                                                                <MDBCard>
+                                                                                    <MDBCardBody>
+                                                                                        <MDBCardText>
+                                                                                            <div><i class="fa-solid fa-square-phone"></i>{user.phone}</div>
+                                                                                        </MDBCardText>
+                                                                                    </MDBCardBody>
+                                                                                </MDBCard>
+                                                                            </MDBCardText>
+                                                                        </MDBCardBody>
+                                                                    </MDBCard>
+                                                                </Col>
+                                                                <Col size='md'>
+                                                                    <MDBCard style={{ backgroundColor: '#D7395B' }}>
+                                                                        <MDBCardBody>
+                                                                            <MDBCardTitle style={{ color: 'white' }}>BIO</MDBCardTitle>
+                                                                            <MDBCardText>
+                                                                                <MDBCard>
+                                                                                    <MDBCardBody>
+                                                                                        <MDBCardText>
+                                                                                            <p>THIS WILL BE MY BIO PART</p>
+                                                                                        </MDBCardText>
+                                                                                    </MDBCardBody>
+                                                                                </MDBCard>
+                                                                                <br />
+                                                                                <br />
+                                                                                <a id='importantPanimula'>Might Interest You</a>
+                                                                                <Row>
+                                                                                    <Col>
+                                                                                        <Row>
+                                                                                            <p><i class="fa-solid fa-hand-holding-medical"></i></p>
+                                                                                        </Row>
+                                                                                        <p><i class="fa-solid fa-hand-holding-droplet"></i></p>
+                                                                                    </Col>
+                                                                                    <Col>
+                                                                                        <p><i class="fa-solid fa-hand-holding-medical"></i></p>
+                                                                                        <p><i class="fa-solid fa-hand-holding-droplet"></i></p>
+                                                                                    </Col>
+                                                                                </Row>
+                                                                            </MDBCardText>
+                                                                        </MDBCardBody>
+                                                                    </MDBCard>
+
+                                                                    <div>{user.address}</div>
+                                                                    <div>{user.phone}</div>
+                                                                    <div>{user.name}</div>
+                                                                    <div>{user.email}</div>
+                                                                    <div>{user.description[0].sex}</div>
+                                                                    <div>{user.description[0].birthDate}</div>
+                                                                    <div>{user.description[0].bloodType}</div>
+                                                                    <div>{user.description[0].course} || {user.description[0].year}</div>
+                                                                    <div>{user.description[0].weight}</div>
+                                                                </Col>
+                                                            </Row>
+                                                        </Container>
+                                                    </>
                                                 ) : (
                                                     <>
                                                         <form encType="multipart/form-data">
@@ -102,7 +211,6 @@ const ProfileDescription = () => {
                                                                     <option value={'male'}>Male</option>
                                                                     <option value={'female'}>Female</option>
                                                                 </select>
-
                                                                 <InputType
                                                                     labelText="Birth Date"
                                                                     labelFor="forBirthDate"
@@ -154,6 +262,16 @@ const ProfileDescription = () => {
                                                                     name={'weight'}
                                                                     value={weight}
                                                                     onChange={(e) => setWeight(e.target.value)}
+                                                                />
+                                                                <label className='custom-file-label' htmlFor='customFile'>
+                                                                    Choose Images
+                                                                </label>
+                                                                <input
+                                                                    type='file'
+                                                                    name='avatar'
+                                                                    className='custom-file-input'
+                                                                    id='customFile'
+                                                                    onChange={onChange}
                                                                 />
                                                             </div>
                                                             <hr />

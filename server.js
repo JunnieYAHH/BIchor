@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({limit: "100mb", extended: true }))
 app.use(cookieParser());
 
 //Set Cloudinary

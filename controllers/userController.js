@@ -96,50 +96,45 @@ const currentUser = async (req, res) => {
 }
 
 const addDescriptionUser = async (req, res) => {
-    const addDescriptionUser = async (req, res) => {
-        try {
-            // Extract user ID from the request body
-            const userId = req.body.user;
+    try {
+        // console.log('Request Body:', req.body);
+        // console.log('Uploaded File:', req.file);
+        const userId = req.body.user;
+        const { sex, birthDate, bloodType, yearLevel, course, weight } = req.body;
 
-            // Extract other description data
-            const {
-                sex,
-                birthDate,
-                bloodType,
-                yearLevel,
-                course,
-                weight
-            } = req.body;
 
-            // Upload avatar image to Cloudinary and get public_id and url
-            const avatarData = [];
-            for (const file of req.files) {
-                const result = await cloudinary.uploader.upload(file.path);
-                avatarData.push({ public_id: result.public_id, url: result.secure_url });
-            }
-
-            // Construct the new description object
-            const newDescription = {
-                sex,
-                birthDate,
-                bloodType,
-                year: yearLevel, // Assuming 'yearLevel' corresponds to 'year' in the schema
-                course,
-                weight,
-                avatar: avatarData // Array containing objects with public_id and url
-            };
-
-            // Update user with additional details by pushing the new description object into the array
-            const updatedUser = await userModel.findByIdAndUpdate(userId, {
-                $push: { description: newDescription }
-            }, { new: true }); // { new: true } option returns the updated document
-
-            res.status(200).json({ success: true, message: 'User description added successfully', description: updatedUser.description });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
+        if (!req.file || req.file.length === 0) {
+            return res.status(400).json({ success: false, message: 'No files uploaded' });
         }
-    };
+
+        // Handle multiple file uploads
+        const avatarData = [];
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+            folder: 'Cleopatra/avatars',
+            width: 150,
+            crop: "scale"
+        })
+        avatarData.push({ public_id: result.public_id, url: result.secure_url });
+
+        const newDescription = {
+            sex,
+            birthDate,
+            bloodType,
+            year: yearLevel,
+            course,
+            weight,
+            avatar: avatarData
+        };
+
+        const updatedUser = await userModel.findByIdAndUpdate(userId, {
+            $push: { description: newDescription }
+        }, { new: true });
+
+        res.status(200).json({ success: true, message: 'User description added successfully', description: updatedUser.description });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
 };
 
 

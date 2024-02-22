@@ -7,7 +7,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 
 
-
 const Form = ({ formType, submitBtn, formTitle }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +21,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
   return (
     <div>
       <form onSubmit={(e) => {
-        
+
         if (formType === 'login') return handleLogin(
           e,
           email,
@@ -59,13 +58,15 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                 className="form-select"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                >
+              >
+                 {formType === 'login' && <option selected >Login: Select</option>}
+                 {formType === 'register' && <option selected >Register: Select</option>}
                 <option value="donor">Donor</option>
                 <option value="user">User</option>
                 {formType === 'login' && <option value="admin">Admin</option>}
-                </select>
+              </select>
             </div>
-            
+
 
             {/* switch element */}
             {(() => {
@@ -73,7 +74,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                 case formType === 'login':
                   return (
                     <div>
-                      
+
                       <InputType
                         labelText={'Email'}
                         labelFor={'forEmail'}
@@ -81,9 +82,9 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                         name={'email'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                      /> 
-                      
-                      
+                      />
+
+
                       <InputType
                         labelText={'Password'}
                         labelFor={'forPassword'}
@@ -93,7 +94,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
-                    
+
                   );
                 case formType === 'register':
                   return (

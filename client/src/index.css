@@ -172,8 +172,10 @@ header */
 
 
 .form-banner img {
-  height: 200px; /* Adjust the height as needed */
-  width: 200px; /* Adjust the width as needed */
+  height: 200px;
+  /* Adjust the height as needed */
+  width: 200px;
+  /* Adjust the width as needed */
 }
 
 .form-container {
@@ -204,13 +206,17 @@ header */
 
 #radius-shape-2 {
   position: absolute;
-  left: 50px; /* Adjust as needed */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Center vertically */
+  left: 50px;
+  /* Adjust as needed */
+  top: 50%;
+  /* Center vertically */
+  transform: translateY(-50%);
+  /* Center vertically */
   width: 200px;
   height: 400px;
   background: radial-gradient(circle, transparent 60%, #bc3609 60% 80%, #dd4205 80%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Water droplet shape */
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  /* Water droplet shape */
   overflow: hidden;
 }
 
@@ -229,4 +235,34 @@ header */
 .bg-glass {
   background-color: hsla(23, 85%, 77%, 0.9) !important;
   backdrop-filter: saturate(200%) blur(25px);
+}
+
+#userAvatar {
+  height: 15%;
+  width: 53%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.descriptionCard{
+  box-shadow: #000000;
+}
+
+#headerUserAvatar {
+  height: 5%;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+#descriptionUserImage {
+  height: 20%;
+  width: 30%;
+  border-radius: 100%;
+}
+
+#importantPanimula{
+  font-weight: bold;
 }
