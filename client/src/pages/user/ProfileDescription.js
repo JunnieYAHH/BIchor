@@ -170,6 +170,7 @@ const ProfileDescription = () => {
                                                                                         <Row>
                                                                                             <p><i class="fa-solid fa-hand-holding-medical"></i></p>
                                                                                         </Row>
+                                                                                        
                                                                                         <p><i class="fa-solid fa-hand-holding-droplet"></i></p>
                                                                                     </Col>
                                                                                     <Col>
