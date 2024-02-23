@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../components/Layouts/Header';
 import Sidebar from '../../components/Layouts/Sidebar';
 import InputType from '../../components/Shared/Form/InputType';
@@ -13,6 +13,7 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBCardImage,
+    MDBCardTitle as CardTitle,
     MDBBtn,
     MDBRipple
 } from 'mdb-react-ui-kit';
@@ -21,17 +22,26 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const ProfileDescription = () => {
-    const [sex, setSex] = useState('')
-    const [birthDate, setBirthDate] = useState('')
-    const [bloodType, setBloodType] = useState('')
-    const [yearLevel, setYearLevel] = useState('')
-    const [course, setCourse] = useState('')
-    const [weight, setWeight] = useState('')
+    const [sex, setSex] = useState('');
+    const [birthDate, setBirthDate] = useState('');
+    const [bloodType, setBloodType] = useState('');
+    const [yearLevel, setYearLevel] = useState('');
+    const [course, setCourse] = useState('');
+    const [weight, setWeight] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [success, setSuccess] = useState('')
-    const [error, setErrorReview] = useState('')
+    const [success, setSuccess] = useState('');
+    const [error, setErrorReview] = useState('');
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState('');
+    const [eventError, setEventError] = useState('');
 
-    const { user } = useSelector(state => state.user)
+    const { user } = useSelector(state => state.user);
+
+    useEffect(() => {
+        if (user) {
+            getAllEvents();
+        }
+    }, [user]);
 
     if (!user) {
         return null;
@@ -40,6 +50,24 @@ const ProfileDescription = () => {
     const onChange = (e) => {
         setSelectedFiles(e.target.files);
     };
+
+    const token = localStorage.getItem('token');
+
+    const getAllEvents = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
+            setEvents(data.data); // Set events using data.data
+            setLoading(false);
+        } catch (error) {
+            setEventError(error.response.data.message);
+        }
+    }
 
     const addDescription = async (descriptionData) => {
         try {
@@ -51,19 +79,15 @@ const ProfileDescription = () => {
                 }
             };
 
-            console.log(descriptionData)
-
-            const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/user/add-description-user`, descriptionData, config)
-            console.log('Description:', data)
-            setSuccess(data.success)
+            const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/user/add-description-user`, descriptionData, config);
+            setSuccess(data.success);
             window.location.reload();
         } catch (error) {
             setErrorReview(error.response.data.message);
         }
     };
-    const addUserDetailHandler = () => {
-        // console.log(selectedFiles)
 
+    const addUserDetailHandler = () => {
         const formData = new FormData();
         formData.append('user', user._id);
         formData.append('sex', sex);
@@ -74,16 +98,8 @@ const ProfileDescription = () => {
         formData.append('weight', weight);
         formData.append('avatar', selectedFiles[0]);
 
-        // selectedFiles.forEach(file => {
-        //     formData.append('avatar', file[0])
-        // })
-
-        // console.log('FormData:', formData);
-
-        addDescription(formData)
-
+        addDescription(formData);
     };
-
 
     return (
         <>
@@ -107,9 +123,32 @@ const ProfileDescription = () => {
                                                             <Row>
                                                                 <Col size='md'>
                                                                     <MDBCard style={{ backgroundColor: '#D7395B' }}>
-                                                                        {user.description[0].avatar.map((avatar, index) => (
-                                                                            <MDBCardImage src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${user.description[0].avatar[0].public_id}`} position='top' alt='...' id='descriptionUserImage' />
-                                                                        ))}
+                                                                        <div className="d-flex">
+                                                                            <div >
+                                                                                {user.description[0].avatar.map((avatar, index) => (
+                                                                                    <MDBCardImage key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} position='top' alt='...' id='descriptionUserImage' />
+                                                                                ))}
+                                                                                <center>
+                                                                                    <a id='importantPanimula'>Blood Type {user.description[0].bloodType} <i class="fa-solid fa-dna"></i></a>
+                                                                                </center>
+                                                                            </div>
+                                                                            <div className="ml-5">
+                                                                                <a id='importantPanimula'>Year & Course:</a>
+                                                                                <p>{user.description[0].year} Year || {user.description[0].course}</p>
+                                                                                <a id='importantPanimula'>Birth Date:</a>
+                                                                                <p> {user.description[0].birthDate}</p>
+                                                                            </div>
+                                                                            <div className="ml-5">
+                                                                                <a id='importantPanimula'>Sex:</a>
+                                                                                <div>
+                                                                                    {user.description[0].sex === 'male' ? (
+                                                                                        <div>Male</div>
+                                                                                    ) : (
+                                                                                        <div>Female</div>
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                         <MDBCardBody>
                                                                             <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
                                                                             <MDBCardText style={{ color: 'white' }}>
@@ -166,31 +205,32 @@ const ProfileDescription = () => {
                                                                                 <br />
                                                                                 <a id='importantPanimula'>Might Interest You</a>
                                                                                 <Row>
-                                                                                    <Col>
-                                                                                        <Row>
-                                                                                            <p><i class="fa-solid fa-hand-holding-medical"></i></p>
-                                                                                        </Row>
-                                                                                        
-                                                                                        <p><i class="fa-solid fa-hand-holding-droplet"></i></p>
-                                                                                    </Col>
-                                                                                    <Col>
-                                                                                        <p><i class="fa-solid fa-hand-holding-medical"></i></p>
-                                                                                        <p><i class="fa-solid fa-hand-holding-droplet"></i></p>
-                                                                                    </Col>
+                                                                                    {events && events.map(event => (
+                                                                                        <>
+                                                                                            <Col>
+                                                                                                <Row md={6} sm={12} className="custom-card-column my-2" key={event._id}>
+                                                                                                    <Col>
+                                                                                                        <Card style={{ height: '170px', width: '200px' }}>
+                                                                                                            <CardBody>
+                                                                                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                                                                                    {event.images && event.images.map(image => (
+                                                                                                                        <img key={image.public_id} src={image.url} alt={event.title} className="event-image" style={{ marginRight: '10px', height: '120px', width: '190px' }} />
+                                                                                                                    ))}
+                                                                                                                </div>
+                                                                                                                <p className="custom-card-description" style={{ fontWeight: 'bold', color: 'black' }}>{event.title}</p>
+                                                                                                            </CardBody>
+                                                                                                        </Card>
+                                                                                                    </Col>
+                                                                                                </Row>
+                                                                                            </Col>
+                                                                                        </>
+                                                                                    ))}
+
                                                                                 </Row>
+
                                                                             </MDBCardText>
                                                                         </MDBCardBody>
                                                                     </MDBCard>
-
-                                                                    <div>{user.address}</div>
-                                                                    <div>{user.phone}</div>
-                                                                    <div>{user.name}</div>
-                                                                    <div>{user.email}</div>
-                                                                    <div>{user.description[0].sex}</div>
-                                                                    <div>{user.description[0].birthDate}</div>
-                                                                    <div>{user.description[0].bloodType}</div>
-                                                                    <div>{user.description[0].course} || {user.description[0].year}</div>
-                                                                    <div>{user.description[0].weight}</div>
                                                                 </Col>
                                                             </Row>
                                                         </Container>
@@ -264,9 +304,9 @@ const ProfileDescription = () => {
                                                                     value={weight}
                                                                     onChange={(e) => setWeight(e.target.value)}
                                                                 />
-                                                                <label className='custom-file-label' htmlFor='customFile'>
-                                                                    Choose Images
-                                                                </label>
+                                                                <p className='custom-file-label' htmlFor='customFile'>
+                                                                    Choose Profile Picture
+                                                                </p>
                                                                 <input
                                                                     type='file'
                                                                     name='avatar'

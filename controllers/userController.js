@@ -137,6 +137,25 @@ const addDescriptionUser = async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+    try {
+        // Retrieve all events from the database
+        const users = await userModel.find();
+        // console.log(events)
+
+        return res.status(200).send({
+            success: true,
+            data: users
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error retrieving events'
+        });
+    }
+}
 
 
-module.exports = { registerUser, loginUser, currentUser, addDescriptionUser }
+
+module.exports = { registerUser, loginUser, currentUser, addDescriptionUser, getAllUsers };

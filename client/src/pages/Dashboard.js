@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -10,8 +10,135 @@ import {
 import '../index.css';
 import AdminHeader from '../components/Layouts/AdminHeader';
 import AdminSidebar from '../components/Layouts/AdminSidebar';
+import axios from 'axios'
 
 const Dashboard = () => {
+  const [appointments, setAppointments] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState('');
+  const [eventError, setEventError] = useState('');
+  // console.log(users)
+  // console.log(appointments)
+  // console.log(events)
+
+  useEffect(() => {
+    getAllEvents();
+    getAllUsers();
+    getAllAppointment();
+  }, []);
+
+  const token = localStorage.getItem('token');
+
+  const getAllEvents = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
+      setEvents(data.data);
+      setLoading(false);
+    } catch (error) {
+      setEventError(error.response.data.message);
+    }
+  }
+  const getAllUsers = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/user/getAllUsers`, config);
+      // console.log(data)
+      setUsers(data.data);
+      setLoading(false);
+    } catch (error) {
+      setEventError(error.response.data.message);
+    }
+  }
+  const getAllAppointment = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
+      setAppointments(data.data);
+      setLoading(false);
+    } catch (error) {
+      setEventError(error.response.data.message);
+    }
+  }
+  const donorCount = users.filter(user => user.role === 'donor').length;
+  const recipientCount = users.filter(user => user.role === 'user').length;
+
+  const donorAppointments = appointments
+    .filter(appointment => {
+      const user = users.find(user => user._id === appointment.userID);
+      return user && user.role === 'donor';
+    })
+    .filter(appointment => {
+      const event = events.find(event => event._id === appointment.event);
+      return event && event.eventType === 'donation';
+    })
+    .map(appointment => {
+      return {
+        appointmentID: appointment._id,
+        appointmentData: appointment
+      };
+    });
+
+  const donorAppointmentsCount = donorAppointments.length;
+
+  const recipientAppointments = appointments
+    .filter(appointment => {
+      const user = users.find(user => user._id === appointment.userID);
+      return user && user.role === 'user';
+    })
+    .filter(appointment => {
+      const event = events.find(event => event._id === appointment.event);
+      return event && event.eventType === 'campain';
+    })
+    .map(appointment => {
+      return {
+        appointmentID: appointment._id,
+        appointmentData: appointment
+      };
+    });
+
+  const recipientAppointmentsCount = recipientAppointments.length;
+
+  // console.log("Recipients Appointments:", recipientAppointments);
+
+  const genderCounts = users.reduce((counts, user) => {
+    // Check if the user's role is 'donor'
+    if (user.role === 'donor') {
+      const gender = user.description && user.description.length > 0 ? user.description[0].sex : '';
+      if (gender) { // Check if gender is truthy
+        if (!counts[gender]) {
+          counts[gender] = 1;
+        } else {
+          counts[gender]++;
+        }
+      }
+    }
+    return counts;
+  }, {});
+
+  const highestGenderCount = Math.max(...Object.values(genderCounts));
+  const highestGenders = Object.keys(genderCounts).filter(gender => genderCounts[gender] === highestGenderCount);
+
+  // console.log("Gender(s) with Highest Count:", highestGenders);
+
+
+
   return (
     <>
       <div className="custom-homepage">
@@ -22,31 +149,92 @@ const Dashboard = () => {
               <Col md={2}>
                 <AdminSidebar />
               </Col>
-              {/* <Col md={10}>
-                <Row className="mb-4">
+              <Col md={10}>
+                <Row className="mb-4 my-5">
+                  <center>
+                    <p style={{ fontWeight: 'bold' }}>Admin Dashboard</p>
+                  </center>
                   <Col md={6} className="custom-card-column">
                     <Card>
                       <CardBody>
-                        <CardTitle className="custom-card-title">Donate</CardTitle>
-                        <p className="custom-card-description">Support a cause by donating today.</p>
+                        <Row>
+                          <Col>
+                            <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
+                            <div style={{ textAlign: 'center' }}>
+                              Numbers of Donors
+                              <p>{donorCount}</p>
+                              <div>
+                                <Row>
+                                  <Col>
+                                    <a style={{ fontSize: 'smaller',  fontWeight: 'bold' }}>Appointments</a>
+                                    <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
+                                  </Col>
+                                  <Col>
+                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
+                                    {highestGenders.includes('male') && <p>Male</p>}
+                                  </Col>
+                                </Row>
+                              </div>
+                            </div>
+                          </Col>
+                          <Col>
+                            <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Recipients</CardTitle>
+                            <div style={{ textAlign: 'center' }}>
+                              Numbers of Recipients
+                              <p>{recipientCount}</p>
+                              <div>
+                                <Row>
+                                  <Col>
+                                  <a style={{ fontSize: 'smaller',  fontWeight: 'bold' }}>Appointments</a>
+                                    <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
+                                  </Col>
+                                  <Col>
+                                    <a style={{ fontSize: 'smaller' }}> Most Gender that Receive</a>
+                                  </Col>
+                                </Row>
+                              </div>
+                            </div>
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col>
+                            <CardTitle className="custom-card-title">Genders of Donors</CardTitle>
+                          </Col>
+                          <Col>
+                            <CardTitle className="custom-card-title">Genders of Recipents</CardTitle>
+                          </Col>
+                        </Row>
                       </CardBody>
                     </Card>
                   </Col>
                   <Col md={6} className="custom-card-column">
                     <Card>
                       <CardBody>
-                        <CardTitle className="custom-card-title">Register</CardTitle>
-                        <p className="custom-card-description">Join our community by registering now.</p>
+                        <CardTitle className="custom-card-title">Line Chart That Says How many Donors and Recipents that Appoints Per Month</CardTitle>
+                        <p className="custom-card-description">Donors and Recipients per month</p>
                       </CardBody>
                     </Card>
                   </Col>
                 </Row>
                 <Row className='container-fluid my-1'>
                   <Col md={12}>
-                    <img src="./assets/images/login.jpg" className="img-fluid rounded custom-image" alt="Login" style={{ width: '50%' }} />
+                    <center>
+                      <p id='importantPanimula'>Events Status</p>
+                      <Col>Here is the events and their status</Col>
+                      <Col>
+                        <Row>
+                          <Col>Event Status Pending</Col>
+                          <Col>Event Status Completed</Col>
+                        </Row>
+                      </Col>
+                    </center>
                   </Col>
                 </Row>
-              </Col> */}
+              </Col>
             </Row>
           </Container>
         </div>

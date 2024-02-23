@@ -7,7 +7,8 @@ const {
     registerUser, 
     loginUser, 
     currentUser,
-    addDescriptionUser
+    addDescriptionUser,
+    getAllUsers
 } = require('../controllers/userController');
 const userMiddleware = require('../middlewares/userMiddleware');
 
@@ -16,6 +17,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 router.get('/current-user', userMiddleware, currentUser);
+router.get('/getAllUsers', userMiddleware, getAllUsers);
 router.put('/add-description-user', userMiddleware, upload.single('avatar'), addDescriptionUser);
 // router.put('/add-description-user', userMiddleware, upload.array('avatar'), addDescriptionUser);
 

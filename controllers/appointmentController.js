@@ -57,4 +57,25 @@ const getAppointment = async (req, res) => {
     }
 }
 
-module.exports = { createAppointment, getAppointment };
+const getAllAppointment = async (req, res) => {
+    try {
+        // Retrieve all events from the database
+        const appointment = await appointmentModel.find();
+        // console.log(events)
+
+        return res.status(200).send({
+            success: true,
+            data: appointment
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error retrieving appointment'
+        });
+    }
+}
+
+
+
+module.exports = { createAppointment, getAppointment, getAllAppointment };

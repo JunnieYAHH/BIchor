@@ -19,7 +19,6 @@ import 'mdb-react-ui-kit'
 
 const DonationPage = () => {
 
-
     const [donateModal, setDonateModal] = useState(false);
     const toggleOpen = () => setDonateModal(!donateModal);
 

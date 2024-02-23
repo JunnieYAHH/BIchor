@@ -88,7 +88,7 @@ const Campain = () => {
                     </div>
                   </div>
                   {events && events.map(event => (
-                    event.eventType === 'transfusion' && (
+                    event.eventType === 'campain' && (
                       <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
                         <Card style={{ height: '450px', width: '100%' }}>
                           <CardBody>

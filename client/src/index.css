@@ -245,7 +245,15 @@ header */
   border-radius: 100%;
 }
 
-.descriptionCard{
+#defaultAvatar {
+  height: 15%;
+  width: 53%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+
+.descriptionCard {
   box-shadow: #000000;
 }
 
@@ -258,11 +266,11 @@ header */
 }
 
 #descriptionUserImage {
-  height: 20%;
-  width: 30%;
+  height: 80%;
+  width: 100%;
   border-radius: 100%;
 }
 
-#importantPanimula{
+#importantPanimula {
   font-weight: bold;
 }

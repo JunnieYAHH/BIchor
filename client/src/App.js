@@ -24,7 +24,7 @@ function App() {
         <Route path='/profileDescription' element={<ProtectedRoutes><ProfileDescription /></ProtectedRoutes>} />
         <Route path='/donationPage' element={<ProtectedRoutes><DonationPage /></ProtectedRoutes>} />
         <Route path='/transfusionPage' element={<ProtectedRoutes><Transfusion /></ProtectedRoutes>} />
-        <Route path='/transfusionPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
+        <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} /> {/* Use AdminProtectedRoutes */}
         <Route path='/dashboard/admin/donations' element={<AdminProtectedRoutes element={<Donations />} />} /> {/* Use AdminProtectedRoutes */}

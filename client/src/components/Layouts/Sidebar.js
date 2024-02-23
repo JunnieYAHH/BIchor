@@ -30,9 +30,13 @@ const Sidebar = () => {
                 <div className="sidebar" style={{ color: 'black' }} >
                     <center>
                         <div>
-                            {user.description[0].avatar.map((avatar, index) => (
-                                <img key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} alt="user" id='userAvatar' />
-                            ))}
+                            {user.description && user.description[0] && user.description[0].avatar && user.description[0].avatar.length > 0 ? (
+                                user.description[0].avatar.map((avatar, index) => (
+                                    <img key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} alt="user" id='userAvatar' />
+                                ))
+                            ) : (
+                                <img src="./assets/images/default.png" alt="default" id='defaultAvatar' />
+                            )}
                         </div>
                     </center>
                     <ul>

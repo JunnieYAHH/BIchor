@@ -40,9 +40,7 @@ const Header = () => {
                         {!isRegisterPage && !isLoginPage && user && (
                             <ul className="navbar-nav mb- mb-lg-0">
                                 <li className='nav-item mx-3'>
-                                    <p className='nav-link' style={{ color: 'white' }}>  {user.description[0].avatar.map((avatar, index) => (
-                                        <img src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${user.description[0].avatar[0].public_id}`} alt="header" id='headerUserAvatar' />
-                                    ))} Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
+                                    <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
                                 </li>
                                 <li className='nav-item mx-3'>
                                     <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
