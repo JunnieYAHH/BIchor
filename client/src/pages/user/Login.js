@@ -25,10 +25,7 @@ const Login = () => {
 
                                 </h1>
                                 <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-                                    quibusdam tempora at cupiditate quis eum maiores libero
-                                    veritatis? Dicta facilis sint aliquid ipsum atque?
+                                Sustaining Lifelines: Enhancing the Blood Donation System for Improved Access, Efficiency, and Awareness - A Comprehensive Study
                                 </p>
                             </MDBCol>
                             <MDBCol md='6' className='position-relative'>
