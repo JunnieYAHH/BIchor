@@ -44,9 +44,6 @@ const appointmentSchema = new mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        // required: function () {
-        //     return this.inventoryType === "in"
-        // }
     },
     status: {
         type: String,

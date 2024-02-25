@@ -25,7 +25,7 @@ const eventSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'pending'
+        enum: ["pending", "completed"],
     },
     images: [
         {

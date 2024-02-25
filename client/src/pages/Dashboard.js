@@ -11,6 +11,10 @@ import '../index.css';
 import AdminHeader from '../components/Layouts/AdminHeader';
 import AdminSidebar from '../components/Layouts/AdminSidebar';
 import axios from 'axios'
+import DonorGenderPieChart from '../components/Charts/DonorGenderPieChart';
+import RecipientGenderPieChart from '../components/Charts/RecipientGenderPieChart';
+import MonthlyAppointmentsLineChart from '../components/Charts/MonthlyAppointmentsChart';
+import EventsStatusBarChart from '../components/Charts/EventsStatusBarChart';
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -45,6 +49,7 @@ const Dashboard = () => {
       setEventError(error.response.data.message);
     }
   }
+
   const getAllUsers = async () => {
     try {
       const config = {
@@ -76,6 +81,7 @@ const Dashboard = () => {
       setEventError(error.response.data.message);
     }
   }
+
   const donorCount = users.filter(user => user.role === 'donor').length;
   const recipientCount = users.filter(user => user.role === 'user').length;
 
@@ -118,10 +124,9 @@ const Dashboard = () => {
   // console.log("Recipients Appointments:", recipientAppointments);
 
   const genderCounts = users.reduce((counts, user) => {
-    // Check if the user's role is 'donor'
     if (user.role === 'donor') {
       const gender = user.description && user.description.length > 0 ? user.description[0].sex : '';
-      if (gender) { // Check if gender is truthy
+      if (gender) {
         if (!counts[gender]) {
           counts[gender] = 1;
         } else {
@@ -135,9 +140,30 @@ const Dashboard = () => {
   const highestGenderCount = Math.max(...Object.values(genderCounts));
   const highestGenders = Object.keys(genderCounts).filter(gender => genderCounts[gender] === highestGenderCount);
 
-  // console.log("Gender(s) with Highest Count:", highestGenders);
+  const genderRecipientCounts = users.reduce((counts, user) => {
+    if (user.role === 'user') {
+      const gender = user.description && user.description.length > 0 ? user.description[0].sex : '';
+      if (gender) {
+        if (!counts[gender]) {
+          counts[gender] = 1;
+        } else {
+          counts[gender]++;
+        }
+      }
+    }
+    return counts;
+  }, {});
 
+  const highestGenderRecipientCount = Math.max(...Object.values(genderRecipientCounts));
+  const recipientHighestGenders = Object.keys(genderRecipientCounts).filter(gender => genderRecipientCounts[gender] === highestGenderRecipientCount);
 
+  /////////////////////////////
+  //// EVENTS STATUSS FILTER///
+  // Filter pending ///////////
+  const pendingEvents = events.filter(event => event.status === 'pending');
+
+  // Filter completed events
+  const completedEvents = events.filter(event => event.status === 'completed');
 
   return (
     <>
@@ -150,7 +176,7 @@ const Dashboard = () => {
                 <AdminSidebar />
               </Col>
               <Col md={10}>
-                <Row className="mb-4 my-5">
+                <Row className="mb-4 " style={{ marginTop: '35px' }}>
                   <center>
                     <p style={{ fontWeight: 'bold' }}>Admin Dashboard</p>
                   </center>
@@ -166,12 +192,13 @@ const Dashboard = () => {
                               <div>
                                 <Row>
                                   <Col>
-                                    <a style={{ fontSize: 'smaller',  fontWeight: 'bold' }}>Appointments</a>
+                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
                                     <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
                                   </Col>
                                   <Col>
                                     <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
                                     {highestGenders.includes('male') && <p>Male</p>}
+                                    {highestGenders.includes('female') && <p>Female</p>}
                                   </Col>
                                 </Row>
                               </div>
@@ -185,11 +212,13 @@ const Dashboard = () => {
                               <div>
                                 <Row>
                                   <Col>
-                                  <a style={{ fontSize: 'smaller',  fontWeight: 'bold' }}>Appointments</a>
+                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
                                     <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
                                   </Col>
                                   <Col>
-                                    <a style={{ fontSize: 'smaller' }}> Most Gender that Receive</a>
+                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}> Most Gender that Receive</a>
+                                    {recipientHighestGenders.includes('male') && <p>Male</p>}
+                                    {recipientHighestGenders.includes('female') && <p>Female</p>}
                                   </Col>
                                 </Row>
                               </div>
@@ -199,13 +228,15 @@ const Dashboard = () => {
                       </CardBody>
                     </Card>
                     <Card>
-                      <CardBody>
+                      <CardBody style={{ height: '300px', width: '550px' }}>
                         <Row>
-                          <Col>
+                          <Col style={{ height: '250px', width: '550 px' }}>
                             <CardTitle className="custom-card-title">Genders of Donors</CardTitle>
+                            <DonorGenderPieChart genderCounts={genderCounts} />
                           </Col>
-                          <Col>
-                            <CardTitle className="custom-card-title">Genders of Recipents</CardTitle>
+                          <Col style={{ height: '250px', width: '550 px' }}>
+                            <CardTitle className="custom-card-title">Genders of Recipients</CardTitle>
+                            <RecipientGenderPieChart genderRecipientCounts={genderRecipientCounts} />
                           </Col>
                         </Row>
                       </CardBody>
@@ -214,8 +245,8 @@ const Dashboard = () => {
                   <Col md={6} className="custom-card-column">
                     <Card>
                       <CardBody>
-                        <CardTitle className="custom-card-title">Line Chart That Says How many Donors and Recipents that Appoints Per Month</CardTitle>
-                        <p className="custom-card-description">Donors and Recipients per month</p>
+                        <CardTitle className="custom-card-title">Donors and Recipents that Appoints Per Month</CardTitle>
+                        <MonthlyAppointmentsLineChart appointments={appointments} />
                       </CardBody>
                     </Card>
                   </Col>
@@ -224,11 +255,57 @@ const Dashboard = () => {
                   <Col md={12}>
                     <center>
                       <p id='importantPanimula'>Events Status</p>
-                      <Col>Here is the events and their status</Col>
                       <Col>
                         <Row>
-                          <Col>Event Status Pending</Col>
-                          <Col>Event Status Completed</Col>
+                          <Col>
+                            <EventsStatusBarChart />
+                          </Col>
+                          <Col>
+                            <Row>
+                              <Col>
+                                <h4>Pending Events</h4>
+                                <ul>
+                                  {pendingEvents.map(event => (
+                                    <>
+                                      <p key={event._id}>{event.title}</p>
+                                      {event.images.length > 0 && (
+                                        <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                      )}
+                                    </>
+                                  ))}
+                                </ul>
+                              </Col>
+                              <Col>
+                                <h4>Completed Events</h4>
+                                <ul>
+                                  {completedEvents.map(event => (
+                                    <>
+                                      <p key={event._id}>{event.title}</p>
+                                      {event.images.length > 0 && (
+                                        <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                      )}
+                                    </>
+                                  ))}
+                                </ul>
+                              </Col>
+                            </Row>
+                          </Col>
+                          {/* <Col>
+                            <h4>Pending Events</h4>
+                            <ul>
+                              {pendingEvents.map(event => (
+                                <li key={event._id}>{event.title}</li>
+                              ))}
+                            </ul>
+                          </Col>
+                          <Col>
+                            <h4>Completed Events</h4>
+                            <ul>
+                              {completedEvents.map(event => (
+                                <li key={event._id}>{event.title}</li>
+                              ))}
+                            </ul>
+                          </Col> */}
                         </Row>
                       </Col>
                     </center>
