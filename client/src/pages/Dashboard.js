@@ -14,6 +14,7 @@ import axios from 'axios'
 import DonorGenderPieChart from '../components/Charts/DonorGenderPieChart';
 import RecipientGenderPieChart from '../components/Charts/RecipientGenderPieChart';
 import MonthlyAppointmentsLineChart from '../components/Charts/MonthlyAppointmentsChart';
+import ReactPaginate from 'react-paginate';
 import EventsStatusBarChart from '../components/Charts/EventsStatusBarChart';
 
 const Dashboard = () => {
@@ -22,9 +23,8 @@ const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState('');
   const [eventError, setEventError] = useState('');
-  // console.log(users)
-  // console.log(appointments)
-  // console.log(events)
+  const [currentPage, setCurrentPage] = useState(0);
+  const eventsPerPage = 4;
 
   useEffect(() => {
     getAllEvents();
@@ -165,6 +165,20 @@ const Dashboard = () => {
   // Filter completed events
   const completedEvents = events.filter(event => event.status === 'completed');
 
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  // Combine both pending and completed events
+  const pendingPaginationEvents = events.filter(event => event.status === 'pending');
+  const completedPaginationEvents = events.filter(event => event.status === 'completed');
+  const allEvents = [...pendingPaginationEvents, ...completedPaginationEvents];
+
+  // Calculate pagination variables
+  const offset = currentPage * eventsPerPage;
+  const pageCount = Math.ceil(allEvents.length / eventsPerPage);
+  const currentPageEvents = allEvents.slice(offset, offset + eventsPerPage);
+
   return (
     <>
       <div className="custom-homepage">
@@ -268,9 +282,11 @@ const Dashboard = () => {
                                   {pendingEvents.map(event => (
                                     <>
                                       <p key={event._id}>{event.title}</p>
-                                      {event.images.length > 0 && (
-                                        <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                      )}
+                                      {
+                                        event.images.length > 0 && (
+                                          <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                        )
+                                      }
                                     </>
                                   ))}
                                 </ul>
@@ -281,31 +297,25 @@ const Dashboard = () => {
                                   {completedEvents.map(event => (
                                     <>
                                       <p key={event._id}>{event.title}</p>
-                                      {event.images.length > 0 && (
-                                        <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                      )}
+                                      {
+                                        event.images.length > 0 && (
+                                          <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                        )
+                                      }
                                     </>
                                   ))}
                                 </ul>
                               </Col>
+                              <ReactPaginate
+                                previousLabel={'Previous'}
+                                nextLabel={'Next'}
+                                pageCount={pageCount}
+                                onPageChange={handlePageChange}
+                                containerClassName={'pagination'}
+                                activeClassName={'active'}
+                              />
                             </Row>
                           </Col>
-                          {/* <Col>
-                            <h4>Pending Events</h4>
-                            <ul>
-                              {pendingEvents.map(event => (
-                                <li key={event._id}>{event.title}</li>
-                              ))}
-                            </ul>
-                          </Col>
-                          <Col>
-                            <h4>Completed Events</h4>
-                            <ul>
-                              {completedEvents.map(event => (
-                                <li key={event._id}>{event.title}</li>
-                              ))}
-                            </ul>
-                          </Col> */}
                         </Row>
                       </Col>
                     </center>
