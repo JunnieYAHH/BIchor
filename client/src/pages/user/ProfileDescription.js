@@ -15,7 +15,8 @@ import {
     MDBCardImage,
     MDBCardTitle as CardTitle,
     MDBBtn,
-    MDBRipple
+    MDBRipple,
+    MDBTypography, MDBIcon
 } from 'mdb-react-ui-kit';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -103,61 +104,67 @@ const ProfileDescription = () => {
 
     return (
         <>
-            <div className="custom-homepage my-5">
-                <Header />
-                <div className="custom-content">
-                    <Container fluid>
-                        <Row>
-                            <Col md={2}>
-                                <Sidebar />
-                            </Col>
-                            <Col md={10}>
-                                <Row className="mb-4">
-                                    <Col md={12} className="custom-card-column">
-                                        <Card>
-                                            <CardBody>
-                                                {user.description && user.description.length > 0 ? (
-                                                    <>
-                                                        <p style={{ fontWeight: 'bold' }}><a style={{ color: 'white' }}>....</a>This is your Profile Description <a style={{ color: 'white' }}>.........<Link to={'/'} class="fa-solid fa-right-from-bracket" style={{ color: 'blue' }}></Link></a></p>
-                                                        <Container className='descriptionCard'>
-                                                            <Row>
-                                                                <Col size='md'>
-                                                                    <MDBCard style={{ backgroundColor: '#D7395B' }}>
-                                                                        <div className="d-flex">
-                                                                            <div >
-                                                                                {user.description[0].avatar.map((avatar, index) => (
-                                                                                    <MDBCardImage key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} position='top' alt='...' id='descriptionUserImage' />
-                                                                                ))}
-                                                                                <center>
-                                                                                    <a id='importantPanimula'>Blood Type {user.description[0].bloodType} <i class="fa-solid fa-dna"></i></a>
-                                                                                </center>
-                                                                            </div>
-                                                                            <div className="ml-5">
-                                                                                <a id='importantPanimula'>Year & Course:</a>
-                                                                                <p>{user.description[0].year} Year || {user.description[0].course}</p>
-                                                                                <a id='importantPanimula'>Birth Date:</a>
-                                                                                <p> {user.description[0].birthDate}</p>
-                                                                            </div>
-                                                                            <div className="ml-5">
-                                                                                <a id='importantPanimula'>Sex:</a>
-                                                                                <div>
-                                                                                    {user.description[0].sex === 'male' ? (
-                                                                                        <div>Male</div>
-                                                                                    ) : (
-                                                                                        <div>Female</div>
-                                                                                    )}
-                                                                                </div>
+        <div className="custom-homepage my-5">
+            <Header />
+            <div className="custom-content">
+                <Container fluid>
+                    <Row>
+                        <Col md={2}>
+                            <Sidebar />
+                        </Col>
+                        <Col md={10}>
+                            <Row className="mb-4">
+                                <Col md={12} className="custom-card-column">
+                                    <Card>
+                                        <CardBody>
+                                            {user.description && user.description.length > 0 ? (
+                                                <>
+                                                    <p style={{ fontWeight: 'bold' }}>
+                                                        <a style={{ color: 'white' }}>....</a>User Profile Description{' '}
+                                                        <a style={{ color: 'white' }}>
+                                                            .........<Link to={'/'} className="fa fa-arrow-left" style={{ color: 'red' }}></Link>
+                                                        </a>
+                                                    </p>
+                                                    <Container className='descriptionCard'>
+                                                        <Row>
+                                                            <Col size='md'>
+                                                                <MDBCard style={{ backgroundColor: '#C24641' }}>
+                                                                    <div className="d-flex">
+                                                                        <div>
+                                                                            {user.description[0].avatar.map((avatar, index) => (
+                                                                                <MDBCardImage key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} position='top' alt='...' id='descriptionUserImage' />
+                                                                            ))}
+                                                                            <center>
+                                                                                <a id='importantPanimula'>Blood Type {user.description[0].bloodType} <i className="fa-solid fa-droplet"></i></a>
+                                                                            </center>
+                                                                        </div>
+                                                                        <div className="ml-5" style={{ paddingLeft: '20px' }}>
+                                                                            <a id='importantPanimula'>Year & Course:</a>
+                                                                            <p>{user.description[0].year} Year || {user.description[0].course}</p>
+                                                                            <a id='importantPanimula'>Birth Date:</a>
+                                                                            {/* <p> {user.description[0].birthDate}</p> */}
+                                                                            <p>{new Date(user.description[0].birthDate).toLocaleDateString()}</p>
+                                                                        </div>
+                                                                        <div className="ml-5" style={{ paddingLeft: '20px' }}>
+                                                                            <a id='importantPanimula'>Sex:</a>
+                                                                            <div>
+                                                                                {user.description[0].sex === 'male' ? (
+                                                                                    <div>Male</div>
+                                                                                ) : (
+                                                                                    <div>Female</div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
-                                                                        <MDBCardBody>
-                                                                            <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
-                                                                            <MDBCardText style={{ color: 'white' }}>
-                                                                                This is the photo that will be displayed on your Profile screen
-                                                                            </MDBCardText>
-                                                                            <button href='#' className='btn btn-secondary'>Upload New</button> <button href='#' className='btn btn-primary'>Save</button>
-                                                                        </MDBCardBody>
-                                                                    </MDBCard>
-                                                                    <MDBCard className='my-3' style={{ backgroundColor: '#D7395B' }}>
+                                                                    </div>
+                                                                    <MDBCardBody>
+                                                                        <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
+                                                                        <MDBCardText style={{ color: 'white' }}>
+                                                                            This is the photo that will be displayed on your Profile screen
+                                                                        </MDBCardText>
+                                                                        <button href='#' className='btn btn-secondary'>Upload New</button> <button href='#' className='btn btn-danger'>Save</button>
+                                                                    </MDBCardBody>
+                                                                </MDBCard>
+                                                                    <MDBCard className='my-3' style={{ backgroundColor: '#C24641' }}>
                                                                         <MDBCardBody>
                                                                             <MDBCardTitle>Personal Information</MDBCardTitle>
                                                                             <MDBCardText>
@@ -190,7 +197,7 @@ const ProfileDescription = () => {
                                                                     </MDBCard>
                                                                 </Col>
                                                                 <Col size='md'>
-                                                                    <MDBCard style={{ backgroundColor: '#D7395B' }}>
+                                                                    <MDBCard style={{ backgroundColor: '#C24641' }}>
                                                                         <MDBCardBody>
                                                                             <MDBCardTitle style={{ color: 'white' }}>BIO</MDBCardTitle>
                                                                             <MDBCardText>
@@ -210,7 +217,7 @@ const ProfileDescription = () => {
                                                                                             <Col>
                                                                                                 <Row md={6} sm={12} className="custom-card-column my-2" key={event._id}>
                                                                                                     <Col>
-                                                                                                        <Card style={{ height: '170px', width: '200px' }}>
+                                                                                                        <Card style={{ height: '200px', width: '200px' }}>
                                                                                                             <CardBody>
                                                                                                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                                                                                                     {event.images && event.images.map(image => (
