@@ -18,11 +18,7 @@
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.4",
-<<<<<<< HEAD
     "recharts": "^2.12.1",
-=======
-    "reactstrap": "^9.2.2",
->>>>>>> 8356ad2f4aab4d99c2bc1301b90aa14b78cc1a6d
     "web-vitals": "^2.1.4"
   },
   "scripts": {
