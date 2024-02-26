@@ -8,6 +8,8 @@ import {
   MDBCardTitle as CardTitle,
 } from 'mdb-react-ui-kit';
 import '../index.css';
+import { useSelector } from 'react-redux';
+import Spinner from '../components/Shared/Spinner';
 import AdminHeader from '../components/Layouts/AdminHeader';
 import AdminSidebar from '../components/Layouts/AdminSidebar';
 import axios from 'axios'
@@ -21,10 +23,11 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState('');
   const [eventError, setEventError] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const eventsPerPage = 4;
+
+  const { loading } = useSelector(state => state.user);
 
   useEffect(() => {
     getAllEvents();
@@ -44,7 +47,6 @@ const Dashboard = () => {
       }
       const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
       setEvents(data.data);
-      setLoading(false);
     } catch (error) {
       setEventError(error.response.data.message);
     }
@@ -61,7 +63,6 @@ const Dashboard = () => {
       const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/user/getAllUsers`, config);
       // console.log(data)
       setUsers(data.data);
-      setLoading(false);
     } catch (error) {
       setEventError(error.response.data.message);
     }
@@ -76,7 +77,6 @@ const Dashboard = () => {
       }
       const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
       setAppointments(data.data);
-      setLoading(false);
     } catch (error) {
       setEventError(error.response.data.message);
     }
@@ -181,151 +181,156 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="custom-homepage">
-        <AdminHeader />
-        <div className="custom-content">
-          <Container fluid>
-            <Row>
-              <Col md={2}>
-                <AdminSidebar />
-              </Col>
-              <Col md={10}>
-                <Row className="mb-4 " style={{ marginTop: '35px' }}>
-                  <center>
-                    <p style={{ fontWeight: 'bold' }}>Admin Dashboard</p>
-                  </center>
-                  <Col md={6} className="custom-card-column">
-                    <Card>
-                      <CardBody>
-                        <Row>
-                          <Col>
-                            <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
-                            <div style={{ textAlign: 'center' }}>
-                              Numbers of Donors
-                              <p>{donorCount}</p>
-                              <div>
-                                <Row>
-                                  <Col>
-                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
-                                    <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
-                                  </Col>
-                                  <Col>
-                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
-                                    {highestGenders.includes('male') && <p>Male</p>}
-                                    {highestGenders.includes('female') && <p>Female</p>}
-                                  </Col>
-                                </Row>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col>
-                            <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Recipients</CardTitle>
-                            <div style={{ textAlign: 'center' }}>
-                              Numbers of Recipients
-                              <p>{recipientCount}</p>
-                              <div>
-                                <Row>
-                                  <Col>
-                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
-                                    <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
-                                  </Col>
-                                  <Col>
-                                    <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}> Most Gender that Receive</a>
-                                    {recipientHighestGenders.includes('male') && <p>Male</p>}
-                                    {recipientHighestGenders.includes('female') && <p>Female</p>}
-                                  </Col>
-                                </Row>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
-                    <Card>
-                      <CardBody style={{ height: '300px', width: '550px' }}>
-                        <Row>
-                          <Col style={{ height: '250px', width: '550 px' }}>
-                            <CardTitle className="custom-card-title">Genders of Donors</CardTitle>
-                            <DonorGenderPieChart genderCounts={genderCounts} />
-                          </Col>
-                          <Col style={{ height: '250px', width: '550 px' }}>
-                            <CardTitle className="custom-card-title">Genders of Recipients</CardTitle>
-                            <RecipientGenderPieChart genderRecipientCounts={genderRecipientCounts} />
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
+      {loading ? (<Spinner />) : (
+        <>
+          <div className="custom-homepage">
+            <AdminHeader />
+            <div className="custom-content">
+              <Container fluid>
+                <Row>
+                  <Col md={2}>
+                    <AdminSidebar />
                   </Col>
-                  <Col md={6} className="custom-card-column">
-                    <Card>
-                      <CardBody>
-                        <CardTitle className="custom-card-title">Donors and Recipents that Appoints Per Month</CardTitle>
-                        <MonthlyAppointmentsLineChart appointments={appointments} />
-                      </CardBody>
-                    </Card>
-                  </Col>
-                </Row>
-                <Row className='container-fluid my-1'>
-                  <Col md={12}>
-                    <center>
-                      <p id='importantPanimula'>Events Status</p>
-                      <Col>
-                        <Row>
-                          <Col>
-                            <EventsStatusBarChart />
-                          </Col>
+                  <Col md={10}>
+                    <Row className="mb-4 " style={{ marginTop: '35px' }}>
+                      <center>
+                        <p style={{ fontWeight: 'bold' }}>Admin Dashboard</p>
+                      </center>
+                      <Col md={6} className="custom-card-column">
+                        <Card>
+                          <CardBody>
+                            <Row>
+                              <Col>
+                                <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
+                                <div style={{ textAlign: 'center' }}>
+                                  Numbers of Donors
+                                  <p>{donorCount}</p>
+                                  <div>
+                                    <Row>
+                                      <Col>
+                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
+                                        <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
+                                      </Col>
+                                      <Col>
+                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
+                                        {highestGenders.includes('male') && <p>Male</p>}
+                                        {highestGenders.includes('female') && <p>Female</p>}
+                                      </Col>
+                                    </Row>
+                                  </div>
+                                </div>
+                              </Col>
+                              <Col>
+                                <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Recipients</CardTitle>
+                                <div style={{ textAlign: 'center' }}>
+                                  Numbers of Recipients
+                                  <p>{recipientCount}</p>
+                                  <div>
+                                    <Row>
+                                      <Col>
+                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
+                                        <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
+                                      </Col>
+                                      <Col>
+                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}> Most Gender that Receive</a>
+                                        {recipientHighestGenders.includes('male') && <p>Male</p>}
+                                        {recipientHighestGenders.includes('female') && <p>Female</p>}
+                                      </Col>
+                                    </Row>
+                                  </div>
+                                </div>
+                              </Col>
+                            </Row>
+                          </CardBody>
+                        </Card>
+                        <Card>
+                          <CardBody style={{ height: '300px', width: '550px' }}>
+                            <Row>
+                              <Col style={{ height: '250px', width: '550 px' }}>
+                                <CardTitle className="custom-card-title">Genders of Donors</CardTitle>
+                                <DonorGenderPieChart genderCounts={genderCounts} />
+                              </Col>
+                              <Col style={{ height: '250px', width: '550 px' }}>
+                                <CardTitle className="custom-card-title">Genders of Recipients</CardTitle>
+                                <RecipientGenderPieChart genderRecipientCounts={genderRecipientCounts} />
+                              </Col>
+                            </Row>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                      <Col md={6} className="custom-card-column">
+                        <Card>
+                          <CardBody>
+                            <CardTitle className="custom-card-title">Donors and Recipents that Appoints Per Month</CardTitle>
+                            <MonthlyAppointmentsLineChart appointments={appointments} />
+                          </CardBody>
+                        </Card>
+                      </Col>
+                    </Row>
+                    <Row className='container-fluid my-1'>
+                      <Col md={12}>
+                        <center>
+                          <p id='importantPanimula'>Events Status</p>
                           <Col>
                             <Row>
                               <Col>
-                                <h4>Pending Events</h4>
-                                <ul>
-                                  {pendingEvents.map(event => (
-                                    <>
-                                      <p key={event._id}>{event.title}</p>
-                                      {
-                                        event.images.length > 0 && (
-                                          <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                        )
-                                      }
-                                    </>
-                                  ))}
-                                </ul>
+                                <EventsStatusBarChart />
                               </Col>
                               <Col>
-                                <h4>Completed Events</h4>
-                                <ul>
-                                  {completedEvents.map(event => (
-                                    <>
-                                      <p key={event._id}>{event.title}</p>
-                                      {
-                                        event.images.length > 0 && (
-                                          <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                        )
-                                      }
-                                    </>
-                                  ))}
-                                </ul>
+                                <Row>
+                                  <Col>
+                                    <h4>Pending Events</h4>
+                                    <ul>
+                                      {pendingEvents.map(event => (
+                                        <>
+                                          <p key={event._id}>{event.title}</p>
+                                          {
+                                            event.images.length > 0 && (
+                                              <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                            )
+                                          }
+                                        </>
+                                      ))}
+                                    </ul>
+                                  </Col>
+                                  <Col>
+                                    <h4>Completed Events</h4>
+                                    <ul>
+                                      {completedEvents.map(event => (
+                                        <>
+                                          <p key={event._id}>{event.title}</p>
+                                          {
+                                            event.images.length > 0 && (
+                                              <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
+                                            )
+                                          }
+                                        </>
+                                      ))}
+                                    </ul>
+                                  </Col>
+                                  <ReactPaginate
+                                    previousLabel={'Previous'}
+                                    nextLabel={'Next'}
+                                    pageCount={pageCount}
+                                    onPageChange={handlePageChange}
+                                    containerClassName={'pagination'}
+                                    activeClassName={'active'}
+                                  />
+                                </Row>
                               </Col>
-                              <ReactPaginate
-                                previousLabel={'Previous'}
-                                nextLabel={'Next'}
-                                pageCount={pageCount}
-                                onPageChange={handlePageChange}
-                                containerClassName={'pagination'}
-                                activeClassName={'active'}
-                              />
                             </Row>
                           </Col>
-                        </Row>
+                        </center>
                       </Col>
-                    </center>
+                    </Row>
                   </Col>
                 </Row>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </div>
+              </Container>
+            </div>
+          </div>
+        </>
+      )
+      }
     </>
   )
 }

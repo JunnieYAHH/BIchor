@@ -9,7 +9,7 @@ const AdminSidebar = () => {
                 <h2>Admin</h2>
                 <ul>
                     <li>
-                        <Link to='admin/donations'><i class="fa-solid fa-droplet"></i>Donations</Link>
+                        <Link to='admin/appointments'><i class="fa-solid fa-droplet"></i>Appointments</Link>
                     </li>
                     <li>
                         <a to="/donors"><i class="fa fa-user"></i>Donors</a>

@@ -7,12 +7,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoutes from './components/Routes/ProtectedRoutes';
 import PublicRoutes from './components/Routes/PublicRoutes';
-import AdminProtectedRoutes from './components/Routes/AdminProtectedRoutes'; // Import AdminProtectedRoutes
-import Donations from './pages/admin/Donations';
+import AdminProtectedRoutes from './components/Routes/AdminProtectedRoutes';
 import ProfileDescription from './pages/user/ProfileDescription';
 import DonationPage from './pages/user/Donation/DonationPage';
 import Transfusion from './pages/user/Transfusion/TransfusionPage';
 import Campain from './pages/user/Campain/Campain';
+import Appointment from './pages/admin/Appointment/Appointment';
 
 function App() {
   return (
@@ -26,8 +26,8 @@ function App() {
         <Route path='/transfusionPage' element={<ProtectedRoutes><Transfusion /></ProtectedRoutes>} />
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
-        <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} /> {/* Use AdminProtectedRoutes */}
-        <Route path='/dashboard/admin/donations' element={<AdminProtectedRoutes element={<Donations />} />} /> {/* Use AdminProtectedRoutes */}
+        <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} /> 
+        <Route path='/dashboard/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
         {/* PROFILE LOGIN */}
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />
         <Route path='/register' element={<PublicRoutes><Register /></PublicRoutes>} />
