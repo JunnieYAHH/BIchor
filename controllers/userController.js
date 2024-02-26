@@ -139,9 +139,8 @@ const addDescriptionUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        // Retrieve all events from the database
         const users = await userModel.find();
-        // console.log(events)
+        // console.log(users)
 
         return res.status(200).send({
             success: true,

@@ -18,15 +18,13 @@ import RecipientGenderPieChart from '../components/Charts/RecipientGenderPieChar
 import MonthlyAppointmentsLineChart from '../components/Charts/MonthlyAppointmentsChart';
 import ReactPaginate from 'react-paginate';
 import EventsStatusBarChart from '../components/Charts/EventsStatusBarChart';
+import AppointmentTypeSimpleChart from '../components/Charts/AppointmentTypeSimpleChart';
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState([]);
   const [eventError, setEventError] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const eventsPerPage = 4;
-
   const { loading } = useSelector(state => state.user);
 
   useEffect(() => {
@@ -67,6 +65,7 @@ const Dashboard = () => {
       setEventError(error.response.data.message);
     }
   }
+
   const getAllAppointment = async () => {
     try {
       const config = {
@@ -165,20 +164,6 @@ const Dashboard = () => {
   // Filter completed events
   const completedEvents = events.filter(event => event.status === 'completed');
 
-  const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected);
-  };
-
-  // Combine both pending and completed events
-  const pendingPaginationEvents = events.filter(event => event.status === 'pending');
-  const completedPaginationEvents = events.filter(event => event.status === 'completed');
-  const allEvents = [...pendingPaginationEvents, ...completedPaginationEvents];
-
-  // Calculate pagination variables
-  const offset = currentPage * eventsPerPage;
-  const pageCount = Math.ceil(allEvents.length / eventsPerPage);
-  const currentPageEvents = allEvents.slice(offset, offset + eventsPerPage);
-
   return (
     <>
       {loading ? (<Spinner />) : (
@@ -273,51 +258,16 @@ const Dashboard = () => {
                           <p id='importantPanimula'>Events Status</p>
                           <Col>
                             <Row>
-                              <Col>
+                            <Col style={{ height: '500px', width: '550px' }}>
+                            <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
                                 <EventsStatusBarChart />
                               </Col>
                               <Col>
                                 <Row>
-                                  <Col>
-                                    <h4>Pending Events</h4>
-                                    <ul>
-                                      {pendingEvents.map(event => (
-                                        <>
-                                          <p key={event._id}>{event.title}</p>
-                                          {
-                                            event.images.length > 0 && (
-                                              <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                            )
-                                          }
-                                        </>
-                                      ))}
-                                    </ul>
+                                  <Col style={{ height: '500px', width: '550px' }}>
+                                  <CardTitle className="custom-card-title">AppointmentTypes that the User appoints.</CardTitle>
+                                    <AppointmentTypeSimpleChart appointments={appointments} />
                                   </Col>
-                                  <Col>
-                                    <h4>Completed Events</h4>
-                                    <ul>
-                                      {completedEvents.map(event => (
-                                        <>
-                                          <p key={event._id}>{event.title}</p>
-                                          {
-                                            event.images.length > 0 && (
-                                              <img src={event.images[0].url} alt={event.title} className="event-image" style={{ marginRight: '10px' }} />
-                                            )
-                                          }
-                                        </>
-                                      ))}
-                                    </ul>
-                                  </Col>
-                                  <center>
-                                    <ReactPaginate
-                                      previousLabel={'Previous'}
-                                      nextLabel={'Next'}
-                                      pageCount={pageCount}
-                                      onPageChange={handlePageChange}
-                                      containerClassName={'pagination'}
-                                      activeClassName={'active'}
-                                    />
-                                  </center>
                                 </Row>
                               </Col>
                             </Row>

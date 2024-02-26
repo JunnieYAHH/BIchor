@@ -52,8 +52,8 @@ const EventsStatusBarChart = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="pendingCount" stackId="status" fill="#FF0000" name="Pending" />
-                <Bar dataKey="completedCount" stackId="status" fill="#008000" name="Completed" />
+                <Bar dataKey="pendingCount" stackId="status" fill="#ff2643" name="Pending" />
+                <Bar dataKey="completedCount" stackId="status" fill="#62f562" name="Completed" />
             </BarChart>
         </ResponsiveContainer>
     );

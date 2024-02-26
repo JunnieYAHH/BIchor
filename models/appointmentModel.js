@@ -8,7 +8,7 @@ const appointmentSchema = new mongoose.Schema({
     },
     bloodGroup: {
         type: String,
-        enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-'],
+        enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-','K'],
         required: function () {
             if (this.appointmentType !== 'apply') {
                 return true;
