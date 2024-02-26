@@ -18,8 +18,8 @@ const AdminHeader = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary header">
                 <div className="container-fluid">
-                    <img src="./assets/images/tuplogo.png" alt="logotup" id='tuplogo' />
-                    <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
+                    <img src="../../assets/images/tuplogo.png" alt="logotup" id='tuplogo' />
+                    <Link to="/dashboard" className="navbar-brand" style={{ color: 'black' }}>
                         Blood Donation
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

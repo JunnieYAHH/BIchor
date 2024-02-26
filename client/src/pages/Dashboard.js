@@ -168,7 +168,7 @@ const Dashboard = () => {
     <>
       {loading ? (<Spinner />) : (
         <>
-          <div className="custom-homepage my-5">
+          <div className="custom-homepage my-3">
             <AdminHeader />
             <div className="custom-content">
               <Container fluid>

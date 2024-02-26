@@ -2,7 +2,8 @@ const express = require("express");
 const {
     createAppointment,
     getAppointment,
-    getAllAppointment
+    getAllAppointment,
+    getSingleAppointment
 } = require("../controllers/appointmentController");
 const userMiddleware = require('../middlewares/userMiddleware');
 
@@ -12,5 +13,6 @@ router.post('/create-appointment', userMiddleware, createAppointment);
 //Get  getAppointment
 router.get('/get-appointment', userMiddleware, getAppointment);
 router.get('/getAllAppointments', userMiddleware, getAllAppointment);
+router.get('/getSingleAppointment/:id', userMiddleware, getSingleAppointment);
 
 module.exports = router;

@@ -21,7 +21,7 @@ const createAppointment = async (req, res) => {
             success: true,
             message: 'New Appartment Added'
         })
-        
+
 
     } catch (error) {
         console.log(error);
@@ -57,6 +57,34 @@ const getAppointment = async (req, res) => {
     }
 }
 
+const getSingleAppointment = async (req, res) => {
+    const appointmentId = req.params.id;
+
+    // Check if appointmentId is provided
+    if (!appointmentId) {
+        return res.status(400).json({ success: false, message: 'Appointment ID is required' });
+    }
+
+    try {
+        const appointment = await appointmentModel.findById(appointmentId);
+
+        // Check if appointment exists
+        if (!appointment) {
+            return res.status(404).json({ success: false, message: 'Appointment not found' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Appointment found',
+            appointment
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+
 const getAllAppointment = async (req, res) => {
     try {
         // Retrieve all events from the database
@@ -78,4 +106,4 @@ const getAllAppointment = async (req, res) => {
 
 
 
-module.exports = { createAppointment, getAppointment, getAllAppointment };
+module.exports = { createAppointment, getAppointment, getAllAppointment, getSingleAppointment };

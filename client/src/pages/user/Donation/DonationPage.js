@@ -47,44 +47,28 @@ const Campain = () => {
   return (
     <>
       <Header sticky />
-      <Sidebar/>
-      <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '75vh'}}>
-        <img src="./assets/images/DONATION.png" classname="img-fluid" alt="banner" style={{width: '750%', height: '75%', objectFit: 'cover'}} />
+      <Sidebar />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '75vh' }}>
+        <img src="./assets/images/DONATION.png" classname="img-fluid" alt="banner" style={{ width: '750%', height: '75%', objectFit: 'cover' }} />
       </div>
       <Container>
         <Row>
           <Col md={8} className="offset-md-1">
-            {/* <MDBCarousel showControls showIndicators dark fade style={{ width: '1300px', height: '500px' }}>
-              <MDBCarouselItem itemId={1}>
-              <img
-                  className='d-block w-50'
-                  src='./assets/images/CAMPAIN.png' // Use your image as the src
-                  alt='logotup' // Add alt text for accessibility
-                  id='tuplogo'
-                />
-              </MDBCarouselItem>
-              <MDBCarouselItem itemId={2}>
-                <img
-                  className='d-block w-100'
-                  src='https://mdbootstrap.com/img/Photos/Slides/img%20(20).jpg'
-                  alt='Third slide'
-                />
-              </MDBCarouselItem>
-            </MDBCarousel> */}
             <div>
-              <hr className="hr" style={{height: 4, width: 1250, backgroundColor: 'black'}} />
-              <hr className="hr" style={{height: 4, width: 1250, backgroundColor: 'black'}} />
+              <hr className="hr" style={{ height: 4, width: 1250, backgroundColor: 'black' }} />
+              <hr className="hr" style={{ height: 4, width: 1250, backgroundColor: 'black' }} />
             </div>
 
-            <div style={{textAlign: 'right', marginLeft: 300}}>
-                <img src="./assets/images/donateicon.png" classname="img-fluid" alt="Wild Landscape" />
+            <div style={{ textAlign: 'right', marginLeft: 300 }}>
+              <img src="./assets/images/donateicon.png" classname="img-fluid" alt="Wild Landscape" />
             </div>
 
             <p className="fw-bold" style={{ fontSize: 45, textAlign: 'start', color: 'maroon', paddingLeft: '30px' }}>Donate Now</p>
 
             <div style={{ width: '83vw', height: '70vh', position: 'relative' }}>
               {/* Zoom effect */}
-              <style dangerouslySetInnerHTML={{__html: `
+              <style dangerouslySetInnerHTML={{
+                __html: `
                 .zoom-effect {
                   overflow: hidden;
                   position: relative;
@@ -126,25 +110,6 @@ const Campain = () => {
                 </div>
               </div>
             </div>
-            
-            {/* <div>
-              <img src="https://mdbootstrap.com/img/new/textures/small/52.jpg" className="float-none" />
-              <p className="mb-5">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus reiciendis alias
-                asperiores molestiae veniam
-                nihil dolore quaerat libero voluptatibus, officia, ut ea deserunt itaque debitis assumenda, aliquid
-                rerum officiis
-                commodi? Nobis perspiciatis consequatur vero aut, placeat praesentium quam eveniet. A amet provident
-                perferendis
-                fugit, alias beatae unde qui velit dignissimos quidem architecto doloribus maiores quis ut.
-                Eligendi, culpa,
-                repudiandae sint quidem molestiae vero dolor cumque fugit aliquid ipsam voluptates distinctio.
-                Corporis animi laborum
-                nostrum labore similique ullam, optio quidem quae adipisci iste at molestiae, delectus voluptates
-                deleniti sint
-                molestias modi itaque deserunt officiis asperiores aliquam. Vitae nostrum autem animi assumenda!
-              </p>
-            </div> */}
           </Col>
         </Row>
         <Row className="mt-5 card-container">
@@ -166,8 +131,8 @@ const Campain = () => {
           </Col>
         </Row>
 
-        
-        
+
+
       </Container>
     </>
   );

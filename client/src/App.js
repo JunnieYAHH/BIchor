@@ -13,6 +13,7 @@ import DonationPage from './pages/user/Donation/DonationPage';
 import Transfusion from './pages/user/Transfusion/TransfusionPage';
 import Campain from './pages/user/Campain/Campain';
 import Appointment from './pages/admin/Appointment/Appointment';
+import UpdateAppointment from './pages/admin/Appointment/UpdateAppointment';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} /> 
         <Route path='/dashboard/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
+        <Route path='/appointment/update/:id' element={<AdminProtectedRoutes element={<UpdateAppointment/>} />} />
         {/* PROFILE LOGIN */}
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />
         <Route path='/register' element={<PublicRoutes><Register /></PublicRoutes>} />

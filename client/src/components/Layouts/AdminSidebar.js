@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../index.css'
 
 const AdminSidebar = () => {
     return (
         <div className="sidebar" style={{ color: 'black' }}>
             <div className='menu'>
-                <h2>Admin</h2>
+                <Link to={'/dashboard'}>
+                    <h2>
+                        Admin
+                    </h2>
+                </Link>
                 <ul>
                     <li>
                         <Link to='admin/appointments'><i class="fa-solid fa-droplet"></i>Appointments</Link>
