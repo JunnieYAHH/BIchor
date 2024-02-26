@@ -44,7 +44,7 @@ header */
 /* Sidebar.css */
 .sidebar {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #ea3b3b, #ea3b3b);
+  background: linear-gradient(to bottom, #970707, #810808);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgb(216, 61, 61);
@@ -294,3 +294,4 @@ header */
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
 }
+
