@@ -88,6 +88,51 @@ const HomePage = () => {
                   <p style={{ margin: '0' }}>DONATIONS</p>
                 </div>
               </div>
+              <div style={{ width: '83vw', height: '70vh', position: 'relative' }}>
+              {/* Zoom effect */}
+              <style dangerouslySetInnerHTML={{
+                __html: `
+                .zoom-effect {
+                  overflow: hidden;
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                }
+
+                .zoom-effect img {
+                  transition: transform 0.3s ease;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+                }
+
+                .zoom-effect:hover img {
+                  transform: scale(1.2); /* Zoom effect on hover */
+                }
+
+                .mask {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                .mask p {
+                  color: black;
+                  font-size: 24px;
+                }
+              `}} />
+              <div className="zoom-effect">
+                <img src="./assets/images/donatebg.png" alt="donatebg" />
+                <div className="mask">
+                </div>
+              </div>
+            </div>
               {events && events.map(event => (
                 event.eventType === 'donation' && (
                   <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
@@ -121,6 +166,50 @@ const HomePage = () => {
                   <p style={{ margin: '0' }}>TRANSFUSIONS</p>
                 </div>
               </div>
+              <div style={{ width: '83vw', height: '70vh', position: 'relative' }}>
+              {/* Zoom effect */}
+              <style dangerouslySetInnerHTML={{__html: `
+                .zoom-effect {
+                  overflow: hidden;
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                }
+
+                .zoom-effect img {
+                  transition: transform 0.3s ease;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+                }
+
+                .zoom-effect:hover img {
+                  transform: scale(1.2); /* Zoom effect on hover */
+                }
+
+                .mask {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                .mask p {
+                  color: black;
+                  font-size: 24px;
+                }
+              `}} />
+              <div className="zoom-effect">
+                <img src="./assets/images/transfusionbg.png" alt="transfusionbg" />
+                <div className="mask">
+                </div>
+              </div>
+            </div>
               {events && events.map(event => (
                 event.eventType === 'transfusion' && (
                   <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>
@@ -154,6 +243,50 @@ const HomePage = () => {
                   <p style={{ margin: '0' }}>CAMPAINS</p>
                 </div>
               </div>
+              <div style={{ width: '83vw', height: '70vh', position: 'relative' }}>
+              {/* Zoom effect */}
+              <style dangerouslySetInnerHTML={{__html: `
+                .zoom-effect {
+                  overflow: hidden;
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                }
+
+                .zoom-effect img {
+                  transition: transform 0.3s ease;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+                }
+
+                .zoom-effect:hover img {
+                  transform: scale(1.2); /* Zoom effect on hover */
+                }
+
+                .mask {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                .mask p {
+                  color: black;
+                  font-size: 24px;
+                }
+              `}} />
+              <div className="zoom-effect">
+                <img src="./assets/images/campainbg.png" alt="campainbg" />
+                <div className="mask">
+                </div>
+              </div>
+            </div>
               {events && events.map(event => (
                 event.eventType === 'campain' && (
                   <Col md={6} sm={12} className="custom-card-column my-2" key={event._id}>

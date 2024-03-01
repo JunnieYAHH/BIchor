@@ -110,6 +110,7 @@ const Campain = () => {
                 </div>
               </div>
             </div>
+            
           </Col>
         </Row>
         <Row className="mt-5 card-container">

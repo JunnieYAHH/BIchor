@@ -173,21 +173,23 @@ const Dashboard = () => {
             <div className="custom-content">
               <Container fluid>
                 <Row>
-                  <Col md={2}>
+                  <Col md={2} style={{ backgroundColor: '#191C24' }}>
                     <AdminSidebar />
                   </Col>
-                  <Col md={10}>
+                  <Col md={10} style={{ backgroundColor: '#191C24' }}>
                     <Row className="mb-4 " style={{ marginTop: '35px' }}>
                       <center>
-                        <p style={{ fontWeight: 'bold' }}>Admin Dashboard</p>
+                        <p style={{fontWeight: 'bold', fontSize: 50, color: '#C11B17'}}>ADMIN DASHBOARD</p>
                       </center>
-                      <Col md={6} className="custom-card-column">
+                      <Col md={6} className="custom-card-column"> 
                         <Card>
                           <CardBody>
                             <Row>
                               <Col>
-                                <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
-                                <div style={{ textAlign: 'center' }}>
+                              <Card style={{ backgroundColor: '#E41B17' }}>
+                                  <CardBody>
+                                    <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
+                                    <div style={{ textAlign: 'center' }}>
                                   Numbers of Donors
                                   <p>{donorCount}</p>
                                   <div>
@@ -204,8 +206,12 @@ const Dashboard = () => {
                                     </Row>
                                   </div>
                                 </div>
+                                  </CardBody>                    
+                                </Card>
                               </Col>
                               <Col>
+                              <Card style={{ backgroundColor: '#E41B17' }}>
+                                  <CardBody>
                                 <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Recipients</CardTitle>
                                 <div style={{ textAlign: 'center' }}>
                                   Numbers of Recipients
@@ -224,11 +230,13 @@ const Dashboard = () => {
                                     </Row>
                                   </div>
                                 </div>
+                                </CardBody>                    
+                                </Card>
                               </Col>
                             </Row>
                           </CardBody>
                         </Card>
-                        <Card>
+                        <Card> 
                           <CardBody style={{ height: '300px', width: '550px' }}>
                             <Row>
                               <Col style={{ height: '250px', width: '550 px' }}>
@@ -244,37 +252,40 @@ const Dashboard = () => {
                         </Card>
                       </Col>
                       <Col md={6} className="custom-card-column">
-                        <Card>
-                          <CardBody>
-                            <CardTitle className="custom-card-title">Donors and Recipents that Appoints Per Month</CardTitle>
+                        <Card style={{ height: '559px', width: '550px' }}>
+                          <CardBody >
+                            <CardTitle className="custom-card-title">Donors and Recipients that Appoints Per Month</CardTitle>
                             <MonthlyAppointmentsLineChart appointments={appointments} />
                           </CardBody>
                         </Card>
                       </Col>
                     </Row>
                     <Row className='container-fluid my-1'>
-                      <Col md={12}>
-                        <center>
-                          <p id='importantPanimula'>Events Status</p>
-                          <Col>
-                            <Row>
-                            <Col style={{ height: '500px', width: '550px' }}>
-                            <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
-                                <EventsStatusBarChart />
-                              </Col>
-                              <Col>
-                                <Row>
-                                  <Col style={{ height: '500px', width: '550px' }}>
-                                  <CardTitle className="custom-card-title">AppointmentTypes that the User appoints.</CardTitle>
-                                    <AppointmentTypeSimpleChart appointments={appointments} />
-                                  </Col>
-                                </Row>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </center>
-                      </Col>
-                    </Row>
+                    <Col md={12}>
+                      <center>
+                        <p style={{fontWeight: 'bold', fontSize: 50, color: '#C11B17'}}>Events Status</p>
+                        
+                      </center>
+                      <Row>
+                        <Col md={6} style={{ height: '500px', width: '600px' }}>
+                          <Card>
+                            <CardBody>
+                              <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
+                              <EventsStatusBarChart />
+                            </CardBody>
+                          </Card>
+                        </Col>
+                        <Col md={6} style={{ height: '500px', width: '600px' }}>
+                          <Card>
+                            <CardBody>
+                              <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
+                              <AppointmentTypeSimpleChart appointments={appointments} />
+                            </CardBody>
+                          </Card>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
                   </Col>
                 </Row>
               </Container>
