@@ -3,8 +3,7 @@ import InputType from "./InputType";
 import { Link } from "react-router-dom";
 import { handleLogin } from '../../../services/authService';
 import { handleRegister } from '../../../services/authService';
-import { FaUserCircle } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+
 
 
 const Form = ({ formType, submitBtn, formTitle }) => {

@@ -295,3 +295,43 @@ header */
   background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
 }
 
+
+
+/* APPOINTMENT DATATABLES DESIGN */
+
+.custom-datatable {
+  /* Custom styles */
+  border-radius: 30px;
+}
+
+.custom-datatable thead th {
+  background-color: black;
+  color: white; 
+  padding: 10px; 
+  border: 1px solid black; 
+}
+
+.custom-datatable tbody td {
+  background-color: white;
+  color: black;
+  padding: 10px; 
+  width: 80px;
+  border: 1px solid black; 
+  border-radius: 20px;
+}
+
+.user-datatable {
+  /* user styles */
+  border-radius: 30px;
+}
+
+.user-datatable thead th {
+  background-color: black;
+  color: white; 
+  text-align: center;
+}
+
+.user-datatable tbody td {
+  color: black;
+  border-radius: 20px;
+}

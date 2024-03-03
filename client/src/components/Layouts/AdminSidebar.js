@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import '../../index.css'
 
 const AdminSidebar = () => {
@@ -13,10 +13,10 @@ const AdminSidebar = () => {
                 </Link>
                 <ul>
                     <li>
-                        <Link to='admin/appointments'><i class="fa-solid fa-droplet"></i>Appointments</Link>
+                        <Link to='/admin/appointments'><i class="fa-solid fa-droplet"></i> Appointments</Link>
                     </li>
                     <li>
-                        <a to="/donors"><i class="fa fa-user"></i>Donors</a>
+                        <Link to="/admin/donors"><i class="fa fa-user"></i> Donors</Link>
                     </li>
                     <li>
                         <a href="/#">Clinics</a>

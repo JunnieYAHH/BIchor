@@ -35,6 +35,37 @@ const registerUser = async (req, res) => {
     }
 };
 
+const userCreate = async (req, res) => {
+    try {
+        const existingUser = await userModel.findOne({ email: req.body.email });
+        // Validation
+        if (existingUser) {
+            return res.status(400).send({
+                success: false,
+                message: 'User already registered'
+            });
+        }
+        // Hash Password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        req.body.password = hashedPassword;
+        const user = new userModel(req.body);
+        await user.save();
+        return res.status(201).send({
+            success: true,
+            message: 'User Registered Successfully',
+            user
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            success: false,
+            message: 'Error in Register API',
+            error: error.message
+        });
+    }
+};
+
 const loginUser = async (req, res) => {
     try {
         const user = await userModel.findOne({ email: req.body.email });
@@ -110,7 +141,7 @@ const addDescriptionUser = async (req, res) => {
         // Handle multiple file uploads
         const avatarData = [];
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
-            folder: 'Cleopatra/avatars',
+            folder: 'Blood/avatars',
             width: 150,
             crop: "scale"
         })
@@ -155,6 +186,81 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const getSingleUser = async (req, res) => {
+    const userId = req.params._id;
+
+    if (!userId) {
+        return res.status(400).json({ success: false, message: 'User ID is required' });
+    }
+
+    try {
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'User found',
+            user
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        let userData = req.body;
+        // console.log(req.file);
+
+        if (typeof userData.description === 'string') {
+            userData.description = JSON.parse(userData.description);
+        }
+
+        if (req.file) {
+            // Upload the file to Cloudinary
+            const result = await cloudinary.v2.uploader.upload(req.file.path, {
+                folder: 'Cleopatra/avatars', // Folder to upload the image to in Cloudinary
+                width: 150, // Width of the uploaded image
+                crop: "scale" // Crop option to ensure the image fits within the specified dimensions
+            });
+
+            // Construct the avatar object with public_id and URL
+            const avatar = {
+                public_id: result.public_id,
+                url: result.secure_url
+            };
+
+            // console.log(avatar)
+
+            // If user has existing description, update the avatar field
+            if (userData.description && userData.description.length > 0) {
+                userData.description.forEach(desc => {
+                    desc.avatar = avatar;
+                });
+            } else {
+                // If user doesn't have description yet, create a new one with the avatar field
+                userData.description = [{ avatar }];
+            }
+        }
+
+        const updatedUser = await userModel.findByIdAndUpdate(id, userData, { new: true });
+        // console.log(updatedUser)
+
+        res.status(200).json({ success: true, user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
 
 
-module.exports = { registerUser, loginUser, currentUser, addDescriptionUser, getAllUsers };
+
+module.exports = {
+    registerUser, loginUser, currentUser,
+    addDescriptionUser, getAllUsers, userCreate,
+    getSingleUser, updateUser
+};

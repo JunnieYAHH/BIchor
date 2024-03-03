@@ -13,10 +13,6 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBCardImage,
-    MDBCardTitle as CardTitle,
-    MDBBtn,
-    MDBRipple,
-    MDBTypography, MDBIcon
 } from 'mdb-react-ui-kit';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'

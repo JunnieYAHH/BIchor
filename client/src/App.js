@@ -14,6 +14,9 @@ import Transfusion from './pages/user/Transfusion/TransfusionPage';
 import Campain from './pages/user/Campain/Campain';
 import Appointment from './pages/admin/Appointment/Appointment';
 import UpdateAppointment from './pages/admin/Appointment/UpdateAppointment';
+import Donor from './pages/admin/Donor/Donor';
+import CreateDonor from './pages/admin/Donor/CreateDonor';
+import UpdateDonor from './pages/admin/Donor/UpdateDonor';
 
 function App() {
   return (
@@ -27,9 +30,13 @@ function App() {
         <Route path='/transfusionPage' element={<ProtectedRoutes><Transfusion /></ProtectedRoutes>} />
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
-        <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} /> 
-        <Route path='/dashboard/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
-        <Route path='/appointment/update/:id' element={<AdminProtectedRoutes element={<UpdateAppointment/>} />} />
+        <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
+        <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
+        <Route path='/appointment/update/:id' element={<AdminProtectedRoutes element={<UpdateAppointment />} />} />
+        <Route path='/admin/donors' element={<AdminProtectedRoutes element={<Donor />} />} />
+        <Route path='/admin/create/donor' element={<AdminProtectedRoutes element={<CreateDonor />} />} />
+        <Route path='/admin/update/donor/:id' element={<AdminProtectedRoutes element={<UpdateDonor />} />} />
+
         {/* PROFILE LOGIN */}
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />
         <Route path='/register' element={<PublicRoutes><Register /></PublicRoutes>} />

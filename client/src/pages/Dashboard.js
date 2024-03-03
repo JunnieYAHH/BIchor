@@ -181,7 +181,7 @@ const Dashboard = () => {
                       <center>
                         <p style={{fontWeight: 'bold', fontSize: 50, color: '#C11B17'}}>ADMIN DASHBOARD</p>
                       </center>
-                      <Col md={6} className="custom-card-column"> 
+                      <Col md={6} className="custom-card-column" style={{ height: '559px', width: '550px' }}> 
                         <Card>
                           <CardBody>
                             <Row>
@@ -252,7 +252,7 @@ const Dashboard = () => {
                         </Card>
                       </Col>
                       <Col md={6} className="custom-card-column">
-                        <Card style={{ height: '559px', width: '550px' }}>
+                        <Card style={{ height: '559px', width: '525px' }}>
                           <CardBody >
                             <CardTitle className="custom-card-title">Donors and Recipients that Appoints Per Month</CardTitle>
                             <MonthlyAppointmentsLineChart appointments={appointments} />
@@ -267,7 +267,7 @@ const Dashboard = () => {
                         
                       </center>
                       <Row>
-                        <Col md={6} style={{ height: '500px', width: '600px' }}>
+                        <Col md={6} style={{ height: '525px', width: '525px' }}>
                           <Card>
                             <CardBody>
                               <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
@@ -275,7 +275,7 @@ const Dashboard = () => {
                             </CardBody>
                           </Card>
                         </Col>
-                        <Col md={6} style={{ height: '500px', width: '600px' }}>
+                        <Col md={6} style={{ height: '550px', width: '550px' }}>
                           <Card>
                             <CardBody>
                               <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
