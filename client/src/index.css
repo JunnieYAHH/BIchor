@@ -39,6 +39,11 @@ header */
   border-radius: 100%;
 }
 
+#tup {
+  height: 100%;
+  width: 100%;
+}
+
 
 /* Homepage LeftSideBar */
 /* Sidebar.css */
@@ -322,7 +327,7 @@ header */
 
 .user-datatable {
   /* user styles */
-  border-radius: 30px;
+  /* border-radius: 30px; */
 }
 
 .user-datatable thead th {
@@ -333,5 +338,5 @@ header */
 
 .user-datatable tbody td {
   color: black;
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }

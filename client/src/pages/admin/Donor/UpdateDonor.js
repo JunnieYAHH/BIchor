@@ -95,7 +95,8 @@ const UpdateDonor = () => {
         }
     };
 
-    const submitHandler = () => {
+    const submitHandler = (e) => {
+        e.preventDefault();
         const formData = new FormData();
 
         if (role) formData.append('role', role);

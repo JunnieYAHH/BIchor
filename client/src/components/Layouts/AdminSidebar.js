@@ -19,7 +19,7 @@ const AdminSidebar = () => {
                         <Link to="/admin/donors"><i class="fa fa-user"></i> Donors</Link>
                     </li>
                     <li>
-                        <a href="/#">Clinics</a>
+                        <Link to="/admin/events"><i class="fa-solid fa-bullhorn"></i> Events</Link>
                     </li>
                     <li>
                         <a href="/#">Maps</a>

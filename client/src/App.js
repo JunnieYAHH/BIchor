@@ -17,6 +17,8 @@ import UpdateAppointment from './pages/admin/Appointment/UpdateAppointment';
 import Donor from './pages/admin/Donor/Donor';
 import CreateDonor from './pages/admin/Donor/CreateDonor';
 import UpdateDonor from './pages/admin/Donor/UpdateDonor';
+import Event from './pages/admin/Event/Event';
+import CreateEvent from './pages/admin/Event/CreateEvent';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <Route path='/admin/donors' element={<AdminProtectedRoutes element={<Donor />} />} />
         <Route path='/admin/create/donor' element={<AdminProtectedRoutes element={<CreateDonor />} />} />
         <Route path='/admin/update/donor/:id' element={<AdminProtectedRoutes element={<UpdateDonor />} />} />
+        <Route path='/admin/events' element={<AdminProtectedRoutes element={<Event />} />} />
+        <Route path='/admin/create/event' element={<AdminProtectedRoutes element={<CreateEvent />} />} />
 
         {/* PROFILE LOGIN */}
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />
