@@ -81,9 +81,9 @@ const Donor = () => {
                         <Link to={`/admin/update/donor/${user._id}`} className="btn btn-primary py-1 px-2">
                             <i className="fa fa-pencil"></i>
                         </Link>
-                        <Link>
+                        {/* <Link>
                             <i className="fa-regular fa-eye"></i>
-                        </Link>
+                        </Link> */}
                     </>
                 ),
             }))
@@ -107,7 +107,7 @@ const Donor = () => {
                                             <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
                                             <p style={{ margin: '0', fontWeight: 'bold' }}>USERS LIST</p>
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
-                                            <Link to={'/admin/create/donor'} className="btn btn-success" style={{width:'50%'}}>
+                                            <Link to={'/admin/create/donor'} className="btn btn-success" style={{ width: '50%' }}>
                                                 <i class="fa-solid fa-circle-plus"></i> Create
                                             </Link>
                                         </div>
@@ -119,19 +119,8 @@ const Donor = () => {
                                                 className="user-datatable"
                                                 bordered
                                                 striped
-                                                hover
-                                                btn
-                                                displayEntries={false}
-                                                entriesOptions={[5, 10, 15, 20]}
-                                                entries={10}
                                                 paginationLabel={['Previous', 'Next']}
                                                 searchLabel="Search"
-                                                responsive
-                                                responsiveSm
-                                                responsiveMd
-                                                responsiveLg
-                                                responsiveXl
-                                                scrollX
                                             />
                                         </Row>
                                     </Col>

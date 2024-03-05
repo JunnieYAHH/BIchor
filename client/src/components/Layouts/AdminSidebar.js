@@ -16,7 +16,7 @@ const AdminSidebar = () => {
                         <Link to='/admin/appointments'><i class="fa-solid fa-droplet"></i> Appointments</Link>
                     </li>
                     <li>
-                        <Link to="/admin/donors"><i class="fa fa-user"></i> Donors</Link>
+                        <Link to="/admin/donors"><i class="fa fa-user"></i> Accounts</Link>
                     </li>
                     <li>
                         <Link to="/admin/events"><i class="fa-solid fa-bullhorn"></i> Events</Link>

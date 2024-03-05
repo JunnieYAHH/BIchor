@@ -75,6 +75,8 @@ const Event = () => {
                     sort: 'asc',
                 },
                 {
+                    label: 'Action',
+                    sort: 'asc',
                     field: 'actions',
                 },
             ],
@@ -96,12 +98,12 @@ const Event = () => {
                 status: event.status,
                 actions: (
                     <>
-                        <Link className="btn btn-primary py-1 px-2">
+                        <Link to={`/admin/update-event/${event._id}`} className="btn btn-primary py-1 px-2">
                             <i className="fa fa-pencil"></i>
                         </Link>
-                        <Link>
+                        {/* <Link>
                             <i className="fa-regular fa-eye"></i>
-                        </Link>
+                        </Link> */}
                     </>
                 ),
             }))
@@ -137,19 +139,7 @@ const Event = () => {
                                                 className="user-datatable"
                                                 bordered
                                                 striped
-                                                hover
-                                                btn
-                                                displayEntries={false}
-                                                entriesOptions={[5, 10, 15, 20]}
-                                                entries={10}
-                                                paginationLabel={['Previous', 'Next']}
-                                                searchLabel="Search"
-                                                responsive
-                                                responsiveSm
-                                                responsiveMd
-                                                responsiveLg
-                                                responsiveXl
-                                                scrollX
+                                                style={{ color: "black", fontWeight: "bold" }}
                                             />
                                         </Row>
                                     </Col>

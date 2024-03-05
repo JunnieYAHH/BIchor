@@ -4,38 +4,31 @@ const cloudinary = require('cloudinary');
 
 const createEvent = async (req, res) => {
     try {
-        const { clinic, images } = req.body;
+        const { clinic } = req.body;
 
-        // Validate
-        if (!clinic || !images || !Array.isArray(images) || images.length === 0) {
-            return res.status(400).send({
-                success: false,
-                message: 'Missing clinic or image data',
-            });
-        }
+        console.log(req.file)
 
-        const uploadedImages = [];
-        for (const image of images) {
-            const result = await cloudinary.v2.uploader.upload(image.url, {
-                folder: 'Blood/events',
-                width: 150,
-                crop: 'scale',
-            });
-            uploadedImages.push({ public_id: result.public_id, url: result.secure_url });
-        }
+        const imageData = [];
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+            folder: 'Blood/events',
+            width: 150,
+            crop: "scale"
+        })
+        imageData.push({ public_id: result.public_id, url: result.secure_url });
 
         // Save event
-        const event = await eventModel.create({
+        const newEvent = await eventModel.create({
             clinic,
             eventType: req.body.eventType,
             title: req.body.title,
-            date: req.body.date,    
+            date: req.body.date,
             place: req.body.place,
             details: req.body.details,
             status: 'pending',
-            images: uploadedImages,
+            images: imageData,
         });
-        // await event.save();
+        const event = new eventModel(newEvent);
+        await event.save();
 
         return res.status(201).send({
             success: true,
@@ -50,9 +43,6 @@ const createEvent = async (req, res) => {
         });
     }
 };
-
-
-
 
 
 const getAllEvents = async (req, res) => {
@@ -74,4 +64,63 @@ const getAllEvents = async (req, res) => {
     }
 };
 
-module.exports = { createEvent, getAllEvents };
+const getSingleEvent = async (req, res) => {
+    const eventID = req.params._id;
+
+    try {
+        const event = await eventModel.findById(eventID);
+
+        // console.log(article)
+
+        if (!event) {
+            return res.status(404).json({ success: false, message: 'Event not found' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Article found',
+            event
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+const updateEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, eventType, date, place, details, status, clinic } = req.body;
+        console.log(id)
+        console.log(req.body)
+        console.log(req.file)
+
+        const imageData = [];
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+            folder: 'Blood/events',
+            width: 150,
+            crop: "scale"
+        })
+        imageData.push({ public_id: result.public_id, url: result.secure_url });
+
+        const updateNewEvent = {
+            title,
+            eventType,
+            date,
+            place,
+            details,
+            status,
+            clinic,
+            images: imageData
+        };
+
+        const event = await eventModel.findByIdAndUpdate(id, updateNewEvent, { new: true });
+        // console.log(updatedUser)
+
+        res.status(200).json({ success: true, user: event });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent };

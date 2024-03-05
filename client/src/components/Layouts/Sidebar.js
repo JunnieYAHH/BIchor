@@ -76,7 +76,7 @@ const Sidebar = () => {
                             </div>
                         </li>
                         <li>
-                            <a href="/#" style={{ fontWeight: "bold" }}>Hostpitals</a>
+                            <Link to={'/user/insentives'} style={{ fontWeight: "bold" }}>Incentives</Link>
                         </li>
                         <li>
                             <a href="/#" style={{ cursor: 'pointer', fontWeight: "bold" }}>Maps</a>

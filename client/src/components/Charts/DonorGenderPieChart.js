@@ -18,7 +18,7 @@ const DonorGenderPieChart = ({ genderCounts }) => {
           cy="50%"
           innerRadius={60}
           outerRadius={80}
-          fill="#8884d8"
+          fill="#8884d8"  
           dataKey="value"
           labelLine={false}
           label={true}

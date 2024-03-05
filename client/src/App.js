@@ -19,6 +19,9 @@ import CreateDonor from './pages/admin/Donor/CreateDonor';
 import UpdateDonor from './pages/admin/Donor/UpdateDonor';
 import Event from './pages/admin/Event/Event';
 import CreateEvent from './pages/admin/Event/CreateEvent';
+import UpdateEvent from './pages/admin/Event/UpdateEvent';
+import Incentives from './pages/user/Incentives';
+import UpdateProfile from './pages/user/UpdateProfile';
 
 function App() {
   return (
@@ -31,6 +34,8 @@ function App() {
         <Route path='/donationPage' element={<ProtectedRoutes><DonationPage /></ProtectedRoutes>} />
         <Route path='/transfusionPage' element={<ProtectedRoutes><Transfusion /></ProtectedRoutes>} />
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
+        <Route path='/user/insentives' element={<ProtectedRoutes><Incentives /></ProtectedRoutes>} />
+        <Route path='/user/update-profile/:id' element={<ProtectedRoutes><UpdateProfile /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
@@ -40,6 +45,7 @@ function App() {
         <Route path='/admin/update/donor/:id' element={<AdminProtectedRoutes element={<UpdateDonor />} />} />
         <Route path='/admin/events' element={<AdminProtectedRoutes element={<Event />} />} />
         <Route path='/admin/create/event' element={<AdminProtectedRoutes element={<CreateEvent />} />} />
+        <Route path='/admin/update-event/:id' element={<AdminProtectedRoutes element={<UpdateEvent />} />} />
 
         {/* PROFILE LOGIN */}
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />

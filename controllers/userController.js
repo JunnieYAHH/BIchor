@@ -181,7 +181,7 @@ const getAllUsers = async (req, res) => {
         console.log(error);
         return res.status(500).send({
             success: false,
-            message: 'Error retrieving events'
+            message: 'Error retrieving users'
         });
     }
 }
@@ -222,14 +222,12 @@ const updateUser = async (req, res) => {
         }
 
         if (req.file) {
-            // Upload the file to Cloudinary
             const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                folder: 'Cleopatra/avatars', // Folder to upload the image to in Cloudinary
-                width: 150, // Width of the uploaded image
-                crop: "scale" // Crop option to ensure the image fits within the specified dimensions
+                folder: 'Cleopatra/avatars',
+                width: 150, 
+                crop: "scale" 
             });
 
-            // Construct the avatar object with public_id and URL
             const avatar = {
                 public_id: result.public_id,
                 url: result.secure_url
@@ -237,13 +235,11 @@ const updateUser = async (req, res) => {
 
             // console.log(avatar)
 
-            // If user has existing description, update the avatar field
             if (userData.description && userData.description.length > 0) {
                 userData.description.forEach(desc => {
                     desc.avatar = avatar;
                 });
             } else {
-                // If user doesn't have description yet, create a new one with the avatar field
                 userData.description = [{ avatar }];
             }
         }

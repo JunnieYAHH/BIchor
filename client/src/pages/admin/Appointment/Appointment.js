@@ -145,9 +145,9 @@ const Appointment = () => {
                             <Link to={`/appointment/update/${appointment._id}`} className="btn btn-primary py-1 px-2">
                                 <i className="fa fa-pencil"></i>
                             </Link>
-                            <Link>
+                            {/* <Link>
                                 <i className="fa-regular fa-eye"></i>
-                            </Link>
+                            </Link> */}
                         </Fragment>
                     ),
                 };
@@ -174,26 +174,16 @@ const Appointment = () => {
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                         </div>
                                     </div>
-                                    <Col>
-                                        <Row style={{ backgroundColor: 'black' }}>
+                                    <Col className='my-3'>
+                                        <Row style={{ backgroundColor: 'black', borderRadius:'30px'}}>
                                             <MDBDataTable
                                                 data={formatAppointments()}
-                                                className="custom-datatable"
+                                                className="appointment-datatable"
                                                 bordered
                                                 striped
-                                                hover
-                                                btn
-                                                displayEntries={false}
-                                                entriesOptions={[5, 10, 15, 20]}
-                                                entries={5}
                                                 paginationLabel={['Previous', 'Next']}
                                                 searchLabel="Search"
-                                                responsive
-                                                responsiveSm
-                                                responsiveMd
-                                                responsiveLg
-                                                responsiveXl
-                                                scrollX
+                                                style={{borderRadius:'30px'}}
                                             />
                                         </Row>
                                     </Col>

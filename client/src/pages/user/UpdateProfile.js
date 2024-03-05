@@ -10,14 +10,16 @@ import {
     MDBInputGroup,
     MDBBtn
 } from 'mdb-react-ui-kit';
-import Sidebar from '../../../components/Layouts/AdminSidebar';
-import '../../../index.css'
+import Header from '../../components/Layouts/Header';
+import Sidebar from '../../components/Layouts/Sidebar';
+import InputType from '../../components/Shared/Form/InputType';
+import '../../index.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const UpdateDonor = () => {
+const UpdateProfile = () => {
 
     const [role, setRole] = useState('')
     const [name, setName] = useState('')
@@ -93,7 +95,7 @@ const UpdateDonor = () => {
             const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/user/updateUser/${id}`, formData, config);
             console.log(data)
             setSuccess(data.success);
-            navigate('/admin/donors')
+            navigate('/profileDescription')
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setError('Error: ' + error.response.data.message);
@@ -186,7 +188,7 @@ const UpdateDonor = () => {
                                     <div className="container">
                                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                                             <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
-                                            <p style={{ margin: '0', fontWeight: 'bold' }}>USER UPDATE</p>
+                                            <p style={{ margin: '0', fontWeight: 'bold' }}>PROFILE UPDATE</p>
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                         </div>
                                     </div>
@@ -264,7 +266,18 @@ const UpdateDonor = () => {
                                                                                 <p>bloodType:<span className="badge bg-secondary">{desc.bloodType}</span></p>
                                                                                 <MDBInput value={bloodType} name={'bloodType'} onChange={(e) => setBloodType(e.target.value)} />
                                                                                 <p>Year:<span className="badge bg-secondary">{desc.year}</span></p>
-                                                                                <MDBInput value={year} name={'year'} onChange={(e) => setYear(e.target.value)} />
+                                                                                {/* <MDBInput value={year} name={'year'} onChange={(e) => setYear(e.target.value)} /> */}
+                                                                                <div className="d-flex mb-3">
+                                                                                    <select
+                                                                                        className="form-select"
+                                                                                        value={year} name={'year'} onChange={(e) => setYear(e.target.value)}
+                                                                                    >
+                                                                                        <option value="1st">1st Year</option>
+                                                                                        <option value="2nd">2nd Year</option>
+                                                                                        <option value="3rd">3rd Year</option>
+                                                                                        <option value="4th">4th Year</option>
+                                                                                    </select>
+                                                                                </div>
                                                                                 <p>Course:<span className="badge bg-secondary">{desc.course}</span></p>
                                                                                 <MDBInput value={course} name={'course'} onChange={(e) => setCourse(e.target.value)} />
                                                                                 <p>Weight:<span className="badge bg-secondary">{desc.weight}</span></p>
@@ -291,4 +304,4 @@ const UpdateDonor = () => {
     )
 }
 
-export default UpdateDonor
+export default UpdateProfile
