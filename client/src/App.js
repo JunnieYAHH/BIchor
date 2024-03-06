@@ -22,6 +22,7 @@ import CreateEvent from './pages/admin/Event/CreateEvent';
 import UpdateEvent from './pages/admin/Event/UpdateEvent';
 import Incentives from './pages/user/Incentives';
 import UpdateProfile from './pages/user/UpdateProfile';
+import Gmaps from './pages/Gmaps';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
         <Route path='/user/insentives' element={<ProtectedRoutes><Incentives /></ProtectedRoutes>} />
         <Route path='/user/update-profile/:id' element={<ProtectedRoutes><UpdateProfile /></ProtectedRoutes>} />
+        <Route path='/google-map' element={<ProtectedRoutes><Gmaps /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />

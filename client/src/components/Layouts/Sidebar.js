@@ -79,7 +79,7 @@ const Sidebar = () => {
                             <Link to={'/user/insentives'} style={{ fontWeight: "bold" }}>Incentives</Link>
                         </li>
                         <li>
-                            <a href="/#" style={{ cursor: 'pointer', fontWeight: "bold" }}>Maps</a>
+                            <Link to={'/google-map'} style={{ cursor: 'pointer', fontWeight: "bold" }}>Maps</Link>
                         </li>
                     </ul>
                     <MDBModal tabIndex="-1" open={centredModal} setOpen={setCentredModal}>

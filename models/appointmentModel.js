@@ -8,9 +8,9 @@ const appointmentSchema = new mongoose.Schema({
     },
     bloodGroup: {
         type: String,
-        enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-','K'],
         required: function () {
-            if (this.appointmentType !== 'apply') {
+            if (this.appointmentType !== 'apply' && (!this.bloodGroup || this.bloodGroup.trim() === '')) {
+                this.enum = ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'K'];
                 return true;
             }
             return false;
@@ -19,11 +19,8 @@ const appointmentSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: function () {
-            if (this.appointmentType !== 'apply') {
-                return true;
-            }
-            return false;
-        },
+            return this.appointmentType !== 'apply';
+        }
     },
     email: {
         type: String,

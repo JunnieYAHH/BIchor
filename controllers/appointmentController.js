@@ -11,9 +11,6 @@ const createAppointment = async (req, res) => {
         if (!user) {
             throw new Error(`User not found`)
         }
-        if (appointmentType === 'out' && user.role !== 'clinic' && user.role !== 'user') {
-            throw new Error('Must be a patient or clinic')
-        }
 
         const userID = req.body.userID;
         const appointmentData = {

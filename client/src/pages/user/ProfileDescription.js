@@ -169,9 +169,8 @@ const ProfileDescription = () => {
                                                                         <MDBCardBody>
                                                                             <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
                                                                             <MDBCardText style={{ color: 'white' }}>
-                                                                                This is the photo that will be displayed on your Profile screen
                                                                             </MDBCardText>
-                                                                            <button href='#' className='btn btn-secondary'>Upload New</button> <button href='#' className='btn btn-danger'>Save</button>
+                                                                            <Link to={`/user/update-profile/${user._id}`} className='fa fa-pencil btn btn-secondary'/> <button href='#' className='btn btn-danger'>Save</button>
                                                                         </MDBCardBody>
                                                                     </MDBCard>
                                                                     <MDBCard className='my-3' style={{ backgroundColor: '#C24641' }}>
