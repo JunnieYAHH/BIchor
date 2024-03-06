@@ -4,25 +4,30 @@ const userModel = require('../models/userModel');
 //Create appointment
 const createAppointment = async (req, res) => {
     try {
-        const { email, inventoryType } = req.body
+        const { email, appointmentType } = req.body
         //validate
-        console.log(email)
+        console.log(email, appointmentType)
         const user = await userModel.findOne({ email })
         if (!user) {
             throw new Error(`User not found`)
         }
-        if (inventoryType === 'out' && user.role !== 'clinic' && user.role !== 'user') {
+        if (appointmentType === 'out' && user.role !== 'clinic' && user.role !== 'user') {
             throw new Error('Must be a patient or clinic')
         }
-        //save appoint
-        const appointment = new appointmentModel(req.body)
+
+        const userID = req.body.userID;
+        const appointmentData = {
+            ...req.body,
+            userID: userID
+        };
+
+        // Save the appointment
+        const appointment = new appointmentModel(appointmentData);
         await appointment.save();
         return res.status(201).send({
             success: true,
-            message: 'New Appartment Added'
+            message: 'New Appointment Added'
         })
-
-
     } catch (error) {
         console.log(error);
         return res.status(500).send({
