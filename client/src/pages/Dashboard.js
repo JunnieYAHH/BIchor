@@ -179,72 +179,76 @@ const Dashboard = () => {
                   <Col md={10} style={{ backgroundColor: '#191C24' }}>
                     <Row className="mb-4 " style={{ marginTop: '35px' }}>
                       <center>
-                        <p style={{fontWeight: 'bold', fontSize: 50, color: '#C11B17'}}>ADMIN DASHBOARD</p>
+                        <p style={{ fontWeight: 'bold', fontSize: 50, color: '#C11B17' }}>ADMIN DASHBOARD</p>
                       </center>
-                      <Col md={6} className="custom-card-column" style={{ height: '559px', width: '550px' }}> 
+                      <Col md={6} className="custom-card-column" style={{ height: '559px', width: '550px' }}>
                         <Card>
                           <CardBody>
                             <Row>
                               <Col>
-                              <Card style={{ backgroundColor: '#E41B17' }}>
+                                <Card style={{ backgroundColor: '#E41B17' }}>
                                   <CardBody>
-                                    <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Donors</CardTitle>
-                                    <div style={{ textAlign: 'center' }}>
-                                  Numbers of Donors
-                                  <p>{donorCount}</p>
-                                  <div>
-                                    <Row>
-                                      <Col>
-                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
-                                        <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
-                                      </Col>
-                                      <Col>
-                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
-                                        {highestGenders.includes('male') && <p>Male</p>}
-                                        {highestGenders.includes('female') && <p>Female</p>}
-                                      </Col>
-                                    </Row>
-                                  </div>
-                                </div>
-                                  </CardBody>                    
+                                    <CardTitle className="custom-card-title" style={{ textAlign: 'center', color: 'white' }}>Donors</CardTitle>
+                                    <div style={{ textAlign: 'center', backgroundColor: 'white', borderRadius: '10px' }}>
+                                      Numbers of Donors
+                                      <p>{donorCount}</p>
+                                      <div>
+                                        <Row>
+                                          <Col>
+                                            <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
+                                            <p style={{ fontSize: 'smaller' }}>{donorAppointmentsCount}</p>
+                                          </Col>
+                                          <Col>
+                                            <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Most Gender that Donates</a>
+                                            {highestGenders.includes('male') && <p>Male</p>}
+                                            {highestGenders.includes('female') && <p>Female</p>}
+                                          </Col>
+                                        </Row>
+                                      </div>
+                                    </div>
+                                  </CardBody>
                                 </Card>
                               </Col>
                               <Col>
-                              <Card style={{ backgroundColor: '#E41B17' }}>
+                                <Card style={{ backgroundColor: '#E41B17' }}>
                                   <CardBody>
-                                <CardTitle className="custom-card-title" style={{ textAlign: 'center' }}>Recipients</CardTitle>
-                                <div style={{ textAlign: 'center' }}>
-                                  Numbers of Recipients
-                                  <p>{recipientCount}</p>
-                                  <div>
-                                    <Row>
-                                      <Col>
-                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
-                                        <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
-                                      </Col>
-                                      <Col>
-                                        <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}> Most Gender that Receive</a>
-                                        {recipientHighestGenders.includes('male') && <p>Male</p>}
-                                        {recipientHighestGenders.includes('female') && <p>Female</p>}
-                                      </Col>
-                                    </Row>
-                                  </div>
-                                </div>
-                                </CardBody>                    
+                                    <CardTitle className="custom-card-title" style={{ textAlign: 'center', color: 'white' }}>Recipients</CardTitle>
+                                    <div style={{ textAlign: 'center', backgroundColor: 'white', borderRadius: '10px' }}>
+                                      Numbers of Recipients
+                                      <p>{recipientCount}</p>
+                                      <div>
+                                        <Row>
+                                          <Col>
+                                            <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}>Appointments</a>
+                                            <p style={{ fontSize: 'smaller' }}>{recipientAppointmentsCount}</p>
+                                          </Col>
+                                          <Col>
+                                            <a style={{ fontSize: 'smaller', fontWeight: 'bold' }}> Most Gender that Receive</a>
+                                            {recipientHighestGenders.includes('male') && <p>Male</p>}
+                                            {recipientHighestGenders.includes('female') && <p>Female</p>}
+                                          </Col>
+                                        </Row>
+                                      </div>
+                                    </div>
+                                  </CardBody>
                                 </Card>
                               </Col>
                             </Row>
                           </CardBody>
                         </Card>
-                        <Card> 
-                          <CardBody style={{ height: '300px', width: '550px' }}>
+                        <Card>
+                          <CardBody style={{ height: '310px', width: '524px' }}>
                             <Row>
-                              <Col style={{ height: '250px', width: '550 px' }}>
-                                <CardTitle className="custom-card-title">Genders of Donors</CardTitle>
+                              <Col style={{ height: '200px', width: '550 px' }}>
+                                <center>
+                                  <CardTitle className="custom-card-title" style={{ fontSize: '20px' }}>Genders of Donors</CardTitle>
+                                </center>
                                 <DonorGenderPieChart genderCounts={genderCounts} />
                               </Col>
-                              <Col style={{ height: '250px', width: '550 px' }}>
-                                <CardTitle className="custom-card-title">Genders of Recipients</CardTitle>
+                              <Col style={{ height: '200px', width: '550px' }}>
+                                <center>
+                                  <CardTitle className="custom-card-title" style={{ fontSize: '20px' }}>Genders of Recipients</CardTitle>
+                                </center>
                                 <RecipientGenderPieChart genderRecipientCounts={genderRecipientCounts} />
                               </Col>
                             </Row>
@@ -261,31 +265,31 @@ const Dashboard = () => {
                       </Col>
                     </Row>
                     <Row className='container-fluid my-1'>
-                    <Col md={12}>
-                      <center>
-                        <p style={{fontWeight: 'bold', fontSize: 50, color: '#C11B17'}}>Events Status</p>
-                        
-                      </center>
-                      <Row>
-                        <Col md={6} style={{ height: '525px', width: '525px' }}>
-                          <Card>
-                            <CardBody>
-                              <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
-                              <EventsStatusBarChart />
-                            </CardBody>
-                          </Card>
-                        </Col>
-                        <Col md={6} style={{ height: '550px', width: '550px' }}>
-                          <Card>
-                            <CardBody>
-                              <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
-                              <AppointmentTypeSimpleChart appointments={appointments} />
-                            </CardBody>
-                          </Card>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
+                      <Col md={12}>
+                        <center>
+                          <p style={{ fontWeight: 'bold', fontSize: 50, color: '#C11B17' }}>Events Status</p>
+
+                        </center>
+                        <Row>
+                          <Col md={6} style={{ height: '525px', width: '525px' }}>
+                            <Card>
+                              <CardBody>
+                                <CardTitle className="custom-card-title">Pending and Completed Events.</CardTitle>
+                                <EventsStatusBarChart />
+                              </CardBody>
+                            </Card>
+                          </Col>
+                          <Col md={6} style={{ height: '550px', width: '550px' }}>
+                            <Card>
+                              <CardBody>
+                                <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
+                                <AppointmentTypeSimpleChart appointments={appointments} />
+                              </CardBody>
+                            </Card>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Container>
