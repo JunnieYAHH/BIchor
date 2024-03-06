@@ -11,14 +11,14 @@ import {
 import InputType from '../../../components/Shared/Form/InputType';
 import Header from '../../../components/Layouts/Header';
 import Sidebar from '../../../components/Layouts/Sidebar';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import '../../../index.css';
 import axios from 'axios';
 
-const Campain = () => {
+const DonationPage = () => {
   const navigate = useNavigate();
   const [eventID, setEventId] = useState('');
   const [donateModal, setDonateModal] = useState(false);
@@ -108,10 +108,6 @@ const Campain = () => {
               <hr className="hr" style={{ height: 4, width: 1250, backgroundColor: 'black' }} />
               <hr className="hr" style={{ height: 4, width: 1250, backgroundColor: 'black' }} />
             </div>
-{/* 
-            <div style={{ textAlign: 'right', marginLeft: 300 }}>
-              <img src="./assets/images/donateicon.png" classname="img-fluid" alt="Wild Landscape" />
-            </div> */}
 
             <p className="fw-bold" style={{ fontSize: 45, textAlign: 'start', color: 'maroon', paddingLeft: '30px' }}>Donate Now</p>
 
@@ -192,7 +188,7 @@ const Campain = () => {
         </Row>
         <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
           <MDBModalDialog centered size="">
-            <MDBModalContent>
+            <MDBModalContent style={{ backgroundImage: `url('./assets/images/DONATION.png')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%' }}>
               <MDBModalHeader>
                 <MDBModalTitle >Donate</MDBModalTitle>
                 <MDBBtn
@@ -206,7 +202,10 @@ const Campain = () => {
                   <div className="d-flex">
                     <div name='eventID' value={eventID}></div>
                     <div name='clinicID' value={clinic}></div>
-                    Blood Type: &nbsp;
+                    <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                      BloodType:
+                    </span>
+                    <br/>
                     <div name='eventType-IN'
                       value={'in'}
                       onChange={(e) => setAppointmentType(e.target.value)}>
@@ -214,7 +213,6 @@ const Campain = () => {
                   </div>
                   {user && (
                     <>
-                      {/* <div name='userID' value={setUserID(user._id)}></div> */}
                       <select className="form-select"
                         aria-label="Default select example"
                         onChange={(e) => setBloodGroup(e.target.value)}
@@ -239,13 +237,21 @@ const Campain = () => {
                           </>
                         )}
                       </select>
-                      <InputType labelText="Email"
+                      <br/>
+                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                        Email:
+                      </span>
+                      <InputType
                         labelFor={'email'}
                         inputType={'email'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <InputType labelText="Quantity"
+                      <br/>
+                      <span className="badge bg-secondary" style={{ fontSize: '15px', display: 'inline-flex' }}>
+                        Quantity:
+                      </span>
+                      <InputType
                         labelFor={'quantity'}
                         inputType={'Number'}
                         value={quantity}
@@ -271,4 +277,4 @@ const Campain = () => {
   );
 };
 
-export default Campain;
+export default DonationPage;

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MDBContainer, MDBRow as Row, MDBCol as Col, MDBCard as Card, MDBCardBody as CardBody, MDBCardTitle as CardTitle, MDBInputGroup, MDBTextArea } from 'mdb-react-ui-kit';
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import axios from 'axios'
 
 const CreateEvent = () => {
@@ -36,6 +38,7 @@ const CreateEvent = () => {
             };
 
             const { data } = await axios.post(`${process.env.REACT_APP_BASEURL}/event/create-event`, evenDetails, config);
+            toast.success(data.message);
             setSuccess(data.success);
             navigate('/admin/events')
         } catch (error) {
@@ -85,7 +88,6 @@ const CreateEvent = () => {
                                                                 Create Event Form
                                                                 <Row style={{ backgroundColor: 'black', color: 'white' }}>
                                                                     <form encType="multipart/form-data">
-
                                                                         <center>
                                                                             <InputType labelText={'Title'}
                                                                                 labelFor={'forTitle'}
@@ -125,7 +127,7 @@ const CreateEvent = () => {
                                                                                     <option selected>Type: Select</option>
                                                                                     <option value="donation">Donation</option>
                                                                                     <option value="transfusion">Transfusion</option>
-                                                                                    <option value="campain">Campain</option>
+                                                                                    <option value="campaign">Campaign</option>
                                                                                 </select>
                                                                             </div>
                                                                             Input Image

@@ -24,9 +24,20 @@ const Header = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary header">
                 <div className="container-fluid">
                     <img src="./assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
-                    <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
-                        Blood Donation
-                    </Link>
+                    {user && user.role !== 'admin' && (
+                        <>
+                            <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
+                                Blood Donation
+                            </Link>
+                        </>
+                    )}
+                    {user && user.role === 'admin' && (
+                        <>
+                            <Link to="/dashboard" className="navbar-brand" style={{ color: 'black' }}>
+                                Dashboard
+                            </Link>
+                        </>
+                    )}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>

@@ -81,6 +81,9 @@ const Sidebar = () => {
                         <li>
                             <Link to={'/google-map'} style={{ cursor: 'pointer', fontWeight: "bold" }}>Maps</Link>
                         </li>
+                        <li>
+                            <Link to={'/blood/forum'} style={{ cursor: 'pointer', fontWeight: "bold" }}>Forum</Link>
+                        </li>
                     </ul>
                     <MDBModal tabIndex="-1" open={centredModal} setOpen={setCentredModal}>
                         <MDBModalDialog centered size="fullscreen">

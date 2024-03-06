@@ -20,7 +20,7 @@ const AdminHeader = () => {
                 <div className="container-fluid">
                     <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                     <Link to="/dashboard" className="navbar-brand" style={{ color: 'black' }}>
-                        Blood Donation
+                        Dashboard
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />

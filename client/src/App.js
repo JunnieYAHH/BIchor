@@ -10,7 +10,7 @@ import PublicRoutes from './components/Routes/PublicRoutes';
 import AdminProtectedRoutes from './components/Routes/AdminProtectedRoutes';
 import ProfileDescription from './pages/user/ProfileDescription';
 import DonationPage from './pages/user/Donation/DonationPage';
-import Transfusion from './pages/user/Transfusion/TransfusionPage';
+import TransfusionPage from './pages/user/Transfusion/TransfusionPage';
 import Campain from './pages/user/Campain/Campain';
 import Appointment from './pages/admin/Appointment/Appointment';
 import UpdateAppointment from './pages/admin/Appointment/UpdateAppointment';
@@ -23,6 +23,7 @@ import UpdateEvent from './pages/admin/Event/UpdateEvent';
 import Incentives from './pages/user/Incentives';
 import UpdateProfile from './pages/user/UpdateProfile';
 import Gmaps from './pages/Gmaps';
+import Forum from './pages/Forum';
 
 function App() {
   return (
@@ -33,11 +34,12 @@ function App() {
         <Route path='/' element={<ProtectedRoutes><HomePage /></ProtectedRoutes>} />
         <Route path='/profileDescription' element={<ProtectedRoutes><ProfileDescription /></ProtectedRoutes>} />
         <Route path='/donationPage' element={<ProtectedRoutes><DonationPage /></ProtectedRoutes>} />
-        <Route path='/transfusionPage' element={<ProtectedRoutes><Transfusion /></ProtectedRoutes>} />
+        <Route path='/transfusionPage' element={<ProtectedRoutes><TransfusionPage /></ProtectedRoutes>} />
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
         <Route path='/user/insentives' element={<ProtectedRoutes><Incentives /></ProtectedRoutes>} />
         <Route path='/user/update-profile/:id' element={<ProtectedRoutes><UpdateProfile /></ProtectedRoutes>} />
         <Route path='/google-map' element={<ProtectedRoutes><Gmaps /></ProtectedRoutes>} />
+        <Route path='/blood/forum' element={<ProtectedRoutes><Forum /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />

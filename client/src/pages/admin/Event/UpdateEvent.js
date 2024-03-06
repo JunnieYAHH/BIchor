@@ -12,6 +12,8 @@ import {
 } from 'mdb-react-ui-kit';
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import '../../../index.css'
 
 const UpdateEvent = () => {
@@ -74,7 +76,8 @@ const UpdateEvent = () => {
             };
 
             const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/event/update-event/${id}`, formData, config);
-            console.log(data)
+            // console.log(data)
+            toast.success(data.message)
             setSuccess(data.success);
             window.location.reload();
         } catch (error) {
@@ -191,7 +194,7 @@ const UpdateEvent = () => {
                                                                     <option selected>Type: Select</option>
                                                                     <option value="donation">Donation</option>
                                                                     <option value="transfusion">Transfusion</option>
-                                                                    <option value="campain">Campain</option>
+                                                                    <option value="campaign">Campaign</option>
                                                                 </select>
                                                             </div>
                                                             Input Image

@@ -34,7 +34,7 @@ const EventsStatusBarChart = () => {
         return { eventType, pendingCount, completedCount };
     };
 
-    const eventData = ['campain', 'donation', 'transfusion'].map(eventType => countEventsByStatus(eventType));
+    const eventData = ['campaign', 'donation', 'transfusion'].map(eventType => countEventsByStatus(eventType));
 
     return (
         <ResponsiveContainer width="100%" height={400}>
