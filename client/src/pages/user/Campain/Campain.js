@@ -18,10 +18,10 @@ import '../../../index.css';
 import axios from 'axios';
 
 const rows = [
-  { marginLeft: '850px', marginRight: '500px' },
+  { marginLeft: '700px', marginRight: '500px' },
   { marginLeft: '200px', marginRight: '500px' },
   { marginLeft: '200px', marginRight: '500px' },
-  { marginLeft: '850px', marginRight: '500px' },
+  { marginLeft: '700px', marginRight: '500px' },
   { marginLeft: '200px', marginRight: '500px' },
   { marginLeft: '200px', marginRight: '500px' }
 ];
