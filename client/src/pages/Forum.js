@@ -78,7 +78,7 @@ const Forum = () => {
                             </div>
                             <Col md={10} className='my-3'>
                                 <Card style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', color: 'white', backgroundColor: 'black', borderRadius: '20px' }}>
-                                    HERE IS THE PICTURE
+                                    <img src="../assets/images/TUP1.jpg" classname="img-fluid my-3" alt="banner" style={{ width: '90%', height: '50%', objectFit: 'cover' }} />
                                     <center>
                                         <Row className='my-4'>
                                             <Col style={{ width: '300px' }}>
@@ -87,11 +87,11 @@ const Forum = () => {
                                                         <Col>
                                                             <Row>
                                                                 <Col>
-                                                                    The
+                                                                    <i class="fa-solid fa-book-medical" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    Forum
-                                                                    <p>1</p>
+                                                                    The
+                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Pad</h4>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -104,11 +104,11 @@ const Forum = () => {
                                                         <Col>
                                                             <Row>
                                                                 <Col>
-                                                                    The
+                                                                    <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    Forum
-                                                                    <p>2</p>
+                                                                    The
+                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -121,11 +121,11 @@ const Forum = () => {
                                                         <Col>
                                                             <Row>
                                                                 <Col>
-                                                                    The
+                                                                    <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    Forum
-                                                                    <p>3</p>
+                                                                    About
+                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -134,42 +134,67 @@ const Forum = () => {
                                             </Col>
                                         </Row>
                                     </center>
-                                    <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's   _______________________________________________________________________________________________________</p>
+                                    <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's   ________________________________________________________________________________________________________________________________________</p>
                                     <Card style={{ backgroundColor: 'gray', color: 'white', width: '90%' }}>
                                         <Row>
                                             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                                                 <Row>
                                                     <Col>
-                                                        <Row>
-                                                            <Col>here is the pic of the little 1</Col>
-                                                            <Col>it's content</Col>
+                                                        <Row className='my-4'>
+                                                            <Col>
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                            </Col>
+                                                            <Col>
+                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
+                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                            </Col>
                                                         </Row>
-                                                        <Row>
-                                                            <Col>here is the pic of the little 2</Col>
-                                                            <Col>it's content</Col>
+                                                        <Row className='my-4'>
+                                                            <Col>
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                            </Col>
+                                                            <Col>
+                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
+                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                            </Col>
                                                         </Row>
-                                                        <Row>
-                                                            <Col>here is the pic of the little 3</Col>
-                                                            <Col>it's content</Col>
+                                                        <Row className='my-4'>
+                                                            <Col>
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                            </Col>
+                                                            <Col>
+                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
+                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                            </Col>
                                                         </Row>
-                                                        <Row>
-                                                            <Col>here is the pic of the little 4</Col>
-                                                            <Col>it's content</Col>
+                                                        <Row className='my-4'>
+                                                            <Col>
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                            </Col>
+                                                            <Col>
+                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
+                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                            </Col>
                                                         </Row>
+                                                        
                                                     </Col>
                                                 </Row>
                                             </Col>
                                             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-                                                <Row>
-                                                    <Col>
-                                                        <Row>
-                                                            here is the pic of the little 5
-                                                        </Row>
-                                                        <Row>
-                                                            Its content
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
+                                                <Card style={{ color: 'white', width: '90%' }}>
+                                                    <Row>
+                                                        <Col style={{ backgroundColor: 'gray' }}>
+                                                            <Row style={{ backgroundColor: 'gray' }}>
+                                                                <img src="../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '90%', height: '50%', objectFit: 'cover', borderRadius: '40px' }} />
+                                                            </Row>
+                                                            <Row className='my-3' style={{ backgroundColor: 'gray' }}>
+                                                                <Card>
+                                                                    Look at yourself and feel the thing that is flowing within. The component of life that continuously runs through your vines, giving us energy and life. There was a day when public health was encouraged to donate blood and help the other people who were in need regarding what they needed. Blood is a critical component that is required in healthcare institutions to save lives, yet there is still a global shortage of blood donors which has a major impact on the medical field.
+                                                                </Card>
+                                                            </Row>
+                                                        </Col>
+                                                    </Row>
+                                                </Card>
                                             </Col>
                                         </Row>
                                     </Card>
