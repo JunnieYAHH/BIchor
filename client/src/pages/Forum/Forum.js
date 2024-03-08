@@ -9,9 +9,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../App.css';
-import '../index.css';
-import Sidebar from '../components/Layouts/Sidebar';
+import '../../App.css';
+import '../../index.css';
+import Sidebar from '../../components/Layouts/Sidebar';
 
 const Forum = () => {
     const location = useLocation();
@@ -90,8 +90,10 @@ const Forum = () => {
                                                                     <i class="fa-solid fa-book-medical" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Pad</h4>
+                                                                    <Link to='/blood/forum/the-pad' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                        The
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Pad</h4>
+                                                                    </Link>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -134,7 +136,7 @@ const Forum = () => {
                                             </Col>
                                         </Row>
                                     </center>
-                                    <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's   ________________________________________________________________________________________________________________________________________</p>
+                                    <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's _______________________________________________________________________________________________________________</p>
                                     <Card style={{ backgroundColor: 'gray', color: 'white', width: '90%' }}>
                                         <Row>
                                             <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
@@ -142,41 +144,41 @@ const Forum = () => {
                                                     <Col>
                                                         <Row className='my-4'>
                                                             <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
                                                             </Col>
                                                             <Col>
-                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
-                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
+                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
                                                             </Col>
                                                         </Row>
                                                         <Row className='my-4'>
                                                             <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
                                                             </Col>
                                                             <Col>
-                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
-                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
+                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
                                                             </Col>
                                                         </Row>
                                                         <Row className='my-4'>
                                                             <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
                                                             </Col>
                                                             <Col>
-                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
-                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
+                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
                                                             </Col>
                                                         </Row>
                                                         <Row className='my-4'>
                                                             <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius:'40px' }} />
+                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
                                                             </Col>
                                                             <Col>
-                                                                <p style={{fontSize:'12px', fontWeight: 'bold'}}>User1@gmail.com</p>
-                                                                <p style={{fontSize:'11px', fontWeight:'lighter'}}>comment: <a>Here we GO!!</a></p>
+                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
+                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
                                                             </Col>
                                                         </Row>
-                                                        
+
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -200,10 +202,10 @@ const Forum = () => {
                                     </Card>
                                 </Card>
                             </Col>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </div >
+                    </div >
+                </div >
+            </div >
         </>
     )
 }

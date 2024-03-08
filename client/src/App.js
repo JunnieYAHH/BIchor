@@ -23,7 +23,11 @@ import UpdateEvent from './pages/admin/Event/UpdateEvent';
 import Incentives from './pages/user/Incentives';
 import UpdateProfile from './pages/user/UpdateProfile';
 import Gmaps from './pages/Gmaps';
-import Forum from './pages/Forum';
+import Forum from './pages/Forum/Forum';
+import ThePad from './pages/Forum/ThePad';
+import HowToDonate from './pages/Forum/Pad/HowToDonate';
+import HowToTransfuse from './pages/Forum/Pad/HowToTransfuse';
+import TheIncentives from './pages/Forum/Pad/TheIncentives';
 
 function App() {
   return (
@@ -40,6 +44,10 @@ function App() {
         <Route path='/user/update-profile/:id' element={<ProtectedRoutes><UpdateProfile /></ProtectedRoutes>} />
         <Route path='/google-map' element={<ProtectedRoutes><Gmaps /></ProtectedRoutes>} />
         <Route path='/blood/forum' element={<ProtectedRoutes><Forum /></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad' element={<ProtectedRoutes><ThePad /></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad/how-to-donate' element={<ProtectedRoutes><HowToDonate /></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad/how-to-transfuse' element={<ProtectedRoutes><HowToTransfuse/></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad/what-is-the-incentives' element={<ProtectedRoutes><TheIncentives/></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
