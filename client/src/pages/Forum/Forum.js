@@ -322,6 +322,7 @@ const Forum = () => {
                                                                                 <i className="fa-solid fa-paper-plane" style={{ cursor: 'pointer' }} onClick={() => createComment(event._id)}></i>
                                                                             </span>
                                                                         </div>
+                                                                        <p className='px-4' style={{fontWeight:'bolder'}}>Comments:</p>
                                                                         <Card className="mb-3 px-4" style={{ width: '90%', marginLeft: '30px', backgroundColor: 'gray' }}>
                                                                             {event.comment && event.comment.map((comment, commentIndex) => {
                                                                                 const user = users.find(user => user._id === comment.userID);
@@ -337,7 +338,7 @@ const Forum = () => {
                                                                                                             <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '95px' }}>{user ? user.email : 'Unknown'}</p>
                                                                                                             <Card className='px-4' key={commentIndex} style={{ backgroundColor: 'white', wordWrap: 'break-word', minWidth: '100px', maxWidth: '400px' }}>
                                                                                                                 <div>
-                                                                                                                    <p className='my-10' style={{ fontSize: '12px' }}>Comment: {comment.detail}</p>
+                                                                                                                    <p className='my-10' style={{ fontSize: '12px' }}> {comment.detail}</p>
                                                                                                                 </div>
                                                                                                             </Card>
                                                                                                             {comment.image && comment.image.map((image, imageIndex) => (
