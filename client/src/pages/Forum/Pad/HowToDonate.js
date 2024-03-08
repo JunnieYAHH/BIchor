@@ -91,9 +91,9 @@ const HowToDonate = () => {
                                                                     <i class="fa-solid fa-book-medical" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    <Link to={'/blood/forum/the-pad'} style={{ textDecoration: 'none', color: 'white' }}>
+                                                                    <Link to={'/blood/forum'} style={{ textDecoration: 'none', color: 'white' }}>
                                                                         The
-                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Pad</h4>
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Forum</h4>
                                                                     </Link>
                                                                 </Col>
                                                             </Row>

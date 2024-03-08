@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import {
     MDBRow as Row,
     MDBCol as Col,
@@ -6,12 +6,13 @@ import {
     MDBCardBody as CardBody,
 } from 'mdb-react-ui-kit';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Sidebar from '../../components/Layouts/Sidebar';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../../App.css';
 import '../../index.css';
-import Sidebar from '../../components/Layouts/Sidebar';
+import '../../App.css';
+import axios from 'axios'
 
 const Forum = () => {
     const location = useLocation();
@@ -25,6 +26,34 @@ const Forum = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
+
+    const [events, setEvents] = useState([]);
+    const [error, setError] = useState('');
+    const token = localStorage.getItem('token');
+    // console.log(events)
+
+
+    useEffect(() => {
+        const getAllEvents = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
+                setEvents(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        getAllEvents();
+    }, [token]);
+
+
+
     return (
         <>
             <header className='header'>

@@ -15,7 +15,7 @@ const Event = () => {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState('');
     const token = localStorage.getItem('token');
-    console.log(events)
+    // console.log(events)
 
 
     useEffect(() => {
