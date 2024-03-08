@@ -64,7 +64,11 @@ const Campain = () => {
 
   useEffect(() => {
     getAllEvents();
-  }, []);
+    if (user && user._id) {
+      setUserID(user._id);
+    }
+  }, [error]);
+
 
   const createNewAppointment = async (newAppointment) => {
     try {
@@ -224,7 +228,7 @@ const Campain = () => {
                         <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
                           Email:
                         </span>
-                        <InputType 
+                        <InputType
                           labelFor={'email'}
                           inputType={'email'}
                           value={email}

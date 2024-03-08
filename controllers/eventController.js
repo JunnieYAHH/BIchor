@@ -123,4 +123,53 @@ const updateEvent = async (req, res) => {
     }
 }
 
-module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent };
+const eventAddComment = async (req, res) => {
+    try {
+
+        const eventID = req.body.eventID;
+        const { userID, detail } = req.body;
+        // console.log(req.files)
+        // Handle multiple file uploads
+        if (req.files && req.files.length > 0) {
+            const imageData = [];
+
+            for (const file of req.files) {
+                const result = await cloudinary.v2.uploader.upload(file.path, {
+                    folder: 'Blood/events/comments',
+                    width: 150,
+                    crop: "scale"
+                });
+
+                imageData.push({ public_id: result.public_id, url: result.secure_url });
+            }
+
+            addedComment = {
+                eventID: eventID,
+                userID: userID,
+                detail: detail,
+                image: imageData
+            };
+            const newComment = await eventModel.findByIdAndUpdate(eventID, {
+                $push: { comment: addedComment }
+            }, { new: true });
+            console.log(newComment);
+            res.status(200).json({ success: true, message: 'The Comment Was Added', comment: newComment.comment });
+        } else {
+            addedComment = {
+                eventID: eventID,
+                userID: userID,
+                detail: detail
+            };
+            const newComment = await eventModel.findByIdAndUpdate(eventID, {
+                $push: { comment: addedComment }
+            }, { new: true });
+            console.log(newComment);
+            res.status(200).json({ success: true, message: 'The Comment Was Added', comment: newComment.comment });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Your Added Comment Failed ' });
+    }
+}
+
+module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent, eventAddComment };

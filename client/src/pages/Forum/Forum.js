@@ -19,19 +19,64 @@ const Forum = () => {
     const isLoginPage = location.pathname === '/login';
     const isRegisterPage = location.pathname === '/register';
     const isHomePage = location.pathname === '/';
-    const { user } = useSelector(state => state.user)
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.clear()
         toast.success('Logout Success')
         navigate('/login')
     }
-
+    const { user } = useSelector(state => state.user)
     const [events, setEvents] = useState([]);
-    const [error, setError] = useState('');
-    const token = localStorage.getItem('token');
-    // console.log(events)
+    const [users, setUsers] = useState([]);
 
+
+    //Add COmment
+    // const [userID, setUserID] = useState('');
+    // const [eventID, setEventId] = useState('');
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [comments, setComments] = useState(Array(events.length).fill(''));
+    const handleCommentChange = (index, value) => {
+        setComments(prevComments => {
+            const newComments = [...prevComments];
+            newComments[index] = value;
+            return newComments;
+        });
+    };
+    // Set Error and success
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const token = localStorage.getItem('token');
+    // const toggleOpen = (eventId, userId) => {
+    //     setEventId(eventId);
+    //     setUserID(userId);
+    // };
+
+    // console.log(userID, 'this is user id')
+    console.log(events, 'this is event')
+    // console.log(selectedFiles)
+    // console.log(comments)
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month} ${day}, ${year}`;
+    };
+
+    // console.log(user)
+
+    const [showFileInputs, setShowFileInputs] = useState(Array(events.length).fill(false));
+
+    const toggleFileInput = (index) => {
+        const updatedShowFileInputs = [...showFileInputs];
+        updatedShowFileInputs[index] = !updatedShowFileInputs[index];
+        setShowFileInputs(updatedShowFileInputs);
+    };
+
+    const onChange = (e) => {
+        setSelectedFiles(e.target.files);
+    };
 
     useEffect(() => {
         const getAllEvents = async () => {
@@ -50,9 +95,64 @@ const Forum = () => {
         };
 
         getAllEvents();
+
+        // if (user && user._id) {
+        //     setUserID(user._id);
+        // }
+
+        const getAllUsers = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/user/getAllUsers`, config);
+                setUsers(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        getAllUsers();
+
     }, [token]);
 
+    const createNewComment = async (commentData) => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
 
+            const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/event/create-comment`, commentData, config);
+            setSuccess(data.success);
+            toast.success(data.message);
+            window.location.reload();
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
+    const createComment = (eventID) => {
+        // e.preventDefault();
+        // console.log(user._id)
+        const formData = new FormData();
+
+        formData.append('userID', user._id);
+        formData.append('eventID', eventID);
+        formData.append('detail', comments);
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append('image', selectedFiles[i]);
+            // console.log(selectedFiles[i])
+        }
+
+        createNewComment(formData)
+
+    };
 
     return (
         <>
@@ -166,66 +266,98 @@ const Forum = () => {
                                         </Row>
                                     </center>
                                     <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's _______________________________________________________________________________________________________________</p>
-                                    <Card style={{ backgroundColor: 'gray', color: 'white', width: '90%' }}>
+                                    <Card className='px-4' style={{ backgroundColor: 'white', color: 'white', width: '90%' }}>
+                                        <img src="../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '20%', height: '20%', objectFit: 'cover', borderRadius: '100px' }} />
                                         <Row>
-                                            <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+                                            <Col style={{ justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                                                 <Row>
                                                     <Col>
-                                                        <Row className='my-4'>
-                                                            <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
-                                                            </Col>
-                                                            <Col>
-                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
-                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className='my-4'>
-                                                            <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
-                                                            </Col>
-                                                            <Col>
-                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
-                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className='my-4'>
-                                                            <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
-                                                            </Col>
-                                                            <Col>
-                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
-                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className='my-4'>
-                                                            <Col>
-                                                                <img src="../assets/images/imgDef.png" classname="img-fluid my-3" alt="banner" style={{ width: '40%', height: '100%', objectFit: 'cover', borderRadius: '40px' }} />
-                                                            </Col>
-                                                            <Col>
-                                                                <p style={{ fontSize: '12px', fontWeight: 'bold' }}>User1@gmail.com</p>
-                                                                <p style={{ fontSize: '11px', fontWeight: 'lighter' }}>comment: <a>Here we GO!!</a></p>
-                                                            </Col>
-                                                        </Row>
-
-                                                    </Col>
+                                                        {events
+                                                            .filter(event => event.status === "pending")
+                                                            .map((event, index) => (
+                                                                <form encType="multipart/form-data" onSubmit={createComment}>
+                                                                    <Card className='my-2' style={{ backgroundColor: 'red', width: '75%' }} key={index}>
+                                                                        <Row className='my-4'>
+                                                                            <Col>
+                                                                                <Card className='px-4' style={{ backgroundColor: 'white', width: '90%', marginLeft: '30px' }}>
+                                                                                    <div style={{ marginLeft: '20px' }}>
+                                                                                        <p style={{ fontSize: '14px', fontWeight: 'bold' }}>{event.title} <a style={{ fontSize: '10px', fontWeight: 'lighter' }}>{formatDate(event.date)}</a></p>
+                                                                                        <div style={{ width: '100px', height: '100px', overflow: 'hidden', borderRadius: '50%' }}>
+                                                                                            <img src={event.images[0].url} className="img-fluid" alt="banner" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+                                                                                        </div>
+                                                                                        <p style={{ fontSize: '12px', fontWeight: 'lighter' }}>{event.details}</p>
+                                                                                    </div>
+                                                                                </Card>
+                                                                            </Col>
+                                                                        </Row>
+                                                                        {showFileInputs[index] && (
+                                                                            <input
+                                                                                type='file'
+                                                                                name='avaimagestar'
+                                                                                className="form-control"
+                                                                                id='customFile'
+                                                                                style={{ fontSize: '12px', width: '90%', marginLeft: '30px' }}
+                                                                                onChange={onChange}
+                                                                                multiple
+                                                                            />
+                                                                        )}
+                                                                        <div className="input-group mb-3" style={{ width: '90%', marginLeft: '30px' }}>
+                                                                            <Card>
+                                                                                {user && user.description && user.description.length > 0 && user.description[0].avatar && user.description[0].avatar.length > 0 && (
+                                                                                    <img src={user.description[0].avatar[0].url} className="img-fluid" alt="avatar" style={{ width: '30px', height: '30px', objectFit: 'cover', borderRadius: '50%' }} />
+                                                                                )}
+                                                                            </Card>
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                placeholder="Comment"
+                                                                                aria-label="Username"
+                                                                                aria-describedby="basic-addon1"
+                                                                                value={comments[index]}
+                                                                                onChange={(e) => handleCommentChange(index, e.target.value)}
+                                                                                style={{ fontSize: '12px' }}
+                                                                            />
+                                                                            <span className="input-group-text" id="basic-addon1">
+                                                                                <i className="fa-solid fa-file px-4" style={{ cursor: 'pointer' }} onClick={() => toggleFileInput(index)}></i>
+                                                                                <i className="fa-solid fa-paper-plane" style={{ cursor: 'pointer' }} onClick={() => createComment(event._id)}></i>
+                                                                            </span>
+                                                                        </div>
+                                                                        <Card className="mb-3 px-4" style={{ width: '90%', marginLeft: '30px', backgroundColor: 'gray' }}>
+                                                                            {event.comment && event.comment.map((comment, commentIndex) => {
+                                                                                const user = users.find(user => user._id === comment.userID);
+                                                                                return (
+                                                                                    <>
+                                                                                        <div>
+                                                                                            {user && user.description && user.description[0].avatar && user.description[0].avatar[0] && (
+                                                                                                <>
+                                                                                                    <Row>
+                                                                                                        <Col>
+                                                                                                            <img src={user.description[0].avatar[0].url} alt="User Avatar" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '50%' }} />
+                                                                                                            <a className='px-1' style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black' }}>{user ? user.name : 'Unknown'}</a>
+                                                                                                            <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '95px' }}>{user ? user.email : 'Unknown'}</p>
+                                                                                                            <Card className='px-4' key={commentIndex} style={{ backgroundColor: 'white', wordWrap: 'break-word', minWidth: '100px', maxWidth: '400px' }}>
+                                                                                                                <div>
+                                                                                                                    <p className='my-10' style={{ fontSize: '12px' }}>Comment: {comment.detail}</p>
+                                                                                                                </div>
+                                                                                                            </Card>
+                                                                                                            {comment.image && comment.image.map((image, imageIndex) => (
+                                                                                                                <img key={imageIndex} src={image.url} className="img-fluid" alt="avatar" style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
+                                                                                                            ))}
+                                                                                                        </Col>
+                                                                                                    </Row>
+                                                                                                    <hr style={{ borderTop: '2px solid black', margin: '20px 0' }} />
+                                                                                                </>
+                                                                                            )}
+                                                                                        </div>
+                                                                                    </>
+                                                                                );
+                                                                            })}
+                                                                        </Card>
+                                                                    </Card>
+                                                                </form>
+                                                            ))}
+                                                    </Col >
                                                 </Row>
-                                            </Col>
-                                            <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-                                                <Card style={{ color: 'white', width: '90%' }}>
-                                                    <Row>
-                                                        <Col style={{ backgroundColor: 'gray' }}>
-                                                            <Row style={{ backgroundColor: 'gray' }}>
-                                                                <img src="../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '90%', height: '50%', objectFit: 'cover', borderRadius: '40px' }} />
-                                                            </Row>
-                                                            <Row className='my-3' style={{ backgroundColor: 'gray' }}>
-                                                                <Card>
-                                                                    Look at yourself and feel the thing that is flowing within. The component of life that continuously runs through your vines, giving us energy and life. There was a day when public health was encouraged to donate blood and help the other people who were in need regarding what they needed. Blood is a critical component that is required in healthcare institutions to save lives, yet there is still a global shortage of blood donors which has a major impact on the medical field.
-                                                                </Card>
-                                                            </Row>
-                                                        </Col>
-                                                    </Row>
-                                                </Card>
                                             </Col>
                                         </Row>
                                     </Card>

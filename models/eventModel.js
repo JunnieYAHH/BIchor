@@ -44,6 +44,35 @@ const eventSchema = new mongoose.Schema({
         ref: "user",
         required: [true, 'Clinic ID Required'],
     },
+    comment: [
+        {
+            userID: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "user",
+            },
+            eventID: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "event",
+            },
+            detail: {
+                type: String,
+            },
+            image: [
+                {
+                    public_id: {
+                        type: String,
+                    },
+                    url: {
+                        type: String,
+                    }
+                }
+            ],
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 }, { timestamps: true });
 
 module.exports = mongoose.model('event ', eventSchema)
