@@ -53,7 +53,7 @@ const Forum = () => {
     // };
 
     // console.log(userID, 'this is user id')
-    console.log(events, 'this is event')
+    // console.log(events, 'this is event')
     // console.log(selectedFiles)
     // console.log(comments)
 
@@ -77,6 +77,13 @@ const Forum = () => {
     };
     const onChange = (e) => {
         setSelectedFiles(e.target.files);
+    };
+    //Comment Handling
+    const [showCommentInput, setShowCommentInput] = useState(Array(events.length).fill(false));
+    const toggleShowComment = (index) => {
+        const letShowComment = [...showCommentInput];
+        letShowComment[index] = !letShowComment[index];
+        setShowCommentInput(letShowComment);
     };
 
     //GET DATA
@@ -340,53 +347,59 @@ const Forum = () => {
                                                                             />
                                                                             <span className="input-group-text" id="basic-addon1">
                                                                                 <i className="fa-solid fa-file px-4" style={{ cursor: 'pointer' }} onClick={() => toggleFileInput(index)}></i>
-                                                                                <i className="fa-solid fa-paper-plane" style={{ cursor: 'pointer' }} onClick={() => createComment(event._id)}></i>
+                                                                                <i className="fa-solid fa-paper-plane" style={{ cursor: 'pointer', marginRight: '20px' }} onClick={() => createComment(event._id)}></i>
+                                                                                <i class="fa-solid fa-comment" style={{ cursor: 'pointer' }} onClick={() => toggleShowComment(index)}></i>
                                                                             </span>
                                                                         </div>
-                                                                        <p className='px-4' style={{ fontWeight: 'bolder' }}>Comments:</p>
-                                                                        <Card className="mb-3 px-4" style={{ width: '90%', marginLeft: '30px', backgroundColor: 'gray' }}>
-                                                                            {event.comment && event.comment.map((comment, commentIndex) => {
-                                                                                const user = users.find(user => user._id === comment.userID);
-                                                                                console.log('loggedInUserID:', loggedInUserID);
-                                                                                const isCurrentUserComment = user && user._id === loggedInUserID;
-                                                                                // console.log('User ID:', isCurrentUserComment);
-                                                                                // console.log('Comment User ID:', comment.userID);
-                                                                                return (
-                                                                                    <>
-                                                                                        <div>
-                                                                                            {user && user.description && user.description[0].avatar && user.description[0].avatar[0] && (
-                                                                                                <>
-                                                                                                    <Row>
-                                                                                                        <Col xs={6}>
-                                                                                                            <img src={user.description[0].avatar[0].url} alt="User Avatar" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '50%' }} />
-                                                                                                            <a className='px-1' style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black' }}>{user ? user.name : 'Unknown'}</a>
-
-                                                                                                            {isCurrentUserComment && ( // Render trash icon only if the comment belongs to the current user
-                                                                                                                <i className="fa-solid fa-trash " style={{ cursor: 'pointer', color: '#370e0e' }} onClick={() => deleteComment(event._id, comment._id)} ></i>
-                                                                                                            )}
-                                                                                                        </Col>
-                                                                                                    </Row>
-                                                                                                    <Row>
-                                                                                                        <Col>
-                                                                                                            <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '125px' }}>{user ? user.email : 'Unknown'}</p>
-                                                                                                            <Card className='px-4' key={commentIndex} style={{ backgroundColor: 'white', wordWrap: 'break-word', minWidth: '100px', maxWidth: '400px' }}>
-                                                                                                                <div>
-                                                                                                                    <p className='my-10' style={{ fontSize: '12px' }}> {comment.detail}</p>
-                                                                                                                </div>
-                                                                                                            </Card>
-                                                                                                            {comment.image && comment.image.map((image, imageIndex) => (
-                                                                                                                <img key={imageIndex} src={image.url} className="img-fluid" alt="avatar" style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
-                                                                                                            ))}
-                                                                                                        </Col>
-                                                                                                    </Row>
-                                                                                                    <hr style={{ borderTop: '2px solid black', margin: '20px 0' }} />
-                                                                                                </>
-                                                                                            )}
-                                                                                        </div>
-                                                                                    </>
-                                                                                );
-                                                                            })}
-                                                                        </Card>
+                                                                        {showCommentInput[index] && (
+                                                                            <>
+                                                                                <p className='px-4' style={{ fontWeight: 'bolder' }}>Comments:</p>
+                                                                                <Card className="mb-3 px-4" style={{ width: '90%', marginLeft: '30px', backgroundColor: 'gray' }}>
+                                                                                    {event.comment && event.comment.map((comment, commentIndex) => {
+                                                                                        const user = users.find(user => user._id === comment.userID);
+                                                                                        console.log('loggedInUserID:', loggedInUserID);
+                                                                                        const isCurrentUserComment = user && user._id === loggedInUserID;
+                                                                                        // console.log('User ID:', isCurrentUserComment);
+                                                                                        // console.log('Comment User ID:', comment.userID);
+                                                                                        return (
+                                                                                            <>
+                                                                                                <div>
+                                                                                                    {user && user.description && user.description[0].avatar && user.description[0].avatar[0] && (
+                                                                                                        <>
+                                                                                                            <Row>
+                                                                                                                <Col xs={6}>
+                                                                                                                    <img src={user.description[0].avatar[0].url} alt="User Avatar" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '50%' }} />
+                                                                                                                    <a className='px-1' style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black' }}>{user ? user.name : 'Unknown'}</a>
+                                                                                                                </Col>
+                                                                                                            </Row>
+                                                                                                            <Row>
+                                                                                                                <Col>
+                                                                                                                    <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '125px' }}>{user ? user.email : 'Unknown'}</p>
+                                                                                                                    <Card className='px-2' key={commentIndex} style={{ backgroundColor: 'white', wordWrap: 'break-word', minWidth: '100px', maxWidth: '400px' }}>
+                                                                                                                        <div>
+                                                                                                                            <p className='my-10' style={{ fontSize: '12px' }}>{comment.detail}
+                                                                                                                                {isCurrentUserComment && ( // Render trash icon only if the comment belongs to the current user
+                                                                                                                                    <i className="fa-solid fa-trash " style={{ cursor: 'pointer', color: '#370e0e', marginLeft: '400px', fontSize: '12px' }} onClick={() => deleteComment(event._id, comment._id)} ></i>
+                                                                                                                                )}
+                                                                                                                            </p>
+                                                                                                                        </div>
+                                                                                                                    </Card>
+                                                                                                                    {comment.image && comment.image.map((image, imageIndex) => (
+                                                                                                                        <img key={imageIndex} src={image.url} className="img-fluid" alt="avatar" style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
+                                                                                                                    ))}
+                                                                                                                    {/* reply */}
+                                                                                                                </Col>
+                                                                                                            </Row>
+                                                                                                            <hr style={{ borderTop: '2px solid black', margin: '20px 0' }} />
+                                                                                                        </>
+                                                                                                    )}
+                                                                                                </div>
+                                                                                            </>
+                                                                                        );
+                                                                                    })}
+                                                                                </Card>
+                                                                            </>
+                                                                        )}
                                                                     </Card>
                                                                 </form>
                                                             ))}

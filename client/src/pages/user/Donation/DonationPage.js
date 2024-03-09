@@ -205,7 +205,7 @@ const DonationPage = () => {
                     <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
                       BloodType:
                     </span>
-                    <br/>
+                    <br />
                     <div name='eventType-IN'
                       value={'in'}
                       onChange={(e) => setAppointmentType(e.target.value)}>
@@ -237,7 +237,7 @@ const DonationPage = () => {
                           </>
                         )}
                       </select>
-                      <br/>
+                      <br />
                       <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
                         Email:
                       </span>
@@ -247,7 +247,7 @@ const DonationPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <br/>
+                      <br />
                       <span className="badge bg-secondary" style={{ fontSize: '15px', display: 'inline-flex' }}>
                         Quantity:
                       </span>

@@ -28,6 +28,7 @@ import ThePad from './pages/Forum/ThePad';
 import HowToDonate from './pages/Forum/Pad/HowToDonate';
 import HowToTransfuse from './pages/Forum/Pad/HowToTransfuse';
 import TheIncentives from './pages/Forum/Pad/TheIncentives';
+import EditAppointment from './pages/user/Appointment/EditAppointment';
 
 function App() {
   return (
@@ -46,8 +47,9 @@ function App() {
         <Route path='/blood/forum' element={<ProtectedRoutes><Forum /></ProtectedRoutes>} />
         <Route path='/blood/forum/the-pad' element={<ProtectedRoutes><ThePad /></ProtectedRoutes>} />
         <Route path='/blood/forum/the-pad/how-to-donate' element={<ProtectedRoutes><HowToDonate /></ProtectedRoutes>} />
-        <Route path='/blood/forum/the-pad/how-to-transfuse' element={<ProtectedRoutes><HowToTransfuse/></ProtectedRoutes>} />
-        <Route path='/blood/forum/the-pad/what-is-the-incentives' element={<ProtectedRoutes><TheIncentives/></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad/how-to-transfuse' element={<ProtectedRoutes><HowToTransfuse /></ProtectedRoutes>} />
+        <Route path='/blood/forum/the-pad/what-is-the-incentives' element={<ProtectedRoutes><TheIncentives /></ProtectedRoutes>} />
+        <Route path='/user/appointment-edit/:id' element={<ProtectedRoutes><EditAppointment /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
@@ -63,7 +65,7 @@ function App() {
         <Route path='/login' element={<PublicRoutes><Login /></PublicRoutes>} />
         <Route path='/register' element={<PublicRoutes><Register /></PublicRoutes>} />
       </Routes>
-    </div>
+    </div >
   );
 }
 

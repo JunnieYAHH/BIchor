@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Header from '../../components/Layouts/Header';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -10,25 +10,160 @@ import {
     MDBRow as Row,
     MDBCol as Col,
     MDBCard as Card,
-    MDBCardBody as CardBody,
-    MDBCard,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
     MDBCardImage,
 } from 'mdb-react-ui-kit';
+import { MDBDataTable } from 'mdbreact';
+import axios from 'axios'
 
 const Incentives = () => {
     const location = useLocation();
     const isLoginPage = location.pathname === '/login';
     const isRegisterPage = location.pathname === '/register';
-    const { user } = useSelector(state => state.user)
+    // const { user } = useSelector(state => state.user)
+    const user = JSON.parse(localStorage.getItem('user'));
+    const [events, setEvents] = useState([]);
+    const [appointments, setAppointments] = useState([]);
+    const token = localStorage.getItem('token');
+    const [error, setError] = useState('');
+
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.clear()
         toast.success('Logout Success')
         navigate('/login')
     }
+    // console.log(user)
+
+    const sampleclick = () => {
+        console.log('here1')
+    }
+
+    useEffect(() => {
+        const getAllAppointments = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
+                setAppointments(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        const getAllEvents = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
+                setEvents(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        getAllAppointments();
+        getAllEvents();
+    }, []);
+
+
+    const formatAppointments = () => {
+        return {
+            columns: [
+                {
+                    label: 'Type',
+                    field: 'appointmentType',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Blood',
+                    field: 'bloodGroup',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Quantity',
+                    field: 'quantity',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Event',
+                    field: 'event',
+                    sort: 'asc',
+                },
+                {
+                    label: 'User',
+                    field: 'user',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Status',
+                    field: 'status',
+                    sort: 'asc',
+                },
+                {
+                    field: 'actions',
+                },
+            ],
+            rows: appointments.map(appointment => {
+                const currentUser = user; // Assuming user is a single user object
+                const event = events.find(event => event._id === appointment.event) || {};
+                const avatarUrl = currentUser.description && currentUser.description.length > 0 && currentUser.description[0]?.avatar && currentUser.description[0]?.avatar.length > 0 ? currentUser.description[0]?.avatar[0]?.url : null;
+                return {
+                    appointmentType: appointment.appointmentType,
+                    bloodGroup: appointment.bloodGroup,
+                    quantity: appointment.quantity,
+                    email: currentUser.email || 'N/A',
+                    event: (
+                        <Fragment>
+                            {event.images && event.images.length > 0 && (
+                                <p>
+                                    <img src={event.images[0].url} alt={event.title} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                </p>
+                            )}
+                            <p>{event.title || 'N/A'}</p>
+                        </Fragment>
+                    ),
+                    user: (
+                        <Fragment>
+                            <p>
+                                <img src={avatarUrl} alt={currentUser.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                            </p>
+                            <span>{currentUser.name || 'N/A'}</span>
+                        </Fragment>
+                    ),
+                    status: appointment.status,
+                    actions: (
+                        <Fragment>
+                            {appointment.status !== 'confirmed' && (
+                                <Link to={`/user/appointment-edit/${appointment._id}`} className="py-1 px-2">
+                                    <i class="fa-regular fa-pen-to-square" style={{ cursor: 'pointer' }}></i>
+                                </Link>
+                            )}
+                            {appointment.status === 'confirmed' && (
+                                <Link className="py-1 px-2">
+                                    <i className="fa-solid fa-print" style={{ cursor: 'pointer' }} ></i>
+                                    {/* <i class="fa-regular fa-print"></i> */}
+                                </Link>
+                            )}
+                        </Fragment>
+                    ),
+                };
+            }),
+        };
+    };
+
     return (
         <>
             <div className="custom-homepage my-5">
@@ -75,7 +210,7 @@ const Incentives = () => {
                                         <h3>Get the sticker for you get the benefits of a donor </h3>
                                         <Row className='my-3'>
                                             <Col>
-                                                <Card style={{ backgroundColor: '#0f0177', width: '80%', borderRadius:'20px' }}>
+                                                <Card style={{ backgroundColor: '#0f0177', width: '80%', borderRadius: '20px' }}>
                                                     <div style={{ color: 'white' }}>
                                                         <p style={{ width: '70%', height: '2%', fontSize: '12px' }}>
                                                             Republic of the Philippines
@@ -139,7 +274,7 @@ const Incentives = () => {
                                                             <div style={{ backgroundColor: '#a69bfc' }}><p></p></div>
                                                             <div style={{ backgroundColor: '#b2a8fc' }}><p> <Barcode value={user._id} height={30} width={1} displayValue={false} /></p></div>
                                                             <div style={{ backgroundColor: '#beb6fc' }}><p></p></div>
-                                                            <div style={{ backgroundColor: '#c6bff8', borderBottomLeftRadius:'20px', borderBottomRightRadius: '20px' }}><p></p></div>
+                                                            <div style={{ backgroundColor: '#c6bff8', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px' }}><p></p></div>
                                                         </>
                                                     )}
 
@@ -147,7 +282,21 @@ const Incentives = () => {
                                             </Col>
                                             <Col>
                                                 <Card>
-                                                    sfafdas
+                                                    <p className='my-3' style={{ fontWeight: 'bold' }}>
+                                                        Your Appointments
+                                                    </p>
+                                                    <Card>
+
+                                                        <Row style={{ borderRadius: '30px' }}>
+                                                            <MDBDataTable
+                                                                data={formatAppointments()}
+                                                                paginationLabel={['Previous', 'Next']}
+                                                                searchLabel="Search"
+                                                                scrollY
+                                                                style={{ borderRadius: '30px', width: '10%', maxHeight: '100px' }}
+                                                            />
+                                                        </Row>
+                                                    </Card>
                                                 </Card>
                                             </Col>
                                         </Row>
