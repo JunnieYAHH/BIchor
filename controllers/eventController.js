@@ -172,4 +172,33 @@ const eventAddComment = async (req, res) => {
     }
 }
 
-module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent, eventAddComment };
+const deleteComment = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const commentId = req.params.commentId;
+
+        // console.log(eventId, commentId)
+        const event = await eventModel.findById(eventId);
+
+        if (!event) {
+            return res.status(404).json({ success: false, message: 'Event not found' });
+        }
+
+        const commentIndex = event.comment.findIndex(comment => comment._id.toString() === commentId);
+
+        if (commentIndex === -1) {
+            return res.status(404).json({ success: false, message: 'Comment not found' });
+        }
+
+        event.comment.splice(commentIndex, 1);
+
+        await event.save();
+
+        return res.status(200).json({ success: true, message: 'Comment deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent, eventAddComment, deleteComment };

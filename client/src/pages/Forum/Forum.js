@@ -25,12 +25,13 @@ const Forum = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
-    const { user } = useSelector(state => state.user)
+    const { user } = useSelector(state => state.user);
     const [events, setEvents] = useState([]);
     const [users, setUsers] = useState([]);
+    const loggedInUserID = user ? user._id : null;
 
 
-    //Add COmment
+    //Add Comment
     // const [userID, setUserID] = useState('');
     // const [eventID, setEventId] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -56,6 +57,7 @@ const Forum = () => {
     // console.log(selectedFiles)
     // console.log(comments)
 
+    //DATE FORMAT
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const month = date.toLocaleString('default', { month: 'long' });
@@ -66,18 +68,18 @@ const Forum = () => {
 
     // console.log(user)
 
+    ///FILE HANDLING
     const [showFileInputs, setShowFileInputs] = useState(Array(events.length).fill(false));
-
     const toggleFileInput = (index) => {
         const updatedShowFileInputs = [...showFileInputs];
         updatedShowFileInputs[index] = !updatedShowFileInputs[index];
         setShowFileInputs(updatedShowFileInputs);
     };
-
     const onChange = (e) => {
         setSelectedFiles(e.target.files);
     };
 
+    //GET DATA
     useEffect(() => {
         const getAllEvents = async () => {
             try {
@@ -119,6 +121,7 @@ const Forum = () => {
 
     }, [token]);
 
+    /// CREATE COMMENT
     const createNewComment = async (commentData) => {
         try {
             const config = {
@@ -152,6 +155,24 @@ const Forum = () => {
 
         createNewComment(formData)
 
+    };
+
+    //DELETE COMMENT
+    const deleteComment = async (eventId, commentId) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.delete(`${process.env.REACT_APP_BASEURL}/event/delete-comment/${eventId}/${commentId}`, config);
+            setSuccess(data.success);
+            toast.success(data.message);
+            window.location.reload();
+        } catch (error) {
+            setError(error.response.data.message);
+        }
     };
 
     return (
@@ -322,20 +343,32 @@ const Forum = () => {
                                                                                 <i className="fa-solid fa-paper-plane" style={{ cursor: 'pointer' }} onClick={() => createComment(event._id)}></i>
                                                                             </span>
                                                                         </div>
-                                                                        <p className='px-4' style={{fontWeight:'bolder'}}>Comments:</p>
+                                                                        <p className='px-4' style={{ fontWeight: 'bolder' }}>Comments:</p>
                                                                         <Card className="mb-3 px-4" style={{ width: '90%', marginLeft: '30px', backgroundColor: 'gray' }}>
                                                                             {event.comment && event.comment.map((comment, commentIndex) => {
                                                                                 const user = users.find(user => user._id === comment.userID);
+                                                                                console.log('loggedInUserID:', loggedInUserID);
+                                                                                const isCurrentUserComment = user && user._id === loggedInUserID;
+                                                                                // console.log('User ID:', isCurrentUserComment);
+                                                                                // console.log('Comment User ID:', comment.userID);
                                                                                 return (
                                                                                     <>
                                                                                         <div>
                                                                                             {user && user.description && user.description[0].avatar && user.description[0].avatar[0] && (
                                                                                                 <>
                                                                                                     <Row>
-                                                                                                        <Col>
+                                                                                                        <Col xs={6}>
                                                                                                             <img src={user.description[0].avatar[0].url} alt="User Avatar" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '50%' }} />
                                                                                                             <a className='px-1' style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black' }}>{user ? user.name : 'Unknown'}</a>
-                                                                                                            <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '95px' }}>{user ? user.email : 'Unknown'}</p>
+
+                                                                                                            {isCurrentUserComment && ( // Render trash icon only if the comment belongs to the current user
+                                                                                                                <i className="fa-solid fa-trash " style={{ cursor: 'pointer', color: '#370e0e' }} onClick={() => deleteComment(event._id, comment._id)} ></i>
+                                                                                                            )}
+                                                                                                        </Col>
+                                                                                                    </Row>
+                                                                                                    <Row>
+                                                                                                        <Col>
+                                                                                                            <p style={{ fontSize: '12px', textDecorationLine: 'none', color: 'black', width: '125px' }}>{user ? user.email : 'Unknown'}</p>
                                                                                                             <Card className='px-4' key={commentIndex} style={{ backgroundColor: 'white', wordWrap: 'break-word', minWidth: '100px', maxWidth: '400px' }}>
                                                                                                                 <div>
                                                                                                                     <p className='my-10' style={{ fontSize: '12px' }}> {comment.detail}</p>

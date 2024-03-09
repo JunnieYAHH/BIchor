@@ -379,8 +379,8 @@ header */
 }
 
 #wala {
-  background-color: rgba(0, 0, 0, 0.5); /* Background color for label */
-  color: #c6bff8;
+  background-color: rgba(49, 19, 19, 0.5); /* Background color for label */
+  color: #370e0e;
 }
 
 .button-link {

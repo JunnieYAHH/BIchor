@@ -5,7 +5,8 @@ const {
     getAllEvents,
     getSingleEvent,
     updateEvent,
-    eventAddComment
+    eventAddComment,
+    deleteComment
 } = require("../controllers/eventController");
 const userMiddleware = require('../middlewares/userMiddleware');
 
@@ -16,6 +17,7 @@ router.get('/getAllEvents', userMiddleware, getAllEvents);
 router.get('/get-single-event/:_id', userMiddleware, getSingleEvent);
 router.put("/update-event/:id", upload.single("images"),  updateEvent);
 router.put('/create-comment', userMiddleware, upload.array('image'), eventAddComment);
+router.delete("/delete-comment/:eventId/:commentId", deleteComment);
 
 //Get  getAppointment
 // router.get('/get-appointment', userMiddleware, getAppointment);
