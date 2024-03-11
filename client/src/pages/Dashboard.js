@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -19,6 +19,8 @@ import MonthlyAppointmentsLineChart from '../components/Charts/MonthlyAppointmen
 import ReactPaginate from 'react-paginate';
 import EventsStatusBarChart from '../components/Charts/EventsStatusBarChart';
 import AppointmentTypeSimpleChart from '../components/Charts/AppointmentTypeSimpleChart';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -164,13 +166,32 @@ const Dashboard = () => {
   // Filter completed events
   const completedEvents = events.filter(event => event.status === 'completed');
 
+  const pdfRef = useRef();
+
+  const downloadPDF = () => {
+    const input = pdfRef.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4', true);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 30;
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save('invoice.pdf');
+    });
+  };
+
   return (
     <>
       {loading ? (<Spinner />) : (
         <>
           <div className="custom-homepage my-3">
             <AdminHeader />
-            <div className="custom-content">
+            <div className="custom-content" ref={pdfRef}>         
               <Container fluid>
                 <Row>
                   <Col md={2} style={{ backgroundColor: '#191C24' }}>
@@ -179,7 +200,6 @@ const Dashboard = () => {
                   <Col md={10} style={{ backgroundColor: '#191C24' }}>
                     <Row className="mb-4 " style={{ marginTop: '35px' }}>
                       <center>
-                        <p style={{ fontWeight: 'bold', fontSize: 50, color: '#C11B17' }}>ADMIN DASHBOARD</p>
                       </center>
                       <Col md={6} className="custom-card-column" style={{ height: '559px', width: '550px' }}>
                         <Card>
@@ -285,19 +305,28 @@ const Dashboard = () => {
                                 <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
                                 <AppointmentTypeSimpleChart appointments={appointments} />
                               </CardBody>
+                              
                             </Card>
+                            <button className="btn btn-primary" onClick={downloadPDF}>Download PDF</button>
                           </Col>
                         </Row>
                       </Col>
                     </Row>
                   </Col>
                 </Row>
+                
               </Container>
+
+              
             </div>
+            
           </div>
+         
         </>
+        
       )}
     </>
+    
   )
 }
 
