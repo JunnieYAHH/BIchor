@@ -6,7 +6,7 @@ const createAppointment = async (req, res) => {
     try {
         const { email, appointmentType } = req.body
         //validate
-        console.log(email, appointmentType)
+        // console.log(email, appointmentType)
         const user = await userModel.findOne({ email })
         if (!user) {
             throw new Error(`User not found`)
@@ -118,6 +118,20 @@ const updateAppointmentStatus = async (req, res) => {
     }
 };
 
+const updateAppointmentQuantity = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { quantity } = req.body;
+
+        // Find the appointment by ID and update its status
+        const updatedAppointment = await appointmentModel.findByIdAndUpdate(id, { quantity }, { new: true });
+
+        res.status(200).json({ success: true, message: 'Appointment Was successfully updated ', appointment: updatedAppointment });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
 
 
-module.exports = { createAppointment, getAppointment, getAllAppointment, getSingleAppointment, updateAppointmentStatus };
+
+module.exports = { createAppointment, getAppointment, getAllAppointment, getSingleAppointment, updateAppointmentStatus, updateAppointmentQuantity };

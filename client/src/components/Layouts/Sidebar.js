@@ -76,7 +76,7 @@ const Sidebar = () => {
                             </div>
                         </li>
                         <li>
-                            <Link to={'/user/insentives'} style={{ fontWeight: "bold" }}>Incentives</Link>
+                            <Link to={'/user/appointments'} style={{ fontWeight: "bold" }}>Appointments</Link>
                         </li>
                         <li>
                             <Link to={'/google-map'} style={{ cursor: 'pointer', fontWeight: "bold" }}>Maps</Link>

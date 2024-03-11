@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,10 @@ import {
     MDBCol as Col,
     MDBCard as Card,
     MDBCardImage,
+    MDBInput,
+    MDBBtn
 } from 'mdb-react-ui-kit';
+import axios from 'axios'
 
 const EditAppointment = () => {
     const location = useLocation();
@@ -27,6 +30,101 @@ const EditAppointment = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
+
+    const [appointment, setAppointment] = useState(null);
+    const [events, setEvents] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+    const [quantity, setQuantity] = useState('');
+
+
+    const token = localStorage.getItem('token');
+    const { id } = useParams();
+    const { loading } = useSelector(state => state.user);
+
+    useEffect(() => {
+        const getSingleAppointment = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getSingleAppointment/${id}`, config);
+                setAppointment(data.appointment);
+                // setStatus(data.appointment?.status || '');
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        const getAllEvents = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
+                setEvents(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        const getAllUsers = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/user/getAllUsers`, config);
+                setUsers(data.data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+
+        getSingleAppointment();
+        getAllEvents();
+        getAllUsers();
+    }, [token, id]);
+
+    const updateQuantity = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+
+            const quantityValue = parseInt(quantity);
+
+            const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/appointment/updateQuantity/${id}`, { quantity: quantityValue }, config);
+            toast.success(data.message);
+            setSuccess(data.success);
+            window.location.reload();
+        } catch (error) {
+            console.error('Error updating appointment Quantity:', error.response.data.message);
+        }
+    };
+
+
+
+    // if (loading) {
+    //     return <Spinner />;
+    // }
+
+    // if (error) {
+    //     return <div>Error: {error}</div>;
+    // }
     return (
         <>
             <div className="custom-homepage my-5">
@@ -68,11 +166,82 @@ const EditAppointment = () => {
                                 <Sidebar />
                             </Col>
                             <Col md={10}>
-                                <center>
+                                <>
                                     <Card>
-                                        Here will be the user can edit their appointment  not the event but the content they put itself or just delete it if they don't want to
+                                        <Container fluid>
+                                            <Row>
+                                                <Row>
+                                                    <Col md={2}>
+                                                        <Sidebar />
+                                                    </Col>
+                                                    <Col md={10}>
+                                                        <Row className="mb-4">
+                                                            <div className="container">
+                                                                <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                                                                    <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
+                                                                    <p style={{ margin: '0', fontWeight: 'bold' }}>APPOINTMENT STATUS</p>
+                                                                    <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
+                                                                </div>
+                                                            </div>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                                <Col md={2}>
+                                                    <Sidebar />
+                                                </Col>
+                                                {appointment && (
+                                                    <>
+                                                        <Col md={6}>
+                                                            <div>
+                                                                <div>
+                                                                    <p>Appointment Type:
+                                                                        <MDBInput placeholder={appointment.appointmentType} id='formControlReadOnly' type='text' disabled />
+                                                                    </p>
+                                                                    {users && (
+                                                                        <div>
+                                                                            {users.find(user => user._id === appointment.userID)?.description.map((desc, index) => (
+                                                                                desc.avatar && desc.avatar[0] && (
+                                                                                    <img key={index} src={desc.avatar[0].url} alt={users.find(user => user._id === appointment.userID)?.name} />
+                                                                                )
+                                                                            ))}
+                                                                            <p>User:
+                                                                                <MDBInput placeholder={users.find(user => user._id === appointment.userID)?.name} id='formControlReadOnly' type='text' disabled />
+                                                                            </p>
+                                                                            <p>Email:
+                                                                                <MDBInput placeholder={users.find(user => user._id === appointment.userID)?.email} id='formControlReadOnly' type='text' disabled />
+                                                                            </p>
+                                                                        </div>
+                                                                    )}
+
+                                                                    {appointment.appointmentType !== "apply" && (
+                                                                        <>
+                                                                            <p>Blood Type: {appointment.bloodGroup}</p>
+                                                                            <input placeholder={appointment.quantity} type='text' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                                                                        </>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </Col>
+                                                        <Col md={4}>
+                                                            {appointment.event && (
+                                                                <>
+                                                                    <p>Event:
+                                                                        <MDBInput placeholder={events.find(event => event._id === appointment.event)?.title} id='formControlReadOnly' type='text' disabled />
+                                                                    </p>
+                                                                    {events.find(event => event._id === appointment.event)?.images.map((image, index) => (
+                                                                        <img key={index} src={image.url} alt={events.find(event => event._id === appointment.event)?.title} />
+                                                                    ))}
+                                                                </>
+                                                            )}
+                                                        </Col>
+                                                        <button className='btn btn-primary my-2' onClick={updateQuantity}>Update</button>
+                                                        {/*  */}
+                                                    </>
+                                                )}
+                                            </Row>
+                                        </Container>
                                     </Card>
-                                </center>
+                                </>
                             </Col>
                         </Row>
                     </Container>

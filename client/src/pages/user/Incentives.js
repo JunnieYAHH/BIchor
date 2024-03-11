@@ -32,7 +32,10 @@ const Incentives = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
-    // console.log(user)
+    console.log(appointments)
+    console.log(user)
+
+
 
     const sampleclick = () => {
         console.log('here1')
@@ -47,8 +50,10 @@ const Incentives = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 };
+                const userId = user._id; 
                 const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
-                setAppointments(data.data);
+                const filteredAppointments = data.data.filter(appointment => appointment.userID === userId);
+                setAppointments(filteredAppointments);
             } catch (error) {
                 setError(error.response.data.message);
             }
@@ -229,19 +234,20 @@ const Incentives = () => {
                                                     <div style={{ backgroundColor: '#1b09a4' }}><p></p></div>
                                                     <div style={{ backgroundColor: '#2210ae' }}><p></p></div>
                                                     <div style={{ backgroundColor: '#2a18b5' }}>
-                                                        <Row style={{ backgroundColor: '#2a18b5', width: '70%' }}>
-                                                            {/* Move this Col to the most left side */}
-                                                            <Col style={{ backgroundColor: '#2a18b5' }}>
-                                                                <img src="../assets/images/tuplogo.png" alt="logotup" style={{ width: '100%', height: '100%', borderRadius: '50px' }} />
-                                                            </Col>
-                                                            {/* Rest of the content */}
-                                                            <Col className='responsive' style={{ backgroundColor: '#2a18b5' }}>
-                                                                {user.description[0].avatar.map((avatar, index) => (
-                                                                    <MDBCardImage key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} position='top' alt='...' />
-                                                                ))}
-                                                            </Col>
-                                                        </Row>
-
+                                                        {user.description && user.description.length > 0 && user.description[0].avatar && user.description[0].avatar.length > 0 && (
+                                                            <Row style={{ backgroundColor: '#2a18b5', width: '70%' }}>
+                                                                {/* Move this Col to the most left side */}
+                                                                <Col style={{ backgroundColor: '#2a18b5' }}>
+                                                                    <img src="../assets/images/tuplogo.png" alt="logotup" style={{ width: '100%', height: '100%', borderRadius: '50px' }} />
+                                                                </Col>
+                                                                {/* Rest of the content */}
+                                                                <Col className='responsive' style={{ backgroundColor: '#2a18b5' }}>
+                                                                    {user.description[0].avatar.map((avatar, index) => (
+                                                                        <MDBCardImage key={index} src={`https://res.cloudinary.com/ds7jufrxl/image/upload/${avatar.public_id}`} position='top' alt='...' />
+                                                                    ))}
+                                                                </Col>
+                                                            </Row>
+                                                        )}
                                                     </div>
                                                     {/* <div style={{ backgroundColor: '#3520cf' }}><p></p></div>
                                                     <div style={{ backgroundColor: '#3923e1' }}><p></p></div> */}
@@ -260,9 +266,9 @@ const Incentives = () => {
                                                     <div style={{ backgroundColor: '#6d5af8' }}><p></p></div>
                                                     <div style={{ backgroundColor: '#7f6ffa' }}><p></p></div>
                                                     <div style={{ backgroundColor: '#8a7bfc' }}>
-                                                        {user.description.length > 0 && (
+                                                        {user.description && user.description.length > 0 && user.description[0].course && (
                                                             <Card style={{ backgroundColor: '#0c015f', color: 'white', width: '60%' }}>
-                                                                <i class="fa-solid fa-hand-holding-medical" style={{ fontSize: '12px' }}></i>{user.name}
+                                                                <i className="fa-solid fa-hand-holding-medical" style={{ fontSize: '12px' }}></i>{user.name}
                                                                 <br />
                                                                 {user.description[0].course}
                                                             </Card>

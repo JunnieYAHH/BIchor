@@ -4,7 +4,8 @@ const {
     getAppointment,
     getAllAppointment,
     getSingleAppointment,
-    updateAppointmentStatus
+    updateAppointmentStatus,
+    updateAppointmentQuantity
 } = require("../controllers/appointmentController");
 const userMiddleware = require('../middlewares/userMiddleware');
 
@@ -16,6 +17,7 @@ router.get('/get-appointment', userMiddleware, getAppointment);
 router.get('/getAllAppointments', userMiddleware, getAllAppointment);
 router.get('/getSingleAppointment/:_id', userMiddleware, getSingleAppointment);
 router.put('/updateStatus/:id',userMiddleware, updateAppointmentStatus);
+router.put('/updateQuantity/:id',userMiddleware, updateAppointmentQuantity);
 
 
 module.exports = router;

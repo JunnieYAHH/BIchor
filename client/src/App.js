@@ -41,7 +41,7 @@ function App() {
         <Route path='/donationPage' element={<ProtectedRoutes><DonationPage /></ProtectedRoutes>} />
         <Route path='/transfusionPage' element={<ProtectedRoutes><TransfusionPage /></ProtectedRoutes>} />
         <Route path='/campainPage' element={<ProtectedRoutes><Campain /></ProtectedRoutes>} />
-        <Route path='/user/insentives' element={<ProtectedRoutes><Incentives /></ProtectedRoutes>} />
+        <Route path='/user/appointments' element={<ProtectedRoutes><Incentives /></ProtectedRoutes>} />
         <Route path='/user/update-profile/:id' element={<ProtectedRoutes><UpdateProfile /></ProtectedRoutes>} />
         <Route path='/google-map' element={<ProtectedRoutes><Gmaps /></ProtectedRoutes>} />
         <Route path='/blood/forum' element={<ProtectedRoutes><Forum /></ProtectedRoutes>} />
