@@ -113,7 +113,7 @@ const Donor = () => {
                                         </div>
                                     </div>
                                     <Col>
-                                        <Row style={{ backgroundColor: 'black', borderRadius: '20px', width: '50px' }} className='my-1' >
+                                        <Row style={{ backgroundColor: 'black', borderRadius: '20px', width: '100%' }} className='my-1' >
                                             <MDBDataTable
                                                 data={formatUsersForDataTable()}
                                                 className="user-datatable"
@@ -121,7 +121,7 @@ const Donor = () => {
                                                 striped
                                                 paginationLabel={['Previous', 'Next']}
                                                 searchLabel="Search"
-                                                style={{ width: '1%', maxHeight: '20px' }}
+                                                style={{ width: '100%', maxHeight: '20px' }}
                                             />
                                         </Row>
                                     </Col>

@@ -28,10 +28,11 @@ const UpdateEvent = () => {
     const [date, setDate] = useState('');
     const [eventType, setEventType] = useState('');
     const [images, setImage] = useState([]);
+    const [status, setStatus] = useState('');
     const [clinic, setClinic] = useState('65cef1342062882dd7f8f2da');
     const navigate = useNavigate();
 
-    // console.log(event)
+    console.log(status)
     const token = localStorage.getItem('token');
 
     const formatDate = (dateString) => {
@@ -98,10 +99,15 @@ const UpdateEvent = () => {
         if (date) formData.append('date', date);
         if (eventType) formData.append('eventType', eventType);
         if (clinic) formData.append('clinic', clinic);
+        if (status) formData.append('status', status);
         if (images) formData.append('images', images[0]);
 
         updateNewEvent(formData);
 
+    };
+
+    const handleStatusChange = (event) => {
+        setStatus(event.target.value);
     };
 
 
@@ -197,7 +203,13 @@ const UpdateEvent = () => {
                                                                     <option value="campaign">Campaign</option>
                                                                 </select>
                                                             </div>
-                                                            Input Image
+                                                            <select value={status} onChange={handleStatusChange}>
+                                                                <option value="pending">Pending</option>
+                                                                <option value="completed">Completed</option>
+                                                            </select>
+                                                            <p>
+                                                                Input Image
+                                                            </p>
                                                             <MDBInputGroup
                                                                 className='mb-3 my-4'
                                                                 textAfter='Upload'
@@ -207,9 +219,6 @@ const UpdateEvent = () => {
                                                                 <input className='form-control' type='file' id='avatarFileInput' onChange={onChange} />
                                                             </MDBInputGroup>
                                                         </form>
-                                                    </Col>
-                                                    <Col>
-
                                                     </Col>
                                                 </Row>
                                             </Card>

@@ -30,6 +30,7 @@ import HowToTransfuse from './pages/Forum/Pad/HowToTransfuse';
 import TheIncentives from './pages/Forum/Pad/TheIncentives';
 import EditAppointment from './pages/user/Appointment/EditAppointment';
 import AboutUs from './pages/Forum/AboutUs';
+import Schedule from './pages/Forum/Schedule/Schedule';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path='/blood/forum/the-pad/how-to-transfuse' element={<ProtectedRoutes><HowToTransfuse /></ProtectedRoutes>} />
         <Route path='/blood/forum/the-pad/what-is-the-incentives' element={<ProtectedRoutes><TheIncentives /></ProtectedRoutes>} />
         <Route path='/user/appointment-edit/:id' element={<ProtectedRoutes><EditAppointment /></ProtectedRoutes>} />
+        <Route path='/blood/forum/schedule' element={<ProtectedRoutes><Schedule /></ProtectedRoutes>} />
         <Route path='/blood/forum/about-us' element={<ProtectedRoutes><AboutUs /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />

@@ -261,6 +261,7 @@ const Forum = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
+                                                        <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
                                                             <Row>
                                                                 <Col>
                                                                     <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
@@ -270,6 +271,7 @@ const Forum = () => {
                                                                     <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
                                                                 </Col>
                                                             </Row>
+                                                        </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>

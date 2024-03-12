@@ -37,6 +37,14 @@ const Event = () => {
         getAllEvents();
     }, [token]);
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month} ${day}, ${year}`;
+    };
+
     const EventsDataTable = () => {
         return {
             columns: [
@@ -93,7 +101,7 @@ const Event = () => {
                 title: event.title,
                 place: event.place,
                 details: event.details,
-                date: event.date,
+                date: formatDate(event.date),
                 type: event.eventType,
                 status: event.status,
                 actions: (

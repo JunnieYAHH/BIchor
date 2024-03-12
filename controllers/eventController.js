@@ -6,7 +6,7 @@ const createEvent = async (req, res) => {
     try {
         const { clinic } = req.body;
 
-        console.log(req.file)
+        // console.log(req.file)
 
         const imageData = [];
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -91,9 +91,9 @@ const updateEvent = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, eventType, date, place, details, status, clinic } = req.body;
-        console.log(id)
-        console.log(req.body)
-        console.log(req.file)
+        // console.log(id)
+        // console.log(req.body)
+        // console.log(req.file)
 
         const imageData = [];
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -117,7 +117,7 @@ const updateEvent = async (req, res) => {
         const event = await eventModel.findByIdAndUpdate(id, updateNewEvent, { new: true });
         // console.log(updatedUser)
 
-        res.status(200).json({ success: true, user: event });
+        res.status(200).json({ success: true, message:'Event has been Updated!' ,user: event });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
