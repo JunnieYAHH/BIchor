@@ -192,12 +192,11 @@ const UpdateDonor = () => {
                                     </div>
                                     <Col>
                                         <Row style={{ borderRadius: '20px', backgroundColor: 'black', color: 'white' }} className='my-1'>
-                                            <form encType="multipart/form-data">
+                                            <div className="d-flex justify-content-start">
+                                            <form encType="multipart/form-data" className="offset-md-5 col-md-2">
                                                 {users && users.user && (
                                                     <>
-                                                        <div className="d-flex justify-content-end">
-                                                            <button type="submit" className="btn btn-success" onClick={submitHandler}>Update</button>
-                                                        </div>
+                                            
                                                         <div className='my-3'>
                                                             {users.user.description && users.user.description.map(desc => (
                                                                 <div key={desc._id}>
@@ -275,9 +274,13 @@ const UpdateDonor = () => {
                                                                 </Row>
                                                             </Col>
                                                         </div>
+                                                        <div className="d-flex justify-content-center">
+                                                            <button type="submit" className="btn btn-success" onClick={submitHandler}>Update</button>
+                                                        </div>
                                                     </>
-                                                )}
+                                                )}                             
                                             </form>
+                                            </div>
                                         </Row>
                                     </Col>
 

@@ -420,3 +420,8 @@ header */
   text-decoration: none;
   color: #555;
 }
+
+
+.boldLabel {
+  font-weight: bold;
+}

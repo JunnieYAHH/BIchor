@@ -191,13 +191,13 @@ const Dashboard = () => {
         <>
           <div className="custom-homepage my-3">
             <AdminHeader />
-            <div className="custom-content" ref={pdfRef}>         
+            <div className="custom-content">         
               <Container fluid>
                 <Row>
                   <Col md={2} style={{ backgroundColor: '#191C24' }}>
                     <AdminSidebar />
                   </Col>
-                  <Col md={10} style={{ backgroundColor: '#191C24' }}>
+                  <Col md={10} style={{ backgroundColor: '#191C24' }} ref={pdfRef}>
                     <Row className="mb-4 " style={{ marginTop: '35px' }}>
                       <center>
                       </center>

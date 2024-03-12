@@ -125,7 +125,7 @@ const UpdateEvent = () => {
                                 <div className="col-md-10" style={{ color: 'white', backgroundColor: 'black', borderRadius: '20px' }}>
                                     <>
                                         <center>
-                                            <h2>{event.title}</h2>
+                                            <h2><strong>{event.title}</strong></h2>
                                         </center>
                                         <Card style={{ color: 'white', backgroundColor: 'black' }}>
                                             <Row>
@@ -139,7 +139,8 @@ const UpdateEvent = () => {
                                                     </div>
                                                 </Col>
                                                 <Col>
-                                                    <Card>
+                                                    <Card style={{ width: '500px', height: '300px' }}>
+                                                
                                                         <p style={{ color: 'orange' }}>{formatDate(event.date)}</p>
                                                         <h3 style={{ color: 'orange' }}>{(event.title)}</h3>
                                                         <p>{event.details}</p>
@@ -157,39 +158,51 @@ const UpdateEvent = () => {
                                     </>
                                     <div className='row' style={{ color: 'white', backgroundColor: 'black', borderRadius: '20px' }}>
                                         <center>
-                                            <button type="submit" className="btn btn-success my-5" onClick={updateEvent}>Update Event</button>
-                                            <Card style={{ width: '860px' }}>
+                                            
+                                            <Card style={{ width: '500px' , marginTop: '10px' }}>
                                                 <Row>
                                                     <Col>
-                                                        <form encType="multipart/form-data">
-                                                            <InputType labelText={'Title'}
+                                                        <form encType="multipart/form-data" style={{ backgroundColor: '#C24641' }}>
+                                                        <div style={{ fontWeight: 'bold' }}>
+                                                            <InputType 
+                                                                labelText={'Title'}
                                                                 labelFor={'forTitle'}
                                                                 name={'title'}
                                                                 value={title}
                                                                 onChange={(e) => setTitle(e.target.value)}
                                                             />
+                                                        </div>
+                                                            <div style={{ fontWeight: 'bold', marginTop: '30px'  }}>
                                                             <InputType
                                                                 labelText={'Place'}
                                                                 labelFor={'forPlace'}
                                                                 name={'place'}
                                                                 value={place}
-                                                                onChange={(e) => setPlace(e.target.value)}
+                                                                onChange={(e) => setPlace(e.target.value)}                                                             
                                                             />
-                                                            Details:
+                                                            </div> 
+                                                            <div style={{  marginTop: '30px' }} >
+                                                            <strong>Details</strong>
+                                                            </div>
                                                             <MDBTextArea id='textAreaExample' rows={4}
                                                                 name={'details'}
                                                                 value={details}
                                                                 onChange={(e) => setDetails(e.target.value)}
                                                             />
-                                                            <InputType
-                                                                labelText="Event Date"
-                                                                labelFor="forEventDate"
-                                                                inputType="date"
-                                                                name="date"
-                                                                value={date}
-                                                                onChange={(e) => setDate(e.target.value)}
-                                                            />
-                                                            Event Type:
+                                                            
+                                                            <div style={{ fontWeight: 'bold', marginTop: '30px' }}>
+                                                                <InputType
+                                                                    labelText="Event Date"
+                                                                    labelFor="forEventDate"
+                                                                    inputType="date"
+                                                                    name="date"
+                                                                    value={date}
+                                                                    onChange={(e) => setDate(e.target.value)}
+                                                                />
+                                                            </div>
+                                                            <div style={{  marginTop: '30px' }} >
+                                                            <strong>Event Type</strong>
+                                                            </div>
                                                             <div className="d-flex mb-3 my-2">
                                                                 <select
                                                                     className="form-select"
@@ -207,10 +220,15 @@ const UpdateEvent = () => {
                                                                 <option value="pending">Pending</option>
                                                                 <option value="completed">Completed</option>
                                                             </select>
-                                                            <p>
+                                                            
+
+                                                            <p style={{  marginTop: '30px' }}>
+                                                                <strong>
                                                                 Input Image
+                                                                </strong>
                                                             </p>
                                                             <MDBInputGroup
+                                                            
                                                                 className='mb-3 my-4'
                                                                 textAfter='Upload'
                                                                 textTag='label'
@@ -222,6 +240,7 @@ const UpdateEvent = () => {
                                                     </Col>
                                                 </Row>
                                             </Card>
+                                            <button type="submit" className="btn btn-success my-5" onClick={updateEvent}>Update Event</button>
                                         </center>
                                     </div>
                                 </div>
