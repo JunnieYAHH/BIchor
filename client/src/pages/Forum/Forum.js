@@ -261,17 +261,17 @@ const Forum = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                        <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>                                                                   
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
-                                                                </Col>
-                                                            </Row>
-                                                        </Link>
+                                                            <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
+                                                                        The
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>
@@ -280,17 +280,17 @@ const Forum = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    <Link to='/blood/forum/about-us' style={{ textDecoration: 'none', color: 'white' }}>
+                                                            <Link to='/blood/forum/about-us' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
                                                                         About
                                                                         <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
-                                                                    </Link>
-                                                                </Col>
-                                                            </Row>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>

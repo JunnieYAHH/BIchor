@@ -106,15 +106,17 @@ const AboutUs = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
-                                                                </Col>
-                                                            </Row>
+                                                            <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
+                                                                        The
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>
@@ -123,15 +125,17 @@ const AboutUs = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    About
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
-                                                                </Col>
-                                                            </Row>
+                                                            <Link to='/blood/forum/about-us' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
+                                                                        About
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>
@@ -143,58 +147,58 @@ const AboutUs = () => {
                                         <section className="py-3 py-md-5 py-xl-8">
                                             <div className="bg-light">
                                                 <div className="container py-5">
-                                                <div className="row h-100 align-items-center py-5">
-                                                    <div className="col-lg-6">
-                                                    <h1 classname="display-4" style={{color: 'red', fontWeight: 'bold'}}>About Us</h1>
-                                                    <p className="lead text-muted mb-0" style={{textAlign: 'justify'}}>
-                                                        <strong>Welcome to BIchor, home to an enhanced blood donation system that's changing lives one donation at a time. Meet the passionate programmers behind our innovative platform. </strong>
-                                                    </p>
+                                                    <div className="row h-100 align-items-center py-5">
+                                                        <div className="col-lg-6">
+                                                            <h1 classname="display-4" style={{ color: 'red', fontWeight: 'bold' }}>About Us</h1>
+                                                            <p className="lead text-muted mb-0" style={{ textAlign: 'justify' }}>
+                                                                <strong>Welcome to BIchor, home to an enhanced blood donation system that's changing lives one donation at a time. Meet the passionate programmers behind our innovative platform. </strong>
+                                                            </p>
+                                                        </div>
+                                                        <div className="col-lg-6 d-none d-lg-block"><img src="https://bootstrapious.com/i/snippets/sn-about/illus.png" alt className="img-fluid" /></div>
                                                     </div>
-                                                    <div className="col-lg-6 d-none d-lg-block"><img src="https://bootstrapious.com/i/snippets/sn-about/illus.png" alt className="img-fluid" /></div>
-                                                </div>
                                                 </div>
                                             </div>
                                             <div className="bg-light py-5">
                                                 <div className="container py-5">
-                                                <div className="row mb-4">
-                                                    <p style={{fontSize: 'xxx-large', fontWeight: 'bold', color: 'black', textAlign: 'center'}}>OUR TEAM</p>
-                                                    <div className="col-lg-5">                                                    
-                                                    </div>
-                                                </div>
-                                                <div className="row text-center">
-                                                    {/* Team item*/}
-                                                    <div className="col-xl-3 col-sm-6 mb-5" style={{marginLeft: '200px'}}>
-                                                    <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt width={100} className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                                                        <h5 classname="mb-0" style={{color: 'black'}}>Gerelito Puyos</h5>
-                                                        <span className="small text-uppercase text-muted">Founder - Programmer</span>
-                                                        <ul className="social mb-0 list-inline mt-3">
-                                                        <ul className="social mb-0 list-inline mt-3">
-                                                            <li className="list-inline-item"><a href="https://www.facebook.com" target="_blank" className="social-link"><i className="fa fa-facebook"></i></a></li>
-                                                            <li className="list-inline-item"><a href="https://twitter.com" target="_blank" className="social-link"><i className="fa fa-twitter"></i></a></li>
-                                                            <li className="list-inline-item"><a href="https://www.instagram.com" target="_blank" className="social-link"><i className="fa fa-instagram"></i></a></li>
-                                                            <li className="list-inline-item"><a href="https://www.linkedin.com" target="_blank" className="social-link"><i className="fa fa-linkedin"></i></a></li>
-                                                        </ul>
-
-                                                        </ul>
-                                                    </div>
-                                                    </div>
-                                                    {/* End*/}
-                                                    {/* Team item*/}
-                                                    <div className="col-xl-3 col-sm-6 mb-5" style={{marginLeft: '50px'}}>
-                                                        <div className="bg-white rounded shadow-sm py-5 px-4">
-                                                            <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt width={100} className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                                                            <h5 className="mb-0" style={{color: 'black'}}>Karl Odevilas</h5>
-                                                            <span className="small text-uppercase text-muted">Founder - Programmer</span>
-                                                            <ul className="social mb-0 list-inline mt-3">
-                                                                <li className="list-inline-item"><a href="https://www.facebook.com" target="_blank" className="social-link"><i className="fa fa-facebook"></i></a></li>
-                                                                <li className="list-inline-item"><a href="https://twitter.com" target="_blank" className="social-link"><i className="fa fa-twitter"></i></a></li>
-                                                                <li className="list-inline-item"><a href="https://www.instagram.com" target="_blank" className="social-link"><i className="fa fa-instagram"></i></a></li>
-                                                                <li className="list-inline-item"><a href="https://www.linkedin.com" target="_blank" className="social-link"><i className="fa fa-linkedin"></i></a></li>
-                                                            </ul>
+                                                    <div className="row mb-4">
+                                                        <p style={{ fontSize: 'xxx-large', fontWeight: 'bold', color: 'black', textAlign: 'center' }}>OUR TEAM</p>
+                                                        <div className="col-lg-5">
                                                         </div>
                                                     </div>
-                                                    {/* End*/}
-                                                </div>
+                                                    <div className="row text-center">
+                                                        {/* Team item*/}
+                                                        <div className="col-xl-3 col-sm-6 mb-5" style={{ marginLeft: '200px' }}>
+                                                            <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt width={100} className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                                                                <h5 classname="mb-0" style={{ color: 'black' }}>Gerelito Puyos</h5>
+                                                                <span className="small text-uppercase text-muted">Founder - Programmer</span>
+                                                                <ul className="social mb-0 list-inline mt-3">
+                                                                    <ul className="social mb-0 list-inline mt-3">
+                                                                        <li className="list-inline-item"><a href="https://www.facebook.com" target="_blank" className="social-link"><i className="fa fa-facebook"></i></a></li>
+                                                                        <li className="list-inline-item"><a href="https://twitter.com" target="_blank" className="social-link"><i className="fa fa-twitter"></i></a></li>
+                                                                        <li className="list-inline-item"><a href="https://www.instagram.com" target="_blank" className="social-link"><i className="fa fa-instagram"></i></a></li>
+                                                                        <li className="list-inline-item"><a href="https://www.linkedin.com" target="_blank" className="social-link"><i className="fa fa-linkedin"></i></a></li>
+                                                                    </ul>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        {/* End*/}
+                                                        {/* Team item*/}
+                                                        <div className="col-xl-3 col-sm-6 mb-5" style={{ marginLeft: '50px' }}>
+                                                            <div className="bg-white rounded shadow-sm py-5 px-4">
+                                                                <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt width={100} className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                                                                <h5 className="mb-0" style={{ color: 'black' }}>Karl Odevilas</h5>
+                                                                <span className="small text-uppercase text-muted">Founder - Programmer</span>
+                                                                <ul className="social mb-0 list-inline mt-3">
+                                                                    <li className="list-inline-item"><a href="https://www.facebook.com" target="_blank" className="social-link"><i className="fa fa-facebook"></i></a></li>
+                                                                    <li className="list-inline-item"><a href="https://twitter.com" target="_blank" className="social-link"><i className="fa fa-twitter"></i></a></li>
+                                                                    <li className="list-inline-item"><a href="https://www.instagram.com" target="_blank" className="social-link"><i className="fa fa-instagram"></i></a></li>
+                                                                    <li className="list-inline-item"><a href="https://www.linkedin.com" target="_blank" className="social-link"><i className="fa fa-linkedin"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        {/* End*/}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>

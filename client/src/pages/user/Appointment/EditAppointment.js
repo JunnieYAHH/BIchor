@@ -116,15 +116,6 @@ const EditAppointment = () => {
         }
     };
 
-
-
-    // if (loading) {
-    //     return <Spinner />;
-    // }
-
-    // if (error) {
-    //     return <div>Error: {error}</div>;
-    // }
     return (
         <>
             <div className="custom-homepage my-5">

@@ -153,15 +153,17 @@ const Schedule = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
-                                                                </Col>
-                                                            </Row>
+                                                            <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
+                                                                        The
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>
@@ -170,43 +172,32 @@ const Schedule = () => {
                                                 <Card style={{ backgroundColor: 'gray', color: 'white' }}>
                                                     <Row>
                                                         <Col>
-                                                            <Row>
-                                                                <Col>
-                                                                    <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    About
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
-                                                                </Col>
-                                                            </Row>
+                                                            <Link to='/blood/forum/about-us' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Row>
+                                                                    <Col>
+                                                                        <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
+                                                                        About
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Link>
                                                         </Col>
                                                     </Row>
                                                 </Card>
                                             </Col>
                                         </Row>
                                     </center>
-                                    <Card style={{ backgroundColor: 'gray', color: 'white', width: '90%' }}>
+                                    <Card className='px-4' style={{ backgroundColor: 'white', color: 'white', width: '90%' }}>
                                         <section className="py-3 py-md-5 py-xl-8">
-                                            <div className="bg-light">
-                                                <div className="container py-5">
-                                                    <div className="row h-100 align-items-center py-5">
-                                                        <div className="col-lg-6">
-                                                            <h1 classname="display-4" style={{ color: 'red', fontWeight: 'bold' }}>Events Schedules</h1>
-                                                            <Col>
-                                                                <div style={{ color: 'black' }} id='calendar'></div>
-                                                            </Col>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            <h1 classname="display-4" style={{ color: 'red', fontWeight: 'bold' }}>Events Schedules</h1>
+                                            <Card className='px-4' style={{width: '90%', height:'90%'}}>
+                                                <div style={{ color: 'black', backgroundColor: 'white' }} id='calendar'></div>
+                                            </Card>
                                         </section>
-                                        {/* <Col>
-                                            <div id='calendar'></div>
-                                        </Col> */}
                                     </Card>
                                 </Card>
-
                             </Col>
                         </div>
                     </div>

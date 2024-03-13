@@ -157,7 +157,7 @@ const Incentives = () => {
                                 </Link>
                             )}
                             {appointment.status === 'confirmed' && (
-                                <Link className="py-1 px-2">
+                                <Link to={'/user/appointment-download'} className="py-1 px-2">
                                     <i className="fa-solid fa-print" style={{ cursor: 'pointer' }} ></i>
                                     {/* <i class="fa-regular fa-print"></i> */}
                                 </Link>
