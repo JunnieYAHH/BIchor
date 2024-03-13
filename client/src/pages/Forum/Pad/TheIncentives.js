@@ -79,7 +79,7 @@ const TheIncentives = () => {
                             </div>
                             <Col md={10} className='my-3'>
                                 <Card style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', color: 'white', backgroundColor: 'black', borderRadius: '20px' }}>
-                                    <img src="../../../assets/images/TUP1.jpg" classname="img-fluid my-3" alt="banner" style={{ width: '90%', height: '50%', objectFit: 'cover' }} />
+                                    <img src="../../../assets/images/tup.png" classname="img-fluid my-3" alt="banner" style={{ width: '90%', height: '50%', objectFit: 'cover' }} />
                                     <center>
                                         <Row className='my-4'>
                                             <Col style={{ width: '300px' }}>
@@ -177,6 +177,15 @@ const TheIncentives = () => {
                                                 </div>
                                             </Col>
                                         </Row>
+                                        <div>
+                                            <style dangerouslySetInnerHTML={{__html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
+                                            <h2 className="move-right">Every Blood Donor is a Hero</h2>
+                                        </div>
+                                        <div className="embed-responsive embed-responsive-16by9">
+                                            <center>
+                                                <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/Af0gk_kiGac" allowFullScreen width="750" height="450"></iframe>
+                                            </center>
+                                        </div>
                                     </Card>
                                 </Card>
                             </Col>
