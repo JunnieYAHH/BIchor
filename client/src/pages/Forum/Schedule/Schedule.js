@@ -158,8 +158,10 @@ const Schedule = () => {
                                                                     <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
+                                                                    <Link to={'/blood/forum/schedule'} style={{ textDecoration: 'none', color: 'white' }}>
                                                                     The
                                                                     <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                    </Link>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -175,8 +177,10 @@ const Schedule = () => {
                                                                     <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
+                                                                    <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>
                                                                     About
                                                                     <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                    </Link>
                                                                 </Col>
                                                             </Row>
                                                         </Col>

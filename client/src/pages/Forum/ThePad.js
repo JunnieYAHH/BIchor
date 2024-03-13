@@ -110,8 +110,10 @@ const ThePad = () => {
                                                                     <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
+                                                                    <Link to={'/blood/forum/schedule'} style={{ textDecoration: 'none', color: 'white' }}>
                                                                     The
                                                                     <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                    </Link>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -127,8 +129,10 @@ const ThePad = () => {
                                                                     <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
+                                                                    <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>  
                                                                     About
                                                                     <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                    </Link>
                                                                 </Col>
                                                             </Row>
                                                         </Col>
@@ -176,6 +180,12 @@ const ThePad = () => {
                                                 </div>
                                             </Col>
                                         </Row>
+                                        <div className="embed-responsive embed-responsive-16by9">
+                                        <center>
+                                            <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/IogKmimow7g" allowFullScreen width="750" height="450"></iframe>
+                                        </center>
+                                    </div>
+
                                     </Card>
                                 </Card>
                             </Col>
