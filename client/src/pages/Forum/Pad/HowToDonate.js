@@ -87,15 +87,15 @@ const HowToDonate = () => {
                                                     <Row>
                                                         <Col>
                                                             <Row>
-                                                                <Col>
-                                                                    <i class="fa-solid fa-book-medical" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    <Link to={'/blood/forum'} style={{ textDecoration: 'none', color: 'white' }}>
+                                                                <Link to={'/blood/forum'} style={{ textDecoration: 'none', color: 'white' }}>
+                                                                    <Col>
+                                                                        <i class="fa-solid fa-book-medical" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                    </Col>
+                                                                    <Col>
                                                                         The
                                                                         <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Forum</h4>
-                                                                    </Link>
-                                                                </Col>
+                                                                    </Col>
+                                                                </Link>
                                                             </Row>
                                                         </Col>
                                                     </Row>
@@ -106,13 +106,17 @@ const HowToDonate = () => {
                                                     <Row>
                                                         <Col>
                                                             <Row>
-                                                                <Col>
-                                                                    <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
-                                                                </Col>
+                                                                <Link to='/blood/forum/schedule' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                    <Row>
+                                                                        <Col>
+                                                                            <i class="fa-regular fa-calendar-days" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                        </Col>
+                                                                        <Col>
+                                                                            The
+                                                                            <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Link>
                                                             </Row>
                                                         </Col>
                                                     </Row>
@@ -123,13 +127,17 @@ const HowToDonate = () => {
                                                     <Row>
                                                         <Col>
                                                             <Row>
-                                                                <Col>
-                                                                    <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
-                                                                </Col>
-                                                                <Col>
-                                                                    About
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
-                                                                </Col>
+                                                                <Link to='/blood/forum/about-us' style={{ textDecoration: 'none', color: 'white' }}>
+                                                                    <Row>
+                                                                        <Col>
+                                                                            <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
+                                                                        </Col>
+                                                                        <Col>
+                                                                            About
+                                                                            <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Link>
                                                             </Row>
                                                         </Col>
                                                     </Row>
@@ -140,24 +148,24 @@ const HowToDonate = () => {
                                     <p>___ How To <a style={{ color: 'orange', fontWeight: 'bold', fontSize: '30px' }}>Donate</a> __________________________________________________________________________________________________________</p>
                                     <Card style={{ backgroundColor: 'gray', color: 'white', width: '90%' }}>
                                         <Row>
-                                        <Col style={{ width: 'auto' }}>
+                                            <Col style={{ width: 'auto' }}>
                                                 <ul className='my-1' style={{ listStyleType: 'none', padding: 0, backgroundColor: 'orange', width: '300px', borderBottomRightRadius: '50px', borderTopRightRadius: '50px' }}>
-                                                <center>
-                                                    <div style={{ marginLeft: '40px' }}>
-                                                        <Card className='badge bg-white' style={{ fontSize: '20px' }}>
-                                                            <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '50%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
-                                                        </li>
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-transfuse' }} className='button-link'>How To Transfuse?</button>
-                                                        </li>
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/what-is-the-incentives' }} className='button-link'>Incentives</button>
-                                                        </li>
-                                                        </Card>
-                                                    </div>
-                                                </center>
+                                                    <center>
+                                                        <div style={{ marginLeft: '40px' }}>
+                                                            <Card className='badge bg-white' style={{ fontSize: '20px' }}>
+                                                                <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '50%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
+                                                                </li>
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-transfuse' }} className='button-link'>How To Transfuse?</button>
+                                                                </li>
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/what-is-the-incentives' }} className='button-link'>Incentives</button>
+                                                                </li>
+                                                            </Card>
+                                                        </div>
+                                                    </center>
                                                 </ul>
                                             </Col>
                                             <Col className='my-5'>
@@ -166,24 +174,24 @@ const HowToDonate = () => {
                                                         Here in how to <a style={{ color: 'Orange' }}>Donate</a>, here we can see how is the process of the current blood donation is.
                                                     </p>    
                                                 </Card> */}
-                                                <div className="card" style={{width: '25rem'}}>
-                                                        <img src="../../../assets/images/htdonatebg.png" className="card-img-top" alt="Sunset Over the Sea" />
+                                                <div className="card" style={{ width: '25rem' }}>
+                                                    <img src="../../../assets/images/htdonatebg.png" className="card-img-top" alt="Sunset Over the Sea" />
                                                     <div className="card-body">
-                                                    <center>
-                                                    <p className="card-text" style={{ textAlign: 'justify' }}>A healthy individual can donate blood every three months without experiencing weakness or ill effects.
-                                                            Donating 450cc of blood does not cause weakness as the body compensates and stimulates bone marrow to produce new blood cells.
-                                                            Individuals with tattoos, body piercings, acupuncture, or other needle procedures done a year ago can donate blood.
-                                                            The blood donation process takes around 30 minutes, with blood extraction lasting 5-10 minutes.
-                                                            Blood volume replenishes within 24 hours, and the body returns to its pre-donation blood status within a month.
-                                                            Disease transmission through blood donation is prevented by using sterile, disposable needles and syringes.
-                                                        </p>
-                                                    </center>
+                                                        <center>
+                                                            <p className="card-text" style={{ textAlign: 'justify' }}>A healthy individual can donate blood every three months without experiencing weakness or ill effects.
+                                                                Donating 450cc of blood does not cause weakness as the body compensates and stimulates bone marrow to produce new blood cells.
+                                                                Individuals with tattoos, body piercings, acupuncture, or other needle procedures done a year ago can donate blood.
+                                                                The blood donation process takes around 30 minutes, with blood extraction lasting 5-10 minutes.
+                                                                Blood volume replenishes within 24 hours, and the body returns to its pre-donation blood status within a month.
+                                                                Disease transmission through blood donation is prevented by using sterile, disposable needles and syringes.
+                                                            </p>
+                                                        </center>
                                                     </div>
-                                                </div>                                             
+                                                </div>
                                             </Col>
                                         </Row>
                                         <div>
-                                            <style dangerouslySetInnerHTML={{__html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
+                                            <style dangerouslySetInnerHTML={{ __html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
                                             <h2 className="move-right">Blood Donation Process</h2>
                                         </div>
                                         <div className="embed-responsive embed-responsive-16by9">
@@ -191,10 +199,10 @@ const HowToDonate = () => {
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/jmhiHKsEUXU" allowFullScreen width="750" height="450"></iframe>
                                             </center>
                                         </div>
-                                        
+
                                         <hr></hr>
                                         <div>
-                                            <style dangerouslySetInnerHTML={{__html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
+                                            <style dangerouslySetInnerHTML={{ __html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
                                             <h2 className="move-right">What Happens After Donating Blood</h2>
                                         </div>
                                         <div className="embed-responsive embed-responsive-16by9">
@@ -205,7 +213,7 @@ const HowToDonate = () => {
 
                                         <hr></hr>
                                         <div>
-                                            <style dangerouslySetInnerHTML={{__html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
+                                            <style dangerouslySetInnerHTML={{ __html: "\n    .move-right {\n        margin-left: 110px;\n        font-weight: bold;\n        color: maroon;\n    }\n" }} />
                                             <h2 className="move-right">Benefits of Donating Blood</h2>
                                         </div>
                                         <div className="embed-responsive embed-responsive-16by9">
@@ -215,7 +223,7 @@ const HowToDonate = () => {
                                         </div>
                                     </Card>
                                 </Card>
-                                
+
                             </Col>
                         </div >
                     </div >
