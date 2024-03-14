@@ -74,7 +74,7 @@ const Sidebar = () => {
                                     )}
                                     <li>
                                         {/* <p>Campain</p> */}
-                                        <Link className="dropdown-item" to="/campainPage">Campain</Link>
+                                        <Link className="dropdown-item" to="/campainPage">Campaign</Link>
                                     </li>
                                 </ul>
                             </div>

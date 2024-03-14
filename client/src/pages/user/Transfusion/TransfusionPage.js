@@ -196,7 +196,7 @@ const TransfusionPage = () => {
         </Row>
         <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
           <MDBModalDialog centered size="">
-            <MDBModalContent style={{ backgroundImage: `url('./assets/images/TRANSFUSION.png')`, backgroundSize: '320%', backgroundPosition: 'center', width: '100%', height: '100%' }}>
+            <MDBModalContent>
               <MDBModalHeader>
                 <MDBModalTitle ><span className="badge bg-secondary" style={{ fontSize: '18px' }}>
                   Transfusion
@@ -220,7 +220,14 @@ const TransfusionPage = () => {
                         name='inRadio'
                         value={'in'}
                         onChange={(e) => setAppointmentType(e.target.value)}
-                        className='form-check-input' />
+                        className='form-check-input' 
+                        style={{
+                          width: '20px', 
+                          height: '20px',
+                          marginRight: '5px', 
+                          border: '2px solid #007bff', 
+                          borderRadius: '50%' 
+                        }}/>
                       <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
                         Transfuse
                       </span>

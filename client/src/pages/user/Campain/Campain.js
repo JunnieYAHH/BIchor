@@ -204,9 +204,9 @@ const Campain = () => {
         ))}
         <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
           <MDBModalDialog centered size="">
-            <MDBModalContent style={{ backgroundImage: `url('./assets/images/DONATION.png')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%' }}>
+            <MDBModalContent>
               <MDBModalHeader>
-                <MDBModalTitle >Campain</MDBModalTitle>
+                <MDBModalTitle >Campaign</MDBModalTitle>
                 <MDBBtn
                   className="btn-close"
                   color="none"

@@ -175,29 +175,30 @@ const PrintPDFAppointment = () => {
                                             <center>
                                                 <Container>
                                                     <Col md={10}>
+                                                    
+                                                    <div style={{textAlign: 'justify'}}>  
                                                         <div>
-                                                            <div>
-                                                                <p>Appointment Type: {appointment.appointmentType} </p>
-                                                                {users && (
-                                                                    <div>
-                                                                        <p>User: {users.find(user => user._id === appointment.userID)?.name}  </p>
-                                                                        <p>Email: {users.find(user => user._id === appointment.userID)?.email}</p>
-                                                                    </div>
-                                                                )}
+                                                            <p><strong>Appointment Type:</strong> {appointment.appointmentType} </p>
+                                                            {users && (
+                                                                <div>
+                                                                    <p><strong>User:</strong> {users.find(user => user._id === appointment.userID)?.name}  </p>
+                                                                    <p><strong>Email:</strong> {users.find(user => user._id === appointment.userID)?.email}</p>
+                                                                </div>
+                                                            )}
 
-                                                                {appointment.appointmentType !== "apply" && (
-                                                                    <>
-                                                                        <p>Blood Group: {appointment.bloodGroup}</p>
-                                                                        <p>Quantity: {appointment.quantity}</p>
-                                                                    </>
-                                                                )}
-                                                            </div>
+                                                            {appointment.appointmentType !== "apply" && (
+                                                                <>
+                                                                    <p><strong>Blood Group:</strong> {appointment.bloodGroup}</p>
+                                                                    <p><strong>Quantity:</strong> {appointment.quantity}</p>
+                                                                </>
+                                                            )}
                                                         </div>
+                                                    </div>
                                                     </Col>
                                                     <Col md={10}>
                                                         {appointment.event && (
                                                             <>
-                                                                <p>Event:
+                                                                <p style={{textAlign: 'justify'}}><strong>Event:</strong>
                                                                     <p>{events.find(event => event._id === appointment.event)?.title}</p>
                                                                     <p>{events.find(event => event._id === appointment.event)?.details}</p>
                                                                     <p>{events.find(event => event._id === appointment.event)?.place}</p>
@@ -206,12 +207,13 @@ const PrintPDFAppointment = () => {
                                                             </>
                                                         )}
 
-                                                        <p>Status:</p>
-                                                        <p>{appointment.status}</p>
+                                                        <p style={{textAlign: 'justify'}}><strong>Status:</strong></p>
+                                                        <p style={{textAlign: 'justify'}}>{appointment.status}</p>
                                                     </Col>
                                                 </Container>
+                                                
                                                 <div md={10}>
-                                                    <button className="btn btn-primary" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
+                                                    <button className="btn btn-danger" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
                                                 </div>
                                             </center>
                                         )}
