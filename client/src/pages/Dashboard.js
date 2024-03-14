@@ -181,7 +181,7 @@ const Dashboard = () => {
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 30;
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-      pdf.save('invoice.pdf');
+      pdf.save('Report.pdf');
     });
   };
 
@@ -191,7 +191,7 @@ const Dashboard = () => {
         <>
           <div className="custom-homepage my-3">
             <AdminHeader />
-            <div className="custom-content">         
+            <div className="custom-content">
               <Container fluid>
                 <Row>
                   <Col md={2} style={{ backgroundColor: '#191C24' }}>
@@ -199,8 +199,6 @@ const Dashboard = () => {
                   </Col>
                   <Col md={10} style={{ backgroundColor: '#191C24' }} ref={pdfRef}>
                     <Row className="mb-4 " style={{ marginTop: '35px' }}>
-                      <center>
-                      </center>
                       <Col md={6} className="custom-card-column" style={{ height: '559px', width: '550px' }}>
                         <Card>
                           <CardBody>
@@ -305,28 +303,30 @@ const Dashboard = () => {
                                 <CardTitle className="custom-card-title">Appointment Types that the User Appoints.</CardTitle>
                                 <AppointmentTypeSimpleChart appointments={appointments} />
                               </CardBody>
-                              
+
                             </Card>
-                            <button className="btn btn-primary" onClick={downloadPDF}>Download PDF</button>
                           </Col>
                         </Row>
                       </Col>
                     </Row>
                   </Col>
+                  <center>
+                    <button className="btn btn-primary" style={{ height: '100%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
+                  </center>
                 </Row>
-                
+
               </Container>
 
-              
+
             </div>
-            
+
           </div>
-         
+
         </>
-        
+
       )}
     </>
-    
+
   )
 }
 

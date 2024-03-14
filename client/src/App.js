@@ -32,6 +32,7 @@ import EditAppointment from './pages/user/Appointment/EditAppointment';
 import AboutUs from './pages/Forum/AboutUs';
 import Schedule from './pages/Forum/Schedule/Schedule';
 import DownloadAppointment from './pages/user/Appointment/DownloadAppointment';
+import PrintPDFAppointment from './pages/admin/Appointment/PrintPDFAppointment';
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
         {/* HERE IS THE ADMIN */}
         <Route path='/dashboard' element={<AdminProtectedRoutes element={<Dashboard />} />} />
         <Route path='/admin/appointments' element={<AdminProtectedRoutes element={<Appointment />} />} />
-        <Route path='/appointment/update/:id' element={<AdminProtectedRoutes element={<UpdateAppointment />} />} />
+        <Route path='/appointment/print/:id' element={<AdminProtectedRoutes element={<PrintPDFAppointment />} />} />
         <Route path='/admin/donors' element={<AdminProtectedRoutes element={<Donor />} />} />
         <Route path='/admin/create/donor' element={<AdminProtectedRoutes element={<CreateDonor />} />} />
         <Route path='/admin/update/donor/:id' element={<AdminProtectedRoutes element={<UpdateDonor />} />} />

@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
 import '../../../index.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Appointment = () => {
     const [appointments, setAppointments] = useState([]);
@@ -69,6 +71,29 @@ const Appointment = () => {
         getAllUsers();
         getAllEvents();
     }, []);
+
+    const completeAppointmentStatus = async (id) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.put(
+                `${process.env.REACT_APP_BASEURL}/appointment/appointment-status-complete/${id}`,
+                config
+            );
+            toast.success(data.message);
+            window.location.reload();
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
+    const completeAppointment = (id) => {
+        completeAppointmentStatus(id);
+    };
 
     const formatAppointments = () => {
         return {
@@ -142,12 +167,16 @@ const Appointment = () => {
                     status: appointment.status,
                     actions: (
                         <Fragment>
-                            <Link to={`/appointment/update/${appointment._id}`} className="btn btn-primary py-1 px-2">
-                                <i className="fa fa-pencil"></i>
-                            </Link>
-                            {/* <Link>
-                                <i className="fa-regular fa-eye"></i>
-                            </Link> */}
+                            {appointment && appointment.status === 'pending' && (
+                                <button onClick={() => completeAppointment(appointment._id)} className="btn btn-primary py-1 px-2">
+                                    <i className="fa fa-pencil"></i>
+                                </button>
+                            )}
+                            {appointment && appointment.status === 'confirmed' && (
+                                <Link to={`/appointment/print/${appointment._id}`} className="btn btn-danger py-1 px-2">
+                                    <i class="fa-solid fa-print"></i>
+                                </Link>
+                            )}
                         </Fragment>
                     ),
                 };
@@ -175,7 +204,7 @@ const Appointment = () => {
                                         </div>
                                     </div>
                                     <Col className='my-3'>
-                                        <Row style={{ backgroundColor: 'black', borderRadius:'30px'}}>
+                                        <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
                                             <MDBDataTable
                                                 data={formatAppointments()}
                                                 className="appointment-datatable"
@@ -183,7 +212,7 @@ const Appointment = () => {
                                                 striped
                                                 paginationLabel={['Previous', 'Next']}
                                                 searchLabel="Search"
-                                                style={{borderRadius:'30px'}}
+                                                style={{ borderRadius: '30px' }}
                                             />
                                         </Row>
                                     </Col>

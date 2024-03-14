@@ -61,7 +61,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                  {formType === 'login' && <option selected >Login: Select</option>}
                  {formType === 'register' && <option selected >Register: Select</option>}
                 <option value="donor">Donor</option>
-                <option value="user">User</option>
+                <option value="user">Recipient</option>
                 {formType === 'login' && <option value="admin">Admin</option>}
               </select>
             </div>

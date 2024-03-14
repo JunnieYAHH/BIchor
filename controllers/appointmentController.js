@@ -132,6 +132,25 @@ const updateAppointmentQuantity = async (req, res) => {
     }
 };
 
+const appointmentStatusComplete = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      const AppointmentStatus = {
+        status: 'confirmed',
+      };
+  
+      const appointment = await appointmentModel.findByIdAndUpdate(id, AppointmentStatus, {
+        new: true,
+      });
+      // console.log(appointment)
+  
+      res.status(200).json({ success: true, message: 'Appointment is now Completed', appointment });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
 
 
-module.exports = { createAppointment, getAppointment, getAllAppointment, getSingleAppointment, updateAppointmentStatus, updateAppointmentQuantity };
+
+module.exports = { createAppointment, getAppointment, getAllAppointment, getSingleAppointment, updateAppointmentStatus, updateAppointmentQuantity, appointmentStatusComplete };

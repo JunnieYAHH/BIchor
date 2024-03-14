@@ -22,7 +22,7 @@ const AdminSidebar = () => {
                         <Link to="/admin/events"><i class="fa-solid fa-bullhorn"></i> Events</Link>
                     </li>
                     <li>
-                        <a href="/#">Maps</a>
+                        <a href="/#">BIchor</a>
                     </li>
                 </ul>
             </div>

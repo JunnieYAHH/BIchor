@@ -61,13 +61,17 @@ const Sidebar = () => {
                                     Menu
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li>
-                                        <Link className="dropdown-item" to="/donationPage">Donation</Link>
-                                        {/* <p>Donation</p> */}
-                                    </li>
-                                    <li>
-                                        <Link className="dropdown-item" to="/transfusionPage">Transfusion</Link>
-                                    </li>
+                                    {user && user.role === 'donor' && (
+                                        <li>
+                                            <Link className="dropdown-item" to="/donationPage">Donation</Link>
+                                            {/* <p>Donation</p> */}
+                                        </li>
+                                    )}
+                                    {user && user.role === 'user' && (
+                                        <li>
+                                            <Link className="dropdown-item" to="/transfusionPage">Transfusion</Link>
+                                        </li>
+                                    )}
                                     <li>
                                         {/* <p>Campain</p> */}
                                         <Link className="dropdown-item" to="/campainPage">Campain</Link>
