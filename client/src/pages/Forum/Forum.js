@@ -305,7 +305,7 @@ const Forum = () => {
                                                 <Row>
                                                     <Col>
                                                         {events
-                                                            .filter(event => event.status === "pending")
+                                                            .filter(event => event.postEventStatus === "inPost")
                                                             .map((event, index) => (
                                                                 <form encType="multipart/form-data" onSubmit={createComment}>
                                                                     <Card className='my-2' style={{ backgroundColor: 'red', width: '75%' }} key={index}>

@@ -44,6 +44,10 @@ const eventSchema = new mongoose.Schema({
         ref: "user",
         required: [true, 'Clinic ID Required'],
     },
+    postEventStatus: {
+        type: String,
+        default: 'outPost'
+    },
     comment: [
         {
             userID: {

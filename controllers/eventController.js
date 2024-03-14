@@ -25,6 +25,7 @@ const createEvent = async (req, res) => {
             place: req.body.place,
             details: req.body.details,
             status: 'pending',
+            postEventStatus:'outPost',
             images: imageData,
         });
         const event = new eventModel(newEvent);
@@ -201,4 +202,41 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent, eventAddComment, deleteComment };
+const eventInPostStatus = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      const eventPostStatus = {
+        postEventStatus: 'inPost',
+      };
+  
+      const event = await eventModel.findByIdAndUpdate(id, eventPostStatus, {
+        new: true,
+      });
+      // console.log(event)
+  
+      res.status(200).json({ success: true, message: 'Event is now Posted', event });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+const eventOutPostStatus = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      const eventPostStatus = {
+        postEventStatus: 'outPost',
+      };
+  
+      const event = await eventModel.findByIdAndUpdate(id, eventPostStatus, {
+        new: true,
+      });
+      // console.log(event)
+  
+      res.status(200).json({ success: true, message: 'Event is now Deleted To Post', event });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+
+module.exports = { createEvent, getAllEvents, getSingleEvent, updateEvent, eventAddComment, deleteComment, eventInPostStatus, eventOutPostStatus };

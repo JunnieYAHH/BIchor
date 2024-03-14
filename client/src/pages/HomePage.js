@@ -139,7 +139,7 @@ const HomePage = () => {
                         </div>
                       </div>
                     </Row>
-                    {user && user.role === 'donor' && (
+                    {user && (user.role === 'donor' || user.role === 'admin') &&  (
                       <Row className="mb-4">
                         <div className="container">
                           <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
@@ -226,7 +226,7 @@ const HomePage = () => {
                         ))}
                       </Row>
                     )}
-                    {user && user.role === 'user' && (
+                    {user && (user.role === 'user' || user.role === 'admin') &&  (
                       <Row className="mb-4">
                         <div className="container">
                           <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>

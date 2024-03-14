@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom'
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
 import '../../../index.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Event = () => {
 
@@ -43,6 +45,52 @@ const Event = () => {
         const day = date.getDate();
         const year = date.getFullYear();
         return `${month} ${day}, ${year}`;
+    };
+
+    const eventInPostStatus = async (id) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.put(
+                `${process.env.REACT_APP_BASEURL}/event/event-status-inPost/${id}`,
+                config
+            );
+            toast.success(data.message);
+            window.location.reload();
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
+    const eventOutPostStatus = async (id) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.put(
+                `${process.env.REACT_APP_BASEURL}/event/event-status-outPost/${id}`,
+                config
+            );
+            toast.success(data.message);
+            window.location.reload();
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
+    const eventInPost = (id) => {
+        eventInPostStatus(id);
+    };
+
+    const eventOutPost = (id) => {
+        eventOutPostStatus(id);
     };
 
     const EventsDataTable = () => {
@@ -106,12 +154,27 @@ const Event = () => {
                 status: event.status,
                 actions: (
                     <>
-                        <Link to={`/admin/update-event/${event._id}`} className="btn btn-primary py-1 px-2">
-                            <i className="fa fa-pencil"></i>
-                        </Link>
-                        {/* <Link>
-                            <i className="fa-regular fa-eye"></i>
-                        </Link> */}
+                        <Row>
+                            <Col>
+                                <Link to={`/admin/update-event/${event._id}`} className="btn btn-primary">
+                                    <i className="fa fa-pencil"></i>
+                                </Link>
+                            </Col>
+                            {event && event.postEventStatus === 'outPost' && (
+                                <Col>
+                                    <button onClick={() => eventInPost(event._id)} className="btn btn-primary">
+                                        <i class="fa-solid fa-clipboard"></i>
+                                    </button>
+                                </Col>
+                            )}
+                            {event && event.postEventStatus === 'inPost' && (
+                                <Col>
+                                    <button onClick={() => eventOutPost(event._id)} className="btn btn-danger">
+                                        <i class="fa-solid fa-folder-minus"></i>
+                                    </button>
+                                </Col>
+                            )}
+                        </Row>
                     </>
                 ),
             }))
