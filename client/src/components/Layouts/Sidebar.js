@@ -67,7 +67,7 @@ const Sidebar = () => {
                                             {/* <p>Donation</p> */}
                                         </li>
                                     )}
-                                    {user && (user.role === 'donor' || user.role === 'admin') &&  (
+                                    {user && (user.role === 'user' || user.role === 'admin') &&  (
                                         <li>
                                             <Link className="dropdown-item" to="/transfusionPage">Transfusion</Link>
                                         </li>
