@@ -26,10 +26,15 @@ const HowToTransfuse = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
+    const roleMap = {
+        'donor': 'Donor',
+        'user': 'Recipient',
+        'admin': 'Admin'
+    };
     return (
         <>
             <header className='header'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary header">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height: '12%' }}>
                     <div className="container-fluid">
                         <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                         {user && user.role !== 'admin' && (
@@ -50,16 +55,10 @@ const HowToTransfuse = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <form className="d-flex" role="search">
-                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button className="btn btn-outline-warning" type="submit">Search</button>
-                                </form>
-                            </ul>
                             {!isRegisterPage && !isLoginPage && user && (
-                                <ul className="navbar-nav mb- mb-lg-0">
+                                <ul className="navbar-nav mb- mb-lg-0" style={{ marginLeft: '70%' }}>
                                     <li className='nav-item mx-3'>
-                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
+                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{roleMap[user.role]}</span></p>
                                     </li>
                                     <li className='nav-item mx-3'>
                                         <button className='btn btn-danger' onClick={handleLogout}>Logout</button>

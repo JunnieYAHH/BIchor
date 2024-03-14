@@ -137,12 +137,16 @@ const UpdateDonor = () => {
 
     };
 
-
+    const roleMap = {
+        'donor': 'Donor',
+        'user': 'Recipient',
+        'admin': 'Admin'
+    };
 
     return (
         <>
             <header>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary header">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height: '12%' }}>
                     <div className="container-fluid">
                         <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                         <Link to="/dashboard" className="navbar-brand" style={{ color: 'black' }}>
@@ -152,18 +156,10 @@ const UpdateDonor = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <form className="d-flex" role="search">
-                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button className="btn btn-outline-success" type="submit">Search</button>
-                                </form>
-                            </ul>
                             {user && (
-
-                                <ul className="navbar-nav mb- mb-lg-0">
+                                <ul className="navbar-nav mb- mb-lg-0" style={{ marginLeft: '70%' }}>
                                     <li className='nav-item mx-3'>
-                                        <p className='nav-link' style={{ color: 'white' }}> <i className="fa fa-user"></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
-
+                                        <p className='nav-link' style={{ color: 'white' }}> <i className="fa fa-user"></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{roleMap[user.role]}</span></p>
                                     </li>
                                     <li className='nav-item mx-3'>
                                         <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
@@ -193,93 +189,93 @@ const UpdateDonor = () => {
                                     <Col>
                                         <Row style={{ borderRadius: '20px', backgroundColor: 'black', color: 'white' }} className='my-1'>
                                             <div className="d-flex justify-content-start">
-                                            <form encType="multipart/form-data" className="offset-md-5 col-md-2">
-                                                {users && users.user && (
-                                                    <>
-                                            
-                                                        <div className='my-3'>
-                                                            {users.user.description && users.user.description.map(desc => (
-                                                                <div key={desc._id}>
-                                                                    {desc.avatar.map(avatar => (
-                                                                        <div key={avatar.public_id} >
+                                                <form encType="multipart/form-data" className="offset-md-5 col-md-2">
+                                                    {users && users.user && (
+                                                        <>
 
-                                                                            <MDBCard style={{ width: '175px', height: '155px' }}>
-                                                                                <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
-                                                                                    <center>
-                                                                                        <MDBCardImage src={avatar.url} alt="Avatar" />
-                                                                                    </center>
-                                                                                </MDBRipple>
-                                                                            </MDBCard>
-                                                                        </div>
-                                                                    ))}
+                                                            <div className='my-3'>
+                                                                {users.user.description && users.user.description.map(desc => (
+                                                                    <div key={desc._id}>
+                                                                        {desc.avatar.map(avatar => (
+                                                                            <div key={avatar.public_id} >
 
-                                                                </div>
-                                                            ))}
-                                                            <Col>
-                                                                <Row>
-                                                                    <Col>
-                                                                        <p>Role:</p>
-                                                                        <div className="d-flex mb-3">
-                                                                            <select
-                                                                                className="form-select"
-                                                                                name="role"
-                                                                                value={role}
-                                                                                onChange={(e) => setRole(e.target.value)}
-                                                                            >
-                                                                                {users.user.role === 'donor' && <option value="donor">Donor</option>}
-                                                                                {users.user.role === 'user' && <option value="user">User</option>}
-                                                                                {users.user.role === 'admin' && <option value="admin">Admin</option>}
-                                                                                {users.user.role !== 'donor' && <option value="donor">Donor</option>}
-                                                                                {users.user.role !== 'user' && <option value="user">User</option>}
-                                                                                {users.user.role !== 'admin' && <option value="admin">Admin</option>}
-                                                                            </select>
-                                                                        </div>
-                                                                        <p>Name: <span className="badge bg-secondary">{users.user.name}</span></p>
-                                                                        <MDBInput value={name} type='text' name='name' onChange={(e) => setName(e.target.value)} />
-                                                                        <p>Email: <span className="badge bg-secondary">{users.user.email}</span></p>
-                                                                        <MDBInput value={email} name={'email'} onChange={(e) => setEmail(e.target.value)} />
-                                                                        <p>Address: <span className="badge bg-secondary">{users.user.address}</span></p>
-                                                                        <MDBInput value={address} name={'address'} onChange={(e) => setAddress(e.target.value)} />
-                                                                        <p>Phone:<span className="badge bg-secondary">{users.user.phone}</span></p>
-                                                                        <MDBInput value={phone} name={'phone'} onChange={(e) => setPhone(e.target.value)} />
-                                                                        <MDBInputGroup
-                                                                            className='mb-3 my-4'
-                                                                            textAfter='Upload'
-                                                                            textTag='label'
-                                                                            textProps={{ htmlFor: 'avatarFileInput' }}
-                                                                        >
-                                                                            <input className='form-control' type='file' id='avatarFileInput' onChange={handleAvatarChange} />
-                                                                        </MDBInputGroup>
-                                                                    </Col>
-                                                                    <Col>
-                                                                        {users.user.description && users.user.description.map(desc => (
-                                                                            <div key={desc._id}>
-                                                                                <p>Sex:<span className="badge bg-secondary">{desc.sex}</span></p>
-                                                                                <MDBInput value={sex} name={'sex'} onChange={(e) => setSex(e.target.value)} />
-                                                                                <div>
-                                                                                    <p>BirthDate:<span className="badge bg-secondary">{formatDate(desc.birthDate)}</span></p>
-                                                                                    <MDBInput value={birthDate} type='date' name={'birthDate'} onChange={(e) => setBirthDate(e.target.value)} style={{ width: '150px' }} />
-                                                                                </div>
-                                                                                <p>bloodType:<span className="badge bg-secondary">{desc.bloodType}</span></p>
-                                                                                <MDBInput value={bloodType} name={'bloodType'} onChange={(e) => setBloodType(e.target.value)} />
-                                                                                <p>Year:<span className="badge bg-secondary">{desc.year}</span></p>
-                                                                                <MDBInput value={year} name={'year'} onChange={(e) => setYear(e.target.value)} />
-                                                                                <p>Course:<span className="badge bg-secondary">{desc.course}</span></p>
-                                                                                <MDBInput value={course} name={'course'} onChange={(e) => setCourse(e.target.value)} />
-                                                                                <p>Weight:<span className="badge bg-secondary">{desc.weight}</span></p>
-                                                                                <MDBInput value={weight} name={'weight'} onChange={(e) => setWeight(e.target.value)} />
+                                                                                <MDBCard style={{ width: '175px', height: '155px' }}>
+                                                                                    <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
+                                                                                        <center>
+                                                                                            <MDBCardImage src={avatar.url} alt="Avatar" />
+                                                                                        </center>
+                                                                                    </MDBRipple>
+                                                                                </MDBCard>
                                                                             </div>
                                                                         ))}
-                                                                    </Col>
-                                                                </Row>
-                                                            </Col>
-                                                        </div>
-                                                        <div className="d-flex justify-content-center">
-                                                            <button type="submit" className="btn btn-success" onClick={submitHandler}>Update</button>
-                                                        </div>
-                                                    </>
-                                                )}                             
-                                            </form>
+
+                                                                    </div>
+                                                                ))}
+                                                                <Col>
+                                                                    <Row>
+                                                                        <Col>
+                                                                            <p>Role:</p>
+                                                                            <div className="d-flex mb-3">
+                                                                                <select
+                                                                                    className="form-select"
+                                                                                    name="role"
+                                                                                    value={role}
+                                                                                    onChange={(e) => setRole(e.target.value)}
+                                                                                >
+                                                                                    {users.user.role === 'donor' && <option value="donor">Donor</option>}
+                                                                                    {users.user.role === 'user' && <option value="user">User</option>}
+                                                                                    {users.user.role === 'admin' && <option value="admin">Admin</option>}
+                                                                                    {users.user.role !== 'donor' && <option value="donor">Donor</option>}
+                                                                                    {users.user.role !== 'user' && <option value="user">Recipient</option>}
+                                                                                    {users.user.role !== 'admin' && <option value="admin">Admin</option>}
+                                                                                </select>
+                                                                            </div>
+                                                                            <p>Name: <span className="badge bg-secondary">{users.user.name}</span></p>
+                                                                            <MDBInput value={name} type='text' name='name' onChange={(e) => setName(e.target.value)} />
+                                                                            <p>Email: <span className="badge bg-secondary">{users.user.email}</span></p>
+                                                                            <MDBInput value={email} name={'email'} onChange={(e) => setEmail(e.target.value)} />
+                                                                            <p>Address: <span className="badge bg-secondary">{users.user.address}</span></p>
+                                                                            <MDBInput value={address} name={'address'} onChange={(e) => setAddress(e.target.value)} />
+                                                                            <p>Phone:<span className="badge bg-secondary">{users.user.phone}</span></p>
+                                                                            <MDBInput value={phone} name={'phone'} onChange={(e) => setPhone(e.target.value)} />
+                                                                            <MDBInputGroup
+                                                                                className='mb-3 my-4'
+                                                                                textAfter='Upload'
+                                                                                textTag='label'
+                                                                                textProps={{ htmlFor: 'avatarFileInput' }}
+                                                                            >
+                                                                                <input className='form-control' type='file' id='avatarFileInput' onChange={handleAvatarChange} />
+                                                                            </MDBInputGroup>
+                                                                        </Col>
+                                                                        <Col>
+                                                                            {users.user.description && users.user.description.map(desc => (
+                                                                                <div key={desc._id}>
+                                                                                    <p>Sex:<span className="badge bg-secondary">{desc.sex}</span></p>
+                                                                                    <MDBInput value={sex} name={'sex'} onChange={(e) => setSex(e.target.value)} />
+                                                                                    <div>
+                                                                                        <p>BirthDate:<span className="badge bg-secondary">{formatDate(desc.birthDate)}</span></p>
+                                                                                        <MDBInput value={birthDate} type='date' name={'birthDate'} onChange={(e) => setBirthDate(e.target.value)} style={{ width: '150px' }} />
+                                                                                    </div>
+                                                                                    <p>bloodType:<span className="badge bg-secondary">{desc.bloodType}</span></p>
+                                                                                    <MDBInput value={bloodType} name={'bloodType'} onChange={(e) => setBloodType(e.target.value)} />
+                                                                                    <p>Year:<span className="badge bg-secondary">{desc.year}</span></p>
+                                                                                    <MDBInput value={year} name={'year'} onChange={(e) => setYear(e.target.value)} />
+                                                                                    <p>Course:<span className="badge bg-secondary">{desc.course}</span></p>
+                                                                                    <MDBInput value={course} name={'course'} onChange={(e) => setCourse(e.target.value)} />
+                                                                                    <p>Weight:<span className="badge bg-secondary">{desc.weight}</span></p>
+                                                                                    <MDBInput value={weight} name={'weight'} onChange={(e) => setWeight(e.target.value)} />
+                                                                                </div>
+                                                                            ))}
+                                                                        </Col>
+                                                                    </Row>
+                                                                </Col>
+                                                            </div>
+                                                            <div className="d-flex justify-content-center">
+                                                                <button type="submit" className="btn btn-success" onClick={submitHandler}>Update</button>
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </form>
                                             </div>
                                         </Row>
                                     </Col>

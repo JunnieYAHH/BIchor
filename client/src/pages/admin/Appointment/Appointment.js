@@ -12,6 +12,7 @@ import Header from '../../../components/Layouts/AdminHeader';
 import '../../../index.css'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminHeader from '../../../components/Layouts/AdminHeader';
 
 const Appointment = () => {
     const [appointments, setAppointments] = useState([]);
@@ -141,8 +142,13 @@ const Appointment = () => {
                 const user = users.find(user => user._id === appointment.userID) || {};
                 const event = events.find(event => event._id === appointment.event) || {};
                 const avatarUrl = user.description && user.description.length > 0 && user.description[0]?.avatar && user.description[0]?.avatar.length > 0 ? user.description[0]?.avatar[0]?.url : null;
+                const appointmentTypeMap = {
+                    'out': 'Donation',
+                    'in': 'Transfusion',
+                    'apply': 'Campaign'
+                };
                 return {
-                    appointmentType: appointment.appointmentType,
+                    appointmentType: appointmentTypeMap[appointment.appointmentType],
                     bloodGroup: appointment.bloodGroup,
                     quantity: appointment.quantity,
                     email: user.email || 'N/A',
@@ -186,7 +192,7 @@ const Appointment = () => {
 
     return (
         <>
-            <Header sticky />
+            <AdminHeader sticky />
             <div className="custom-homepage my-5">
                 <div className="custom-content">
                     <Container fluid>

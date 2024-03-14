@@ -37,7 +37,7 @@ const Donor = () => {
 
 
     const formatUsersForDataTable = () => {
-        const filteredUsers = users.filter(user => !['clinic', 'organisation'].includes(user.role));
+        const filteredUsers = users.filter(user => !['clinic', 'organisation','admin'].includes(user.role));
 
         return {
             columns: [

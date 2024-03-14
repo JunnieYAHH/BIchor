@@ -42,13 +42,11 @@ const Schedule = () => {
                     }
                 };
                 const response = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config);
-                // Filter events with pending status
                 const pendingEvents = response.data.data.filter(event => event.status === 'pending');
-                // Transform filtered events into FullCalendar format
                 const eventData = pendingEvents.map(event => ({
                     title: event.title,
-                    start: event.date, // Assuming your event data has a 'date' field
-                    description: event.details // Optional: You can include additional fields like 'description'
+                    start: event.date,
+                    description: event.details
                 }));
                 setEvents(eventData);
             } catch (error) {
@@ -64,15 +62,21 @@ const Schedule = () => {
             plugins: [dayGridPlugin],
             initialView: 'dayGridMonth',
             weekends: false,
-            events: events // Set events here
+            events: events
         });
 
         calendar.render();
 
         return () => {
-            calendar.destroy(); // Cleanup FullCalendar instance on component unmount
+            calendar.destroy();
         };
     }, [events]);
+
+    const roleMap = {
+        'donor': 'Donor',
+        'user': 'Recipient',
+        'admin': 'Admin'
+    };
 
     return (
         <>
@@ -107,7 +111,7 @@ const Schedule = () => {
                             {!isRegisterPage && !isLoginPage && user && (
                                 <ul className="navbar-nav mb- mb-lg-0">
                                     <li className='nav-item mx-3'>
-                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
+                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{roleMap[user.role]}</span></p>
                                     </li>
                                     <li className='nav-item mx-3'>
                                         <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
@@ -160,10 +164,10 @@ const Schedule = () => {
                                                                     </Col>
                                                                     <Col>
                                                                         <Link to={'/blood/forum/schedule'} style={{ textDecoration: 'none', color: 'white' }}>
-                                                                    The
-                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                            The
+                                                                            <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
                                                                         </Link>
-                                                                </Col>
+                                                                    </Col>
                                                                 </Row>
                                                             </Link>
                                                         </Col>
@@ -180,10 +184,10 @@ const Schedule = () => {
                                                                         <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                     </Col>
                                                                     <Col>
-                                                                    <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>
-                                                                        About
-                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
-                                                                    </Link>
+                                                                        <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>
+                                                                            About
+                                                                            <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                        </Link>
                                                                     </Col>
                                                                 </Row>
                                                             </Link>
@@ -196,7 +200,7 @@ const Schedule = () => {
                                     <Card className='px-4' style={{ backgroundColor: 'white', color: 'white', width: '90%' }}>
                                         <section className="py-3 py-md-5 py-xl-8">
                                             <h1 classname="display-4" style={{ color: 'red', fontWeight: 'bold' }}>Events Schedules</h1>
-                                            <Card className='px-4' style={{width: '90%', height:'90%'}}>
+                                            <Card className='px-4' style={{ width: '90%', height: '90%' }}>
                                                 <div style={{ color: 'black', backgroundColor: 'white' }} id='calendar'></div>
                                             </Card>
                                         </section>

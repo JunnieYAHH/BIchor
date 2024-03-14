@@ -182,7 +182,7 @@ const Dashboard = () => {
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       const imgY = 30;
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-      pdf.save('Report.pdf');
+      pdf.save('Dashboard-Report.pdf');
     });
   };
 

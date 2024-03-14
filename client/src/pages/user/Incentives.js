@@ -50,7 +50,7 @@ const Incentives = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 };
-                const userId = user._id; 
+                const userId = user._id;
                 const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
                 const filteredAppointments = data.data.filter(appointment => appointment.userID === userId);
                 setAppointments(filteredAppointments);
@@ -125,9 +125,15 @@ const Incentives = () => {
                 const currentUser = user; // Assuming user is a single user object
                 const event = events.find(event => event._id === appointment.event) || {};
                 const avatarUrl = currentUser.description && currentUser.description.length > 0 && currentUser.description[0]?.avatar && currentUser.description[0]?.avatar.length > 0 ? currentUser.description[0]?.avatar[0]?.url : null;
-                console.log(avatarUrl)
+                // console.log(avatarUrl)
+                const appointmentTypeMap = {
+                    'out': 'Donation',
+                    'in': 'Transfusion',
+                    'apply': 'Campaign'
+                };
+
                 return {
-                    appointmentType: appointment.appointmentType,
+                    appointmentType: appointmentTypeMap[appointment.appointmentType],
                     bloodGroup: appointment.bloodGroup,
                     quantity: appointment.quantity,
                     email: currentUser.email || 'N/A',
@@ -152,15 +158,15 @@ const Incentives = () => {
                     status: appointment.status,
                     actions: (
                         <Fragment>
-                            {appointment.status !== 'confirmed' && (
-                                <Link to={`/user/appointment-edit/${appointment._id}`} className="py-1 px-2">
-                                    <i class="fa-regular fa-pen-to-square" style={{ cursor: 'pointer' }}></i>
-                                </Link>
-                            )}
                             {appointment.status === 'confirmed' && (
                                 <Link to={`/user/appointment-download/${appointment._id}`} className="py-1 px-2">
                                     <i className="fa-solid fa-print" style={{ cursor: 'pointer' }} ></i>
-                                    {/* <i class="fa-regular fa-print"></i> */}
+                                </Link>
+                            )}
+
+                            {appointment.status !== 'confirmed' && appointment.appointmentType !== 'apply' && (
+                                <Link to={`/user/appointment-edit/${appointment._id}`} className="py-1 px-2">
+                                    <i class="fa-regular fa-pen-to-square" style={{ cursor: 'pointer' }}></i>
                                 </Link>
                             )}
                         </Fragment>
@@ -170,11 +176,17 @@ const Incentives = () => {
         };
     };
 
+    const roleMap = {
+        'donor': 'Donor',
+        'user': 'Recipient',
+        'admin': 'Admin'
+    };
+
     return (
         <>
             <div className="custom-homepage my-5">
                 <header className='header'>
-                    <nav className="navbar navbar-expand-lg bg-body-tertiary header">
+                    <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height: '12%' }}>
                         <div className="container-fluid">
                             <img src="../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                             <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
@@ -184,16 +196,11 @@ const Incentives = () => {
                                 <span className="navbar-toggler-icon" />
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <form className="d-flex" role="search">
-                                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                        <button className="btn btn-outline-warning" type="submit">Search</button>
-                                    </form>
-                                </ul>
+
                                 {!isRegisterPage && !isLoginPage && user && (
-                                    <ul className="navbar-nav mb- mb-lg-0">
+                                    <ul className="navbar-nav mb- mb-lg-0" style={{ marginLeft: '70%' }}>
                                         <li className='nav-item mx-3'>
-                                            <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
+                                            <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{roleMap[user.role]}</span></p>
                                         </li>
                                         <li className='nav-item mx-3'>
                                             <button className='btn btn-danger' onClick={handleLogout}>Logout</button>

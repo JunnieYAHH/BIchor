@@ -26,10 +26,15 @@ const ThePad = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
+    const roleMap = {
+        'donor': 'Donor',
+        'user': 'Recipient',
+        'admin': 'Admin'
+    };
     return (
         <>
             <header className='header'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary header">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height:'12%'}}>
                     <div className="container-fluid">
                         <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                         {user && user.role !== 'admin' && (
@@ -50,16 +55,10 @@ const ThePad = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <form className="d-flex" role="search">
-                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button className="btn btn-outline-warning" type="submit">Search</button>
-                                </form>
-                            </ul>
                             {!isRegisterPage && !isLoginPage && user && (
-                                <ul className="navbar-nav mb- mb-lg-0">
+                                <ul className="navbar-nav mb- mb-lg-0" style={{marginLeft:'70%'}}>
                                     <li className='nav-item mx-3'>
-                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
+                                        <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{roleMap[user.role]}</span></p>
                                     </li>
                                     <li className='nav-item mx-3'>
                                         <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
@@ -111,8 +110,8 @@ const ThePad = () => {
                                                                 </Col>
                                                                 <Col>
                                                                     <Link to={'/blood/forum/schedule'} style={{ textDecoration: 'none', color: 'white' }}>
-                                                                    The
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
+                                                                        The
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Schedules</h4>
                                                                     </Link>
                                                                 </Col>
                                                             </Row>
@@ -129,9 +128,9 @@ const ThePad = () => {
                                                                     <i class="fa-solid fa-user-tie" style={{ fontSize: '30px', marginTop: '15px' }}></i>
                                                                 </Col>
                                                                 <Col>
-                                                                    <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>  
-                                                                    About
-                                                                    <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
+                                                                    <Link to={'/blood/forum/about-us'} style={{ textDecoration: 'none', color: 'white' }}>
+                                                                        About
+                                                                        <h4 style={{ color: 'orange', fontWeight: 'bold' }}>Us</h4>
                                                                     </Link>
                                                                 </Col>
                                                             </Row>
@@ -146,22 +145,22 @@ const ThePad = () => {
                                         <Row>
                                             <Col style={{ width: 'auto' }}>
                                                 <ul className='my-1' style={{ listStyleType: 'none', padding: 0, backgroundColor: 'orange', width: '300px', borderBottomRightRadius: '50px', borderTopRightRadius: '50px' }}>
-                                                <center>
-                                                    <div style={{ marginLeft: '40px' }}>
-                                                        <Card className='badge bg-white' style={{ fontSize: '20px' }}>
-                                                            <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '30%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
-                                                        </li>
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-transfuse' }} className='button-link'>How To Transfuse?</button>
-                                                        </li>
-                                                        <li className='my-3'>
-                                                            <button onClick={() => { window.location.href = '/blood/forum/the-pad/what-is-the-incentives' }} className='button-link'>Incentives</button>
-                                                        </li>
-                                                        </Card>
-                                                    </div>
-                                                </center>
+                                                    <center>
+                                                        <div style={{ marginLeft: '40px' }}>
+                                                            <Card className='badge bg-white' style={{ fontSize: '20px' }}>
+                                                                <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '30%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
+                                                                </li>
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-transfuse' }} className='button-link'>How To Transfuse?</button>
+                                                                </li>
+                                                                <li className='my-3'>
+                                                                    <button onClick={() => { window.location.href = '/blood/forum/the-pad/what-is-the-incentives' }} className='button-link'>Incentives</button>
+                                                                </li>
+                                                            </Card>
+                                                        </div>
+                                                    </center>
                                                 </ul>
                                             </Col>
                                             <Col className='my-5'>
@@ -170,21 +169,21 @@ const ThePad = () => {
                                                         Here in the <a style={{ color: 'Orange' }}>Pad</a>, you can see informations on How to donote, transfuse and what are the incentives you may get if you are a donor.
                                                     </p>
                                                 </Card> */}
-                                                <div className="card" style={{width: '25rem'}}>
-                                                        <img src="../../../assets/images/padbg.png" className="card-img-top" alt="Sunset Over the Sea" />
+                                                <div className="card" style={{ width: '25rem' }}>
+                                                    <img src="../../../assets/images/padbg.png" className="card-img-top" alt="Sunset Over the Sea" />
                                                     <div className="card-body">
-                                                    <center>
-                                                        <p className="card-text" style={{ textAlign: 'justify' }}>Here in the <a style={{ color: 'Orange' }}>Pad</a>, you can see information on how to donate, transfuse, and what incentives you may get if you are a donor.</p>
-                                                    </center>
+                                                        <center>
+                                                            <p className="card-text" style={{ textAlign: 'justify' }}>Here in the <a style={{ color: 'Orange' }}>Pad</a>, you can see information on how to donate, transfuse, and what incentives you may get if you are a donor.</p>
+                                                        </center>
                                                     </div>
                                                 </div>
                                             </Col>
                                         </Row>
                                         <div className="embed-responsive embed-responsive-16by9">
-                                        <center>
-                                            <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/IogKmimow7g" allowFullScreen width="750" height="450"></iframe>
-                                        </center>
-                                    </div>
+                                            <center>
+                                                <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/IogKmimow7g" allowFullScreen width="750" height="450"></iframe>
+                                            </center>
+                                        </div>
 
                                     </Card>
                                 </Card>
