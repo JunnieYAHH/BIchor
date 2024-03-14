@@ -174,7 +174,14 @@ const Campain = () => {
                 <Card style={{ height: '450px', width: '75%', marginLeft: index < 2 ? rows[index].marginLeft : index % 2 === 0 ? rows[2].marginLeft : rows[3].marginLeft, marginRight: index < 2 ? rows[index].marginRight : index % 2 === 0 ? rows[2].marginRight : rows[3].marginRight }}>
                   <CardBody>
                     <CardTitle className="custom-card-title" onClick={() => toggleAdd(event._id)}>
-                      <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i> Apply
+                      {user && user.description && user.description.length > 0 && (
+                        <>
+                          <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i>
+                          <a>
+                            Apply
+                          </a>
+                        </>
+                      )}
                     </CardTitle>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       {event.images && event.images.map(image => (

@@ -125,6 +125,7 @@ const Incentives = () => {
                 const currentUser = user; // Assuming user is a single user object
                 const event = events.find(event => event._id === appointment.event) || {};
                 const avatarUrl = currentUser.description && currentUser.description.length > 0 && currentUser.description[0]?.avatar && currentUser.description[0]?.avatar.length > 0 ? currentUser.description[0]?.avatar[0]?.url : null;
+                console.log(avatarUrl)
                 return {
                     appointmentType: appointment.appointmentType,
                     bloodGroup: appointment.bloodGroup,
@@ -157,7 +158,7 @@ const Incentives = () => {
                                 </Link>
                             )}
                             {appointment.status === 'confirmed' && (
-                                <Link to={'/user/appointment-download'} className="py-1 px-2">
+                                <Link to={`/user/appointment-download/${appointment._id}`} className="py-1 px-2">
                                     <i className="fa-solid fa-print" style={{ cursor: 'pointer' }} ></i>
                                     {/* <i class="fa-regular fa-print"></i> */}
                                 </Link>

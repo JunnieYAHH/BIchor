@@ -20,8 +20,8 @@ const Header = () => {
         navigate('/login')
     }
     return (
-        <header className='header'>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary header">
+        <header>
+            <nav className="navbar navbar-expand-lg header">
                 <div className="container-fluid">
                     <img src="./assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                     {user && user.role !== 'admin' && (

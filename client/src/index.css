@@ -49,7 +49,7 @@ header */
 /* Sidebar.css */
 .sidebar {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #970707, #810808);
+  background: linear-gradient(to bottom, #bd440c, #bd440c);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgb(216, 61, 61);
@@ -166,12 +166,12 @@ header */
 }
 
 .navbar {
-  background-color: #000000 !important;
+  background-color: #970707 !important;
   color: white !important;
 }
 
 .navbar-brand {
-  background-color: #000000 !important;
+  background-color: #970707 !important;
   color: white !important;
 }
 

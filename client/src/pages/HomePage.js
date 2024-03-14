@@ -47,7 +47,7 @@ const HomePage = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('')
 
-  // console.log(events)
+  console.log(user)
 
   // console.log(email)
 
@@ -197,7 +197,14 @@ const HomePage = () => {
                               <Card style={{ height: '450px', width: '100%' }}>
                                 <CardBody>
                                   <CardTitle className="custom-card-title" onClick={() => toogleAdd(event._id)}>
-                                    <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i> Donate
+                                    {user && user.description && user.description.length > 0 && (
+                                      <>
+                                        <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i>
+                                        <a>
+                                          Donate
+                                        </a>
+                                      </>
+                                    )}
                                   </CardTitle>
                                   <div style={{ display: 'flex', alignItems: 'center' }}>
                                     {event.images && event.images.map(image => (
@@ -277,7 +284,14 @@ const HomePage = () => {
                               <Card style={{ height: '450px', width: '100%' }}>
                                 <CardBody>
                                   <CardTitle className="custom-card-title" onClick={() => toogleAdd(event._id)} >
-                                    <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i> Apply
+                                    {user && user.description && user.description.length > 0 && (
+                                      <>
+                                        <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i>
+                                        <a>
+                                          Transfuse
+                                        </a>
+                                      </>
+                                    )}
                                   </CardTitle>
                                   <div style={{ display: 'flex', alignItems: 'center' }}>
                                     {event.images && event.images.map(image => (
@@ -356,7 +370,14 @@ const HomePage = () => {
                             <Card style={{ height: '450px', width: '100%' }}>
                               <CardBody>
                                 <CardTitle className="custom-card-title" onClick={(e) => toogleAdd(event._id)}>
-                                  <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i> Apply
+                                  {user && user.description && user.description.length > 0 && (
+                                    <>
+                                      <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i>
+                                      <a>
+                                        Apply
+                                      </a>
+                                    </>
+                                  )}
                                 </CardTitle>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                   {event.images && event.images.map(image => (

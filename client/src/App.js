@@ -54,7 +54,7 @@ function App() {
         <Route path='/blood/forum/the-pad/how-to-transfuse' element={<ProtectedRoutes><HowToTransfuse /></ProtectedRoutes>} />
         <Route path='/blood/forum/the-pad/what-is-the-incentives' element={<ProtectedRoutes><TheIncentives /></ProtectedRoutes>} />
         <Route path='/user/appointment-edit/:id' element={<ProtectedRoutes><EditAppointment /></ProtectedRoutes>} />
-        <Route path='/user/appointment-download' element={<ProtectedRoutes><DownloadAppointment /></ProtectedRoutes>} />
+        <Route path='/user/appointment-download/:id' element={<ProtectedRoutes><DownloadAppointment /></ProtectedRoutes>} />
         <Route path='/blood/forum/schedule' element={<ProtectedRoutes><Schedule /></ProtectedRoutes>} />
         <Route path='/blood/forum/about-us' element={<ProtectedRoutes><AboutUs /></ProtectedRoutes>} />
         {/* HERE IS THE ADMIN */}

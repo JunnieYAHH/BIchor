@@ -6,8 +6,8 @@ const RecipientGenderPieChart = ({ genderRecipientCounts }) => {
         name: gender,
         value: genderRecipientCounts[gender]
     }));
-
-    const COLORS = ['#3d4aff', '#ff2643'];
+    
+    const COLORS = ['#ff2643', '#3d4aff'];
     return (
         <ResponsiveContainer width="100%" height="100%">
             <PieChart>

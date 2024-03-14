@@ -20,7 +20,6 @@ const PrintPDFAppointment = () => {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState('');
     const [status, setStatus] = useState('');
-    const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
     const { id } = useParams();
@@ -100,27 +99,6 @@ const PrintPDFAppointment = () => {
         getAllUsers();
     }, [token, id]);
 
-    const updateStatus = async () => {
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            };
-
-            const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/appointment/updateStatus/${id}`, { status }, config);
-            console.log('Updated appointment:', data.appointment);
-            navigate('/admin/appointments');
-        } catch (error) {
-            console.error('Error updating appointment status:', error.response.data.message);
-        }
-    };
-
-    const handleStatusChange = (event) => {
-        setStatus(event.target.value);
-    };
-
     if (loading) {
         return <Spinner />;
     }
@@ -139,25 +117,68 @@ const PrintPDFAppointment = () => {
                                 <Col md={2}>
                                     <Sidebar />
                                 </Col>
-                                <Col md={10}>
+                                <Col md={10} ref={pdfRef}>
                                     <Row className="mb-4">
                                         <div className="container">
                                             <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                                                 <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
-                                                <p style={{ margin: '0', fontWeight: 'bold' }}>APPOINTMENT STATUS</p>
+                                                <p style={{ margin: '0', fontWeight: 'bold' }}>APPOINTMENT RECEIPT</p>
                                                 <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                             </div>
                                         </div>
                                     </Row>
+                                    <Row>
+                                        {appointment && (
+                                            <center>
+                                                <Container>
+                                                    <Col md={10}>
+                                                        <div>
+                                                            <div>
+                                                                <p>Appointment Type: {appointment.appointmentType} </p>
+                                                                {users && (
+                                                                    <div>
+                                                                        <p>User: {users.find(user => user._id === appointment.userID)?.name}  </p>
+                                                                        <p>Email: {users.find(user => user._id === appointment.userID)?.email}</p>
+                                                                    </div>
+                                                                )}
+
+                                                                {appointment.appointmentType !== "apply" && (
+                                                                    <>
+                                                                        <p>Blood Group: {appointment.bloodGroup}</p>
+                                                                        <p>Quantity: {appointment.quantity}</p>
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                    <Col md={10}>
+                                                        {appointment.event && (
+                                                            <>
+                                                                <p>Event:
+                                                                    <p>{events.find(event => event._id === appointment.event)?.title}</p>
+                                                                    <p>{events.find(event => event._id === appointment.event)?.details}</p>
+                                                                    <p>{events.find(event => event._id === appointment.event)?.place}</p>
+                                                                    <p>{events.find(event => event._id === appointment.event)?.date}</p>
+                                                                </p>
+                                                            </>
+                                                        )}
+
+                                                        <p>Status:</p>
+                                                        <p>{appointment.status}</p>
+                                                    </Col>
+                                                </Container>
+                                                <div md={10}>
+                                                    <button className="btn btn-primary" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
+                                                </div>
+                                            </center>
+                                        )}
+                                    </Row>
                                 </Col>
                             </Row>
-                            <Col md={2}>
-                                <Sidebar />
-                            </Col>
-                            {appointment && (
+                            {/* {appointment && (
                                 <center>
                                     <Container ref={pdfRef}>
-                                        <Col md={6}>
+                                        <Col md={10} style={{marginLeft:'200px'}}>
                                             <div>
                                                 <div>
                                                     <p>Appointment Type: {appointment.appointmentType} </p>
@@ -177,7 +198,7 @@ const PrintPDFAppointment = () => {
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={10} style={{marginLeft:'200px'}}>
                                             {appointment.event && (
                                                 <>
                                                     <p>Event:
@@ -193,11 +214,11 @@ const PrintPDFAppointment = () => {
                                             <p>{appointment.status}</p>
                                         </Col>
                                     </Container>
-                                    <div md={8}>
+                                    <div md={10} style={{marginLeft:'200px'}}>
                                         <button className="btn btn-primary" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
                                     </div>
                                 </center>
-                            )}
+                            )} */}
                         </Row>
                     </Container>
                 </div>

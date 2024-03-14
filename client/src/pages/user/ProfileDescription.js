@@ -77,6 +77,10 @@ const ProfileDescription = () => {
             };
 
             const { data } = await axios.put(`${process.env.REACT_APP_BASEURL}/user/add-description-user`, descriptionData, config);
+            let user = JSON.parse(localStorage.getItem('user'));
+            user.description = data.description;
+            localStorage.setItem('user', JSON.stringify(user));
+
             setSuccess(data.success);
             window.location.reload();
         } catch (error) {
@@ -170,7 +174,7 @@ const ProfileDescription = () => {
                                                                             <MDBCardTitle style={{ color: 'white' }}>Your Photo</MDBCardTitle>
                                                                             <MDBCardText style={{ color: 'white' }}>
                                                                             </MDBCardText>
-                                                                            <Link to={`/user/update-profile/${user._id}`} className='fa fa-pencil btn btn-secondary'/> <button href='#' className='btn btn-danger'>Save</button>
+                                                                            <Link to={`/user/update-profile/${user._id}`} className='fa fa-pencil btn btn-secondary' /> <button href='#' className='btn btn-danger'>Save</button>
                                                                         </MDBCardBody>
                                                                     </MDBCard>
                                                                     <MDBCard className='my-3' style={{ backgroundColor: '#C24641' }}>

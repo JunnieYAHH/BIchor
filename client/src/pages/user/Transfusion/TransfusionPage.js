@@ -164,7 +164,14 @@ const TransfusionPage = () => {
                     <Card style={{ height: '450px', width: '100%' }}>
                       <CardBody>
                         <CardTitle className="custom-card-title" onClick={() => toggleOpen(event._id)} >
-                          <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i> Apply
+                          {user && user.description && user.description.length > 0 && (
+                            <>
+                              <i className="fa-solid fa-plus" style={{ cursor: "pointer" }}></i>
+                              <a>
+                                Transfuse
+                              </a>
+                            </>
+                          )}
                         </CardTitle>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           {event.images && event.images.map(image => (
@@ -208,9 +215,15 @@ const TransfusionPage = () => {
                     <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
                       BloodType:
                     </span>
-                    <div name='eventType-IN'
-                      value={'in'}
-                      onChange={(e) => setAppointmentType(e.target.value)}>
+                    <div className='form-check ms-3'>
+                      <input type='radio'
+                        name='inRadio'
+                        value={'in'}
+                        onChange={(e) => setAppointmentType(e.target.value)}
+                        className='form-check-input' />
+                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                        Transfuse
+                      </span>
                     </div>
                   </div>
                   {user && (

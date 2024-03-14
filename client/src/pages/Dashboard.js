@@ -93,7 +93,7 @@ const Dashboard = () => {
     })
     .filter(appointment => {
       const event = events.find(event => event._id === appointment.event);
-      return event && event.eventType === 'donation';
+      return event && (event.eventType === 'campaign' || event.eventType === 'donation');
     })
     .map(appointment => {
       return {
@@ -111,7 +111,7 @@ const Dashboard = () => {
     })
     .filter(appointment => {
       const event = events.find(event => event._id === appointment.event);
-      return event && event.eventType === 'campain';
+      return event && (event.eventType === 'campaign' || event.eventType === 'transfusion');
     })
     .map(appointment => {
       return {
@@ -121,6 +121,7 @@ const Dashboard = () => {
     });
 
   const recipientAppointmentsCount = recipientAppointments.length;
+
 
   // console.log("Recipients Appointments:", recipientAppointments);
 
