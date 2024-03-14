@@ -18,6 +18,7 @@ import {
 import axios from 'axios'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import Barcode from 'react-barcode';
 import Header from '../../../components/Layouts/Header';
 import Spinner from '../../../components/Shared/Spinner';
 
@@ -33,7 +34,7 @@ const PrintPDFAppointment = () => {
         toast.success('Logout Success')
         navigate('/login')
     }
-    
+
     const [appointment, setAppointment] = useState(null);
     const [events, setEvents] = useState([]);
     const [users, setUsers] = useState([]);
@@ -49,7 +50,29 @@ const PrintPDFAppointment = () => {
 
     const downloadPDF = () => {
         const input = pdfRef.current;
-        html2canvas(input).then((canvas) => {
+
+        // Wait for images to load before converting to canvas
+        Promise.all([
+            html2canvas(input, { useCORS: true }),
+            new Promise((resolve) => {
+                const images = input.querySelectorAll('img');
+                let loadedCount = 0;
+
+                images.forEach((img) => {
+                    if (!img.complete) {
+                        img.onload = img.onerror = () => {
+                            loadedCount++;
+                            if (loadedCount === images.length) resolve();
+                        };
+                    } else {
+                        loadedCount++;
+                        if (loadedCount === images.length) resolve();
+                    }
+                });
+
+                if (images.length === 0) resolve();
+            })
+        ]).then(([canvas]) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4', true);
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -128,7 +151,7 @@ const PrintPDFAppointment = () => {
     return (
         <>
             <header className='header'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height:'12%'}}>
+                <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height: '12%' }}>
                     <div className="container-fluid">
                         <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
                         <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
@@ -139,7 +162,7 @@ const PrintPDFAppointment = () => {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             {!isRegisterPage && !isLoginPage && user && (
-                                <ul className="navbar-nav mb- mb-lg-0" style={{marginLeft:'70%'}}>
+                                <ul className="navbar-nav mb- mb-lg-0" style={{ marginLeft: '70%' }}>
                                     <li className='nav-item mx-3'>
                                         <p className='nav-link' style={{ color: 'white' }}> <i className='fa fa-user'></i> Welcome{""} {user.name} {""} <span className="badge bg-secondary">{user.role}</span></p>
                                     </li>
@@ -173,97 +196,70 @@ const PrintPDFAppointment = () => {
                                     <Row>
                                         {appointment && (
                                             <center>
-                                                <Container>
-                                                    <Col md={10}>
-                                                    
-                                                    <div style={{textAlign: 'justify'}}>  
-                                                        <div>
-                                                            <p><strong>Appointment Type:</strong> {appointment.appointmentType} </p>
+                                                <Card style={{ border: '2px solid #ccc', borderRadius: '10px', padding: '20px', width: '80%', backgroundColor: '#f9f9f9', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', display: 'flex', flexDirection: 'row' }}>
+                                                    <Card style={{ flex: 1 }}>
+                                                        <div className="image">
+                                                            <p className="admit-one">
+                                                                {appointment.appointmentType === 'out' && <span>Donation</span>}
+                                                                {appointment.appointmentType === 'in' && <span>Transfusion</span>}
+                                                                {appointment.appointmentType === 'apply' && <span>Campaign</span>}
+                                                            </p>
+                                                            <div className="ticket-number">
+                                                                <p>
+                                                                    #{appointment._id}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="ticket-info">
                                                             {users && (
-                                                                <div>
-                                                                    <p><strong>User:</strong> {users.find(user => user._id === appointment.userID)?.name}  </p>
-                                                                    <p><strong>Email:</strong> {users.find(user => user._id === appointment.userID)?.email}</p>
-                                                                </div>
-                                                            )}
-
-                                                            {appointment.appointmentType !== "apply" && (
                                                                 <>
-                                                                    <p><strong>Blood Group:</strong> {appointment.bloodGroup}</p>
-                                                                    <p><strong>Quantity:</strong> {appointment.quantity}</p>
+                                                                    <p>User: {users.find(user => user._id === appointment.userID)?.name}  </p>
+                                                                    {users.find(user => user._id === appointment.userID)?.description && users.find(user => user._id === appointment.userID).description[0].avatar && (
+                                                                        <img src={users.find(user => user._id === appointment.userID).description[0].avatar[0].url} alt="User Avatar" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                                                                    )}
+                                                                    <p>Email: {users.find(user => user._id === appointment.userID)?.email}</p>
                                                                 </>
                                                             )}
                                                         </div>
-                                                    </div>
-                                                    </Col>
-                                                    <Col md={10}>
+                                                    </Card>
+                                                    <Card style={{ flex: 1 }}>
                                                         {appointment.event && (
                                                             <>
-                                                                <p style={{textAlign: 'justify'}}><strong>Event:</strong>
-                                                                    <p>{events.find(event => event._id === appointment.event)?.title}</p>
-                                                                    <p>{events.find(event => event._id === appointment.event)?.details}</p>
-                                                                    <p>{events.find(event => event._id === appointment.event)?.place}</p>
-                                                                    <p>{events.find(event => event._id === appointment.event)?.date}</p>
-                                                                </p>
+                                                                <p>Date: {events.find(event => event._id === appointment.event)?.date}</p>
+                                                                <div className="right-info-container">
+                                                                    <div className="show-name">
+                                                                        <h1>{appointment.eventTitle}</h1>
+                                                                    </div>
+                                                                    <div className="time">
+                                                                        <p> <span>TO</span>     </p>
+                                                                        <p> {events.find(event => event._id === appointment.event)?.place}</p>
+                                                                    </div>
+                                                                    <div className="image">
+                                                                        {events.find(event => event._id === appointment.event)?.images && (
+                                                                            <img src={events.find(event => event._id === appointment.event)?.images[0].url} alt="Event Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                                                        )}
+                                                                    </div>
+                                                                    <p className="ticket-title">
+                                                                        <p>{events.find(event => event._id === appointment.event)?.title}</p>
+                                                                    </p>
+                                                                </div>
                                                             </>
                                                         )}
-
-                                                        <p style={{textAlign: 'justify'}}><strong>Status:</strong></p>
-                                                        <p style={{textAlign: 'justify'}}>{appointment.status}</p>
-                                                    </Col>
-                                                </Container>
-                                                
-                                                <div md={10}>
-                                                    <button className="btn btn-danger" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
-                                                </div>
+                                                    </Card>
+                                                    <Card style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                                        <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ height: '50%', width: '60%' }} />
+                                                        <p><Barcode value={appointment._id} height={30} width={0.7} displayValue={false} /></p>
+                                                        <h3 style={{ margin: '0', marginBottom: '10px', color: '#333' }}>Status:</h3>
+                                                        {/* <p>{appointment.status}</p> */}
+                                                        {appointment.status === 'confirmed' && <p>Confirmed</p>}
+                                                        <button className="btn btn-primary" style={{ height: '40px', width: '150px', fontSize: '16px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }} onClick={downloadPDF}>Download PDF</button>
+                                                    </Card>
+                                                </Card>
                                             </center>
                                         )}
                                     </Row>
                                 </Col>
                             </Row>
-                            {/* {appointment && (
-                                <center>
-                                    <Container ref={pdfRef}>
-                                        <Col md={10} style={{marginLeft:'200px'}}>
-                                            <div>
-                                                <div>
-                                                    <p>Appointment Type: {appointment.appointmentType} </p>
-                                                    {users && (
-                                                        <div>
-                                                            <p>User: {users.find(user => user._id === appointment.userID)?.name}  </p>
-                                                            <p>Email: {users.find(user => user._id === appointment.userID)?.email}</p>
-                                                        </div>
-                                                    )}
-
-                                                    {appointment.appointmentType !== "apply" && (
-                                                        <>
-                                                            <p>Blood Group: {appointment.bloodGroup}</p>
-                                                            <p>Quantity: {appointment.quantity}</p>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col md={10} style={{marginLeft:'200px'}}>
-                                            {appointment.event && (
-                                                <>
-                                                    <p>Event:
-                                                        <p>{events.find(event => event._id === appointment.event)?.title}</p>
-                                                        <p>{events.find(event => event._id === appointment.event)?.details}</p>
-                                                        <p>{events.find(event => event._id === appointment.event)?.place}</p>
-                                                        <p>{events.find(event => event._id === appointment.event)?.date}</p>
-                                                    </p>
-                                                </>
-                                            )}
-
-                                            <p>Status:</p>
-                                            <p>{appointment.status}</p>
-                                        </Col>
-                                    </Container>
-                                    <div md={10} style={{marginLeft:'200px'}}>
-                                        <button className="btn btn-primary" style={{ height: '10%', width: '20%' }} onClick={downloadPDF}>Download PDF</button>
-                                    </div>
-                                </center>
-                            )} */}
                         </Row>
                     </Container>
                 </div>
