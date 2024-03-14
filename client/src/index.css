@@ -425,3 +425,8 @@ header */
 .boldLabel {
   font-weight: bold;
 }
+
+
+.red-radio {
+  color: red;
+}
