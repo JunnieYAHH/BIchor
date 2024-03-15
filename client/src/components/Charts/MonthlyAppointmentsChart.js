@@ -29,10 +29,9 @@ const MonthlyAppointmentsLineChart = ({ appointments }) => {
         }
     }
 
-    // Aggregate appointments by month and user role
     const appointmentsByMonth = appointments.reduce((acc, appointment) => {
         const date = new Date(appointment.createdAt);
-        const month = date.getMonth() + 1;
+        const month = date.toLocaleString('default', { month: 'long' }); 
         const year = date.getFullYear();
         const monthYear = `${month}/${year}`;
         if (!acc[monthYear]) {
@@ -40,7 +39,6 @@ const MonthlyAppointmentsLineChart = ({ appointments }) => {
         }
         acc[monthYear].appointments++;
         
-        // Find the user associated with the appointment
         const user = users.find(user => user._id === appointment.userID);
         if (user) {
             if (user.role === 'donor') {
@@ -53,7 +51,6 @@ const MonthlyAppointmentsLineChart = ({ appointments }) => {
         return acc;
     }, {});
 
-    // Convert object into an array of objects
     const data = Object.values(appointmentsByMonth).map(entry => ({
         month: entry.month,
         Appointments: entry.appointments,

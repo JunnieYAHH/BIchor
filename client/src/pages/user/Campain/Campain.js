@@ -219,16 +219,25 @@ const Campain = () => {
                     <div className="d-flex">
                       <div name='eventID' value={eventID}></div>
                       <div name='clinicID' value={clinic}></div>
-                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                      <Row style={{ marginLeft: '70%' }}>
                         <div className='form-check ms-3'>
                           <input type='radio'
                             name='inRadio'
                             value={'apply'}
                             onChange={(e) => setAppointmentType(e.target.value)}
-                            className='form-check-input' />
-                          Apply:
+                            className='form-check-input'
+                            style={{
+                              width: '20px',
+                              height: '20px',
+                              marginRight: '5px',
+                              border: '2px solid #007bff',
+                              borderRadius: '50%'
+                            }} />
+                          <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                            Apply:
+                          </span>
                         </div>
-                      </span>
+                      </Row>
                     </div>
                     {user && (
                       <>
