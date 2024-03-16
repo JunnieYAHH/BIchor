@@ -415,6 +415,80 @@ const TransfusionPage = () => {
                       </>
                     )}
                   </>
+                  <div className="d-flex">
+                    <div name='eventID' value={eventID}></div>
+                    <div name='clinicID' value={clinic}></div>
+                    <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                      BloodType:
+                    </span>
+                    <Row style={{ marginLeft: '50%' }}>
+                      <div className='form-check ms-3'>
+                        <input type='radio'
+                          name='inRadio'
+                          value={'in'}
+                          onChange={(e) => setAppointmentType(e.target.value)}
+                          className='form-check-input'
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            marginRight: '5px',
+                            border: '2px solid #007bff',
+                            borderRadius: '50%'
+                          }} />
+                        <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                          Transfuse
+                        </span>
+                      </div>
+                    </Row>
+                  </div>
+                  {user && (
+                    <>
+                      <select className="form-select"
+                        aria-label="Default select example"
+                        onChange={(e) => setBloodGroup(e.target.value)}
+                      >
+                        {user && user.description && user.description.length > 0 ? (
+                          <>
+                            <option selected>Select</option>
+                            <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
+                          </>
+                        ) : (
+                          <>
+                            <option selected>Select</option>
+                            <option value={'O+'}>O+</option>
+                            <option value={'O-'}>O-</option>
+                            <option value={'A+'}>A+</option>
+                            <option value={'A-'}>A-</option>
+                            <option value={'B+'}>B+</option>
+                            <option value={'B-'}>B-</option>
+                            <option value={'AB+'}>AB+</option>
+                            <option value={'AB-'}>AB-</option>
+                            <option value={'K'}>K-</option>
+                          </>
+                        )}
+                      </select>
+                      <br />
+                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                        Email:
+                      </span>
+                      <InputType
+                        labelFor={'email'}
+                        inputType={'email'}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <br />
+                      <span className="badge bg-secondary" style={{ fontSize: '15px', display: 'inline-flex' }}>
+                        Quantity:
+                      </span>
+                      <InputType
+                        labelFor={'quantity'}
+                        inputType={'Number'}
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      />
+                    </>
+                  )}
                 </form>
               </MDBModalBody>
               <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>

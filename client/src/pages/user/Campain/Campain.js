@@ -229,6 +229,25 @@ const Campain = () => {
                           Apply
                         </label>
                       </div>
+                      <Row style={{ marginLeft: '70%' }}>
+                        <div className='form-check ms-3'>
+                          <input type='radio'
+                            name='inRadio'
+                            value={'apply'}
+                            onChange={(e) => setAppointmentType(e.target.value)}
+                            className='form-check-input'
+                            style={{
+                              width: '20px',
+                              height: '20px',
+                              marginRight: '5px',
+                              border: '2px solid #007bff',
+                              borderRadius: '50%'
+                            }} />
+                          <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                            Apply:
+                          </span>
+                        </div>
+                      </Row>
                     </div>
                     {user && (
                       <>
