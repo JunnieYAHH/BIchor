@@ -6,7 +6,7 @@ import {
   MDBCard as Card,
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
-  MDBBtn, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter, MDBInput,
+  MDBBtn, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter, MDBInput, MDBTextArea,
 } from 'mdb-react-ui-kit';
 import InputType from '../../../components/Shared/Form/InputType';
 import Header from '../../../components/Layouts/Header';
@@ -37,6 +37,7 @@ const DonationPage = () => {
   const [record, setRecord] = useState('');
   const [allergy, setAllergy] = useState('');
   const [weight, setWeight] = useState('');
+  const [reason, setReason] = useState('');
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState('');
   const [clinic, setClinic] = useState('65cef1342062882dd7f8f2da');
@@ -54,6 +55,16 @@ const DonationPage = () => {
   const [showAllergyInput, setAllergyInput] = useState(false);
   const handleRadioChangeAlergy = (e) => {
     setAllergyInput(!showAllergyInput);
+  };
+
+  const handleWeightChange = (e) => {
+    const newWeight = e.target.value;
+    setWeight(newWeight);
+    if (isNaN(newWeight)) {
+      setWeight('');
+    } else if (parseFloat(newWeight) < 45) {
+      toast.warning('Weight should be at least 45.');
+    }
   };
 
   const token = localStorage.getItem('token');
@@ -111,6 +122,7 @@ const DonationPage = () => {
     formData.append('weight', weight);
     formData.append('allergy', allergy);
     formData.append('record', record);
+    formData.append('reason', reason);
     formData.append('userID', userID);
     formData.append('status', 'pending');
 
@@ -227,7 +239,7 @@ const DonationPage = () => {
                   onClick={toggleOpen}
                 ></MDBBtn>
               </MDBModalHeader>
-              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white'  }}>
+              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white' }}>
                 <form >
                   <>
                     <div className="d-flex">
@@ -282,8 +294,8 @@ const DonationPage = () => {
                           labelFor={'forWeight'}
                           name={'weight'}
                           value={weight}
-                          onChange={(e) => setWeight(e.target.value)}
-                        />
+                          onChange={handleWeightChange}
+                          />
                         <p>Have you ever Donated Before?</p>
                         <div className='form-check ms-3'>
                           <input type='radio'
@@ -407,13 +419,22 @@ const DonationPage = () => {
                             />
                           )}
                         </Row>
-
+                        <Row>
+                          <Col>
+                            Reasons for Donation:
+                            <MDBTextArea rows={5}
+                              value={reason}
+                              onChange={(e) => setReason(e.target.value)}
+                            />
+                          </Col>
+                        </Row>
                       </>
                     )}
                   </>
                 </form>
               </MDBModalBody>
               <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>
+                <h6 style={{ fontSize: '9px' }}>This data will be protected and not be used to any activity other than this.</h6>
                 <button type='button' className="btn btn-secondary" onClick={toggleOpen}>
                   Close
                 </button>

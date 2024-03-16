@@ -163,12 +163,6 @@ const Incentives = () => {
                                     <i className="fa-solid fa-print" style={{ cursor: 'pointer' }} ></i>
                                 </Link>
                             )}
-
-                            {appointment.status !== 'confirmed' && appointment.appointmentType !== 'apply' && (
-                                <Link to={`/user/appointment-edit/${appointment._id}`} className="py-1 px-2">
-                                    <i class="fa-regular fa-pen-to-square" style={{ cursor: 'pointer' }}></i>
-                                </Link>
-                            )}
                         </Fragment>
                     ),
                 };

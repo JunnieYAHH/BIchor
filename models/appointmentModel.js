@@ -46,6 +46,12 @@ const appointmentSchema = new mongoose.Schema({
             return this.appointmentType !== 'apply';
         }
     },
+    reason: {
+        type: String,
+        required: function () {
+            return this.appointmentType !== 'apply';
+        },
+    },
     email: {
         type: String,
         required: [true, "Donor Email is Required"]

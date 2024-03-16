@@ -15,7 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminHeader from '../../../components/Layouts/AdminHeader';
 
 const Appointment = () => {
-    const [appointments, setAppointments] = useState([]);
+    const [outAppointments, setOutAppointments] = useState([]);
+    const [inAppointments, setInAppointments] = useState([]);
+    const [applyAppointments, setApplyAppointments] = useState([]);
     const [users, setUsers] = useState([]);
     const [events, setEvents] = useState([]);
     const [error, setError] = useState('');
@@ -32,7 +34,14 @@ const Appointment = () => {
                     }
                 };
                 const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/appointment/getAllAppointments`, config);
-                setAppointments(data.data);
+                const outAppts = data.data.filter(appt => appt.appointmentType === 'out');
+                const inAppts = data.data.filter(appt => appt.appointmentType === 'in');
+                const applyAppts = data.data.filter(appt => appt.appointmentType === 'apply');
+
+                // Set state for each type of appointments
+                setOutAppointments(outAppts);
+                setInAppointments(inAppts);
+                setApplyAppointments(applyAppts);
             } catch (error) {
                 setError(error.response.data.message);
             }
@@ -96,7 +105,7 @@ const Appointment = () => {
         completeAppointmentStatus(id);
     };
 
-    const formatAppointments = () => {
+    const formatOutAppointments = () => {
         return {
             columns: [
                 {
@@ -158,14 +167,12 @@ const Appointment = () => {
                     field: 'actions',
                 },
             ],
-            rows: appointments.map(appointment => {
+            rows: outAppointments.map(appointment => {
                 const user = users.find(user => user._id === appointment.userID) || {};
                 const event = events.find(event => event._id === appointment.event) || {};
                 const avatarUrl = user.description && user.description.length > 0 && user.description[0]?.avatar && user.description[0]?.avatar.length > 0 ? user.description[0]?.avatar[0]?.url : null;
                 const appointmentTypeMap = {
                     'out': 'Donation',
-                    'in': 'Transfusion',
-                    'apply': 'Campaign'
                 };
                 return {
                     appointmentType: appointmentTypeMap[appointment.appointmentType],
@@ -214,6 +221,209 @@ const Appointment = () => {
         };
     };
 
+    const formatInAppointments = () => {
+        return {
+            columns: [
+                {
+                    label: 'Type',
+                    field: 'appointmentType',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Blood',
+                    field: 'bloodGroup',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Event',
+                    field: 'event',
+                    sort: 'asc',
+                },
+                {
+                    label: 'User',
+                    field: 'user',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Weight',
+                    field: 'weight',
+                    sort: 'asc',
+                },
+                {
+                    label: 'History',
+                    field: 'history',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Medication/s',
+                    field: 'medication',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Record/s',
+                    field: 'record',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Allergy',
+                    field: 'allergy',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Status',
+                    field: 'status',
+                    sort: 'asc',
+                },
+                {
+                    field: 'actions',
+                },
+            ],
+            rows: inAppointments.map(appointment => {
+                const user = users.find(user => user._id === appointment.userID) || {};
+                const event = events.find(event => event._id === appointment.event) || {};
+                const avatarUrl = user.description && user.description.length > 0 && user.description[0]?.avatar && user.description[0]?.avatar.length > 0 ? user.description[0]?.avatar[0]?.url : null;
+                const appointmentTypeMap = {
+                    'in': 'Transfusion',
+                };
+                return {
+                    appointmentType: appointmentTypeMap[appointment.appointmentType],
+                    bloodGroup: appointment.bloodGroup,
+                    weight: appointment.weight,
+                    history: appointment.history,
+                    medication: appointment.medication,
+                    record: appointment.record,
+                    allergy: appointment.allergy,
+                    email: user.email || 'N/A',
+                    event: (
+                        <Fragment>
+                            {event.images && event.images.length > 0 && (
+                                <p>
+                                    <img src={event.images[0].url} alt={event.title} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                </p>
+                            )}
+                            <p>{event.title || 'N/A'}</p>
+                        </Fragment>
+                    ),
+                    user: (
+                        <Fragment>
+                            <p>
+                                <img src={avatarUrl} alt={user.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                            </p>
+                            <span>{user.name || 'N/A'}</span>
+                        </Fragment>
+                    ),
+                    status: appointment.status,
+                    actions: (
+                        <Fragment>
+                            {appointment && appointment.status === 'pending' && (
+                                <button onClick={() => completeAppointment(appointment._id)} className="btn btn-primary py-1 px-2">
+                                    <i className="fa fa-pencil"></i>
+                                </button>
+                            )}
+                            {appointment && appointment.status === 'confirmed' && (
+                                <Link to={`/appointment/print/${appointment._id}`} className="btn btn-danger py-1 px-2">
+                                    <i class="fa-solid fa-print"></i>
+                                </Link>
+                            )}
+                        </Fragment>
+                    ),
+                };
+            }),
+        };
+    };
+
+    const formatApplyAppointments = () => {
+        return {
+            columns: [
+                {
+                    label: 'Type',
+                    field: 'appointmentType',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Event',
+                    field: 'event',
+                    sort: 'asc',
+                },
+                {
+                    label: 'User',
+                    field: 'user',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Status',
+                    field: 'status',
+                    sort: 'asc',
+                },
+                {
+                    field: 'actions',
+                },
+            ],
+            rows: applyAppointments.map(appointment => {
+                const user = users.find(user => user._id === appointment.userID) || {};
+                const event = events.find(event => event._id === appointment.event) || {};
+                const avatarUrl = user.description && user.description.length > 0 && user.description[0]?.avatar && user.description[0]?.avatar.length > 0 ? user.description[0]?.avatar[0]?.url : null;
+                const appointmentTypeMap = {
+                    'apply': 'Campaign',
+                };
+                return {
+                    appointmentType: appointmentTypeMap[appointment.appointmentType],
+                    email: user.email || 'N/A',
+                    event: (
+                        <Fragment>
+                            {event.images && event.images.length > 0 && (
+                                <p>
+                                    <img src={event.images[0].url} alt={event.title} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                </p>
+                            )}
+                            <p>{event.title || 'N/A'}</p>
+                        </Fragment>
+                    ),
+                    user: (
+                        <Fragment>
+                            <p>
+                                <img src={avatarUrl} alt={user.name} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                            </p>
+                            <span>{user.name || 'N/A'}</span>
+                        </Fragment>
+                    ),
+                    status: appointment.status,
+                    actions: (
+                        <Fragment>
+                            {appointment && appointment.status === 'pending' && (
+                                <button onClick={() => completeAppointment(appointment._id)} className="btn btn-primary py-1 px-2">
+                                    <i className="fa fa-pencil"></i>
+                                </button>
+                            )}
+                            {appointment && appointment.status === 'confirmed' && (
+                                <Link to={`/appointment/print/${appointment._id}`} className="btn btn-danger py-1 px-2">
+                                    <i class="fa-solid fa-print"></i>
+                                </Link>
+                            )}
+                        </Fragment>
+                    ),
+                };
+            }),
+        };
+    };
+
+    const [selectedAppointmentType, setSelectedAppointmentType] = useState('');
+
+    const handleButtonClick = (type) => {
+        setSelectedAppointmentType(type);
+    };
+
+
     return (
         <>
             <AdminHeader sticky />
@@ -233,19 +443,64 @@ const Appointment = () => {
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                         </div>
                                     </div>
-                                    <Col className='my-3'>
-                                        <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
-                                            <MDBDataTable
-                                                data={formatAppointments()}
-                                                className="appointment-datatable"
-                                                bordered
-                                                striped
-                                                paginationLabel={['Previous', 'Next']}
-                                                searchLabel="Search"
-                                                style={{ borderRadius: '30px' }}
-                                            />
+                                    <div>
+                                        <Row>
+                                            <Col>
+                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('out')}>Donate</button>
+                                            </Col>
+                                            <Col>
+                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('in')}>Transfuse</button>
+                                            </Col>
+                                            <Col>
+                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('apply')}>Campaign</button>
+                                            </Col>
                                         </Row>
-                                    </Col>
+                                    </div>
+                                    {(selectedAppointmentType === 'out' || !selectedAppointmentType) && (
+                                        <Col className='my-3'>
+                                            <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
+                                                <MDBDataTable
+                                                    data={formatOutAppointments()}
+                                                    className="appointment-datatable"
+                                                    bordered
+                                                    striped
+                                                    paginationLabel={['Previous', 'Next']}
+                                                    searchLabel="Search"
+                                                    style={{ borderRadius: '30px' }}
+                                                />
+                                            </Row>
+                                        </Col>
+                                    )}
+                                    {selectedAppointmentType === 'in' && (
+                                        <Col className='my-3'>
+                                            <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
+                                                <MDBDataTable
+                                                    data={formatInAppointments()}
+                                                    className="appointment-datatable"
+                                                    bordered
+                                                    striped
+                                                    paginationLabel={['Previous', 'Next']}
+                                                    searchLabel="Search"
+                                                    style={{ borderRadius: '30px' }}
+                                                />
+                                            </Row>
+                                        </Col>
+                                    )}
+                                    {selectedAppointmentType === 'apply' && (
+                                        <Col className='my-3'>
+                                            <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
+                                                <MDBDataTable
+                                                    data={formatApplyAppointments()}
+                                                    className="appointment-datatable"
+                                                    bordered
+                                                    striped
+                                                    paginationLabel={['Previous', 'Next']}
+                                                    searchLabel="Search"
+                                                    style={{ borderRadius: '30px' }}
+                                                />
+                                            </Row>
+                                        </Col>
+                                    )}
                                 </Row>
                             </Col>
                         </Row>

@@ -6,7 +6,7 @@ import {
   MDBCard as Card,
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
-  MDBBtn, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter, MDBInput,
+  MDBBtn, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalBody, MDBModalFooter, MDBInput, MDBTextArea,
 } from 'mdb-react-ui-kit';
 import InputType from '../../../components/Shared/Form/InputType';
 import Header from '../../../components/Layouts/Header';
@@ -37,6 +37,7 @@ const TransfusionPage = () => {
   const [record, setRecord] = useState('');
   const [allergy, setAllergy] = useState('');
   const [weight, setWeight] = useState('');
+  const [reason, setReason] = useState('');
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState('');
   const [clinic, setClinic] = useState('65cef1342062882dd7f8f2da');
@@ -82,7 +83,6 @@ const TransfusionPage = () => {
   };
 
 
-
   const createNewAppointment = async (newAppointment) => {
     try {
       const config = {
@@ -114,6 +114,7 @@ const TransfusionPage = () => {
     formData.append('weight', weight);
     formData.append('allergy', allergy);
     formData.append('record', record);
+    formData.append('reason', reason);
     formData.append('userID', userID);
     formData.append('status', 'pending');
 
@@ -231,7 +232,7 @@ const TransfusionPage = () => {
                   onClick={toggleOpen}
                 ></MDBBtn>
               </MDBModalHeader>
-              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white'  }}>
+              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white' }}>
                 <form >
                   <>
                     <div className="d-flex">
@@ -411,87 +412,22 @@ const TransfusionPage = () => {
                             />
                           )}
                         </Row>
-
+                        <Row>
+                          <Col>
+                            Reasons for Donation:
+                            <MDBTextArea rows={5}
+                              value={reason}
+                              onChange={(e) => setReason(e.target.value)}
+                            />
+                          </Col>
+                        </Row>
                       </>
                     )}
                   </>
-                  <div className="d-flex">
-                    <div name='eventID' value={eventID}></div>
-                    <div name='clinicID' value={clinic}></div>
-                    <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                      BloodType:
-                    </span>
-                    <Row style={{ marginLeft: '50%' }}>
-                      <div className='form-check ms-3'>
-                        <input type='radio'
-                          name='inRadio'
-                          value={'in'}
-                          onChange={(e) => setAppointmentType(e.target.value)}
-                          className='form-check-input'
-                          style={{
-                            width: '20px',
-                            height: '20px',
-                            marginRight: '5px',
-                            border: '2px solid #007bff',
-                            borderRadius: '50%'
-                          }} />
-                        <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                          Transfuse
-                        </span>
-                      </div>
-                    </Row>
-                  </div>
-                  {user && (
-                    <>
-                      <select className="form-select"
-                        aria-label="Default select example"
-                        onChange={(e) => setBloodGroup(e.target.value)}
-                      >
-                        {user && user.description && user.description.length > 0 ? (
-                          <>
-                            <option selected>Select</option>
-                            <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
-                          </>
-                        ) : (
-                          <>
-                            <option selected>Select</option>
-                            <option value={'O+'}>O+</option>
-                            <option value={'O-'}>O-</option>
-                            <option value={'A+'}>A+</option>
-                            <option value={'A-'}>A-</option>
-                            <option value={'B+'}>B+</option>
-                            <option value={'B-'}>B-</option>
-                            <option value={'AB+'}>AB+</option>
-                            <option value={'AB-'}>AB-</option>
-                            <option value={'K'}>K-</option>
-                          </>
-                        )}
-                      </select>
-                      <br />
-                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                        Email:
-                      </span>
-                      <InputType
-                        labelFor={'email'}
-                        inputType={'email'}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <br />
-                      <span className="badge bg-secondary" style={{ fontSize: '15px', display: 'inline-flex' }}>
-                        Quantity:
-                      </span>
-                      <InputType
-                        labelFor={'quantity'}
-                        inputType={'Number'}
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                      />
-                    </>
-                  )}
                 </form>
               </MDBModalBody>
               <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>
+                <h6 style={{ fontSize: '9px' }}>This data will be protected and not be used to any activity other than this.</h6>
                 <button type='button' className="btn btn-secondary" onClick={toggleOpen}>
                   Close
                 </button>

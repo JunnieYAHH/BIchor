@@ -213,7 +213,7 @@ const Campain = () => {
                   onClick={toggleAdd}
                 ></MDBBtn>
               </MDBModalHeader>
-              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white'  }}>
+              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white' }}>
                 <form >
                   <>
                     <div className="d-flex">
@@ -229,25 +229,6 @@ const Campain = () => {
                           Apply
                         </label>
                       </div>
-                      <Row style={{ marginLeft: '70%' }}>
-                        <div className='form-check ms-3'>
-                          <input type='radio'
-                            name='inRadio'
-                            value={'apply'}
-                            onChange={(e) => setAppointmentType(e.target.value)}
-                            className='form-check-input'
-                            style={{
-                              width: '20px',
-                              height: '20px',
-                              marginRight: '5px',
-                              border: '2px solid #007bff',
-                              borderRadius: '50%'
-                            }} />
-                          <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                            Apply:
-                          </span>
-                        </div>
-                      </Row>
                     </div>
                     {user && (
                       <>
@@ -264,6 +245,7 @@ const Campain = () => {
                 </form>
               </MDBModalBody>
               <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>
+                <h6 style={{ fontSize: '9px' }}>This data will be protected and not be used to any activity other than this.</h6>
                 <button type='button' className="btn btn-secondary" onClick={toggleAdd}>
                   Close
                 </button>
