@@ -443,19 +443,21 @@ const Appointment = () => {
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                         </div>
                                     </div>
-                                    <div>
-                                        <Row>
-                                            <Col>
-                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('out')}>Donate</button>
-                                            </Col>
-                                            <Col>
-                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('in')}>Transfuse</button>
-                                            </Col>
-                                            <Col>
-                                                <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('apply')}>Campaign</button>
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                    <center>
+                                        <div>
+                                            <Row>
+                                                <Col>
+                                                    <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('out')}>Donate</button>
+                                                </Col>
+                                                <Col>
+                                                    <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('in')}>Transfuse</button>
+                                                </Col>
+                                                <Col>
+                                                    <button className="btn d-block" style={{ backgroundColor: 'gray' }} onClick={() => handleButtonClick('apply')}>Campaign</button>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </center>
                                     {(selectedAppointmentType === 'out' || !selectedAppointmentType) && (
                                         <Col className='my-3'>
                                             <Row style={{ backgroundColor: 'black', borderRadius: '30px' }}>
