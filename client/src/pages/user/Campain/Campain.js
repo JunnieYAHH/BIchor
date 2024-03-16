@@ -35,7 +35,7 @@ const Campain = () => {
     setDonateModal(!donateModal);
   };
   const { user } = useSelector(state => state.user)
-  const [appointmentType, setAppointmentType] = useState('in');
+  const [appointmentType, setAppointmentType] = useState('');
   const [bloodGroup, setBloodGroup] = useState('');
   const [quantity, setQuantity] = useState('');
   const [userID, setUserID] = useState('');
@@ -205,7 +205,7 @@ const Campain = () => {
         <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
           <MDBModalDialog centered size="">
             <MDBModalContent>
-              <MDBModalHeader>
+              <MDBModalHeader style={{ backgroundColor: '#970707', color: 'white' }}>
                 <MDBModalTitle >Campaign</MDBModalTitle>
                 <MDBBtn
                   className="btn-close"
@@ -213,28 +213,26 @@ const Campain = () => {
                   onClick={toggleAdd}
                 ></MDBBtn>
               </MDBModalHeader>
-              <MDBModalBody>
+              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white'  }}>
                 <form >
                   <>
                     <div className="d-flex">
                       <div name='eventID' value={eventID}></div>
                       <div name='clinicID' value={clinic}></div>
-                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                        <div className='form-check ms-3'>
-                          <input type='radio'
-                            name='inRadio'
-                            value={'apply'}
-                            onChange={(e) => setAppointmentType(e.target.value)}
-                            className='form-check-input' />
-                          Apply:
-                        </div>
-                      </span>
+                      <div className='form-check ms-3'>
+                        <input type='radio'
+                          name='inRadio'
+                          value={'apply'}
+                          onChange={(e) => setAppointmentType(e.target.value)}
+                          className='form-check-input' />
+                        <label htmlFor='out' className='form-check-label'>
+                          Apply
+                        </label>
+                      </div>
                     </div>
                     {user && (
                       <>
-                        <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                          Email:
-                        </span>
+                        Email:
                         <InputType
                           labelFor={'email'}
                           inputType={'email'}
@@ -246,7 +244,7 @@ const Campain = () => {
                   </>
                 </form>
               </MDBModalBody>
-              <MDBModalFooter>
+              <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>
                 <button type='button' className="btn btn-secondary" onClick={toggleAdd}>
                   Close
                 </button>

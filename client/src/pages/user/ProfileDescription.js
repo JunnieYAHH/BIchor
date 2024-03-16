@@ -23,8 +23,6 @@ const ProfileDescription = () => {
     const [birthDate, setBirthDate] = useState('');
     const [bloodType, setBloodType] = useState('');
     const [yearLevel, setYearLevel] = useState('');
-    const [course, setCourse] = useState('');
-    const [weight, setWeight] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [success, setSuccess] = useState('');
     const [error, setErrorReview] = useState('');
@@ -94,9 +92,6 @@ const ProfileDescription = () => {
         formData.append('sex', sex);
         formData.append('birthDate', birthDate);
         formData.append('bloodType', bloodType);
-        formData.append('yearLevel', yearLevel);
-        formData.append('course', course);
-        formData.append('weight', weight);
         formData.append('avatar', selectedFiles[0]);
 
         addDescription(formData);
@@ -287,33 +282,6 @@ const ProfileDescription = () => {
                                                                     <option value={'AB-'}>AB-</option>
                                                                     <option value={'K'}>K</option>
                                                                 </select>
-                                                                <a>Year Level</a>
-                                                                <select className="form-select"
-                                                                    aria-label="Default select example"
-                                                                    value={yearLevel}
-                                                                    onChange={(e) => setYearLevel(e.target.value)}
-                                                                >
-                                                                    <option value={'1st'}>1st Year</option>
-                                                                    <option value={'2nd'}>2nd Year</option>
-                                                                    <option value={'3rd'}>3rd Year</option>
-                                                                    <option value={'4th'}>4th Year</option>
-                                                                </select>
-                                                                <a>Course</a>
-                                                                <select className="form-select"
-                                                                    aria-label="Default select example"
-                                                                    value={course}
-                                                                    onChange={(e) => setCourse(e.target.value)}
-                                                                >
-                                                                    <option selected>Choose Course</option>
-                                                                    <option value={'BSIT-T'}>Bachelor of Science in Information Technology</option>
-                                                                </select>
-                                                                <InputType
-                                                                    labelText={'Weight'}
-                                                                    labelFor={'forWeight'}
-                                                                    name={'weight'}
-                                                                    value={weight}
-                                                                    onChange={(e) => setWeight(e.target.value)}
-                                                                />
                                                                 <p className='custom-file-label' htmlFor='customFile'>
                                                                     Choose Profile Picture
                                                                 </p>

@@ -68,21 +68,6 @@ const userSchema = new mongoose.Schema(
           type: String,
           enum: ['O+', 'O-', 'AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'K']
         },
-        year: {
-          type: String,
-        },
-        course: {
-          type: String,
-        },
-        weight: {
-          type: Number,
-          validate: {
-            validator: function (value) {
-              return value >= 45;
-            },
-            message: 'Weight must be 45 kg or more'
-          }
-        },
         avatar: [
           {
             public_id: {

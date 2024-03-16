@@ -110,11 +110,6 @@ const Appointment = () => {
                     sort: 'asc',
                 },
                 {
-                    label: 'Quantity',
-                    field: 'quantity',
-                    sort: 'asc',
-                },
-                {
                     label: 'Email',
                     field: 'email',
                     sort: 'asc',
@@ -127,6 +122,31 @@ const Appointment = () => {
                 {
                     label: 'User',
                     field: 'user',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Weight',
+                    field: 'weight',
+                    sort: 'asc',
+                },
+                {
+                    label: 'History',
+                    field: 'history',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Medication/s',
+                    field: 'medication',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Record/s',
+                    field: 'record',
+                    sort: 'asc',
+                },
+                {
+                    label: 'Allergy',
+                    field: 'allergy',
                     sort: 'asc',
                 },
                 {
@@ -150,7 +170,11 @@ const Appointment = () => {
                 return {
                     appointmentType: appointmentTypeMap[appointment.appointmentType],
                     bloodGroup: appointment.bloodGroup,
-                    quantity: appointment.quantity,
+                    weight: appointment.weight,
+                    history: appointment.history,
+                    medication: appointment.medication,
+                    record: appointment.record,
+                    allergy: appointment.allergy,
                     email: user.email || 'N/A',
                     event: (
                         <Fragment>

@@ -151,9 +151,6 @@ const addDescriptionUser = async (req, res) => {
             sex,
             birthDate,
             bloodType,
-            year: yearLevel,
-            course,
-            weight,
             avatar: avatarData
         };
 

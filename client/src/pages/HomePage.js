@@ -34,7 +34,12 @@ const HomePage = () => {
   // const [email, setEmail] = useState(user ? user.email : '');
   const [appointmentType, setAppointmentType] = useState('');
   const [bloodGroup, setBloodGroup] = useState('');
-  const [quantity, setQuantity] = useState('');
+  // const [quantity, setQuantity] = useState('');
+  const [history, setHistory] = useState('');
+  const [medication, setMedication] = useState('');
+  const [record, setRecord] = useState('');
+  const [allergy, setAllergy] = useState('');
+  const [weight, setWeight] = useState('');
   const [userID, setUserID] = useState(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
     return userData && userData._id ? userData._id : '';
@@ -47,12 +52,20 @@ const HomePage = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('')
 
-  console.log(user)
-
-  // console.log(email)
-
+  const [showMedicationInput, setShowMedicationInput] = useState(false);
+  const handleRadioChange = (e) => {
+    setShowMedicationInput(!showMedicationInput);
+  };
+  const [showRecordInput, setRecordInput] = useState(false);
+  const handleRecordYes = (e) => {
+    setRecordInput(!showRecordInput);
+  };
+  const [showAllergyInput, setAllergyInput] = useState(false);
+  const handleRadioChangeAlergy = (e) => {
+    setAllergyInput(!showAllergyInput);
+  };
+  
   const token = localStorage.getItem('token')
-  // console.log(token)
   const getAllEvents = async () => {
     try {
 
@@ -63,8 +76,7 @@ const HomePage = () => {
         }
       }
       const { data } = await axios.get(`${process.env.REACT_APP_BASEURL}/event/getAllEvents`, config)
-      // console.log(data)
-      setEvents(data.data); // Set events using data.data
+      setEvents(data.data); 
     } catch (error) {
       setError(error.response.data.message)
     }
@@ -96,6 +108,8 @@ const HomePage = () => {
     }
   };
 
+  console.log(userID)
+
   const createApointment = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -104,7 +118,12 @@ const HomePage = () => {
     formData.append('clinic', clinic);
     formData.append('bloodGroup', bloodGroup);
     formData.append('email', email);
-    formData.append('quantity', quantity);
+    formData.append('history', history);
+    formData.append('medication', medication);
+    formData.append('weight', weight);
+    formData.append('allergy', allergy);
+    formData.append('record', record);
+    // formData.append('quantity', quantity);
     formData.append('userID', userID);
     formData.append('status', 'pending');
 
@@ -139,7 +158,7 @@ const HomePage = () => {
                         </div>
                       </div>
                     </Row>
-                    {user && (user.role === 'donor' || user.role === 'admin') &&  (
+                    {user && (user.role === 'donor' || user.role === 'admin') && (
                       <Row className="mb-4">
                         <div className="container">
                           <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
@@ -226,7 +245,7 @@ const HomePage = () => {
                         ))}
                       </Row>
                     )}
-                    {user && (user.role === 'user' || user.role === 'admin') &&  (
+                    {user && (user.role === 'user' || user.role === 'admin') && (
                       <Row className="mb-4">
                         <div className="container">
                           <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
@@ -420,7 +439,6 @@ const HomePage = () => {
                                 <div className="d-flex">
                                   <div name='eventID' value={eventID}></div>
                                   <div name='clinicID' value={clinic}></div>
-                                  Blood Type: &nbsp;
                                   <div className='form-check ms-3'>
                                     <input type='radio'
                                       name='inRadio'
@@ -434,6 +452,13 @@ const HomePage = () => {
                                 </div>
                                 {user && (
                                   <>
+                                    <InputType labelText="Email"
+                                      labelFor={'email'}
+                                      inputType={'email'}
+                                      value={email}
+                                      onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    What is Your Blood Type: &nbsp;
                                     <select className="form-select"
                                       aria-label="Default select example"
                                       onChange={(e) => setBloodGroup(e.target.value)}
@@ -458,24 +483,144 @@ const HomePage = () => {
                                         </>
                                       )}
                                     </select>
-                                    <InputType labelText="Email"
-                                      labelFor={'email'}
-                                      inputType={'email'}
-                                      value={email}
-                                      onChange={(e) => setEmail(e.target.value)}
+                                    <InputType
+                                      labelText={'What is Your Weight?'}
+                                      labelFor={'forWeight'}
+                                      name={'weight'}
+                                      value={weight}
+                                      onChange={(e) => setWeight(e.target.value)}
                                     />
-                                    <InputType labelText="Quantity"
-                                      labelFor={'quantity'}
-                                      inputType={'Number'}
-                                      value={quantity}
-                                      onChange={(e) => setQuantity(e.target.value)}
-                                    />
+                                    <p>Have you ever Donated Before?</p>
+                                    <div className='form-check ms-3'>
+                                      <input type='radio'
+                                        name='historyRadio'
+                                        value={'donated'}
+                                        onChange={(e) => setHistory(e.target.value)}
+                                        className='form-check-input' />
+                                      <label htmlFor='out' className='form-check-label'>
+                                        Yes
+                                      </label>
+                                    </div>
+                                    <div className='form-check ms-3'>
+                                      <input type='radio'
+                                        name='historyRadio'
+                                        value={'no'}
+                                        onChange={(e) => setHistory(e.target.value)}
+                                        className='form-check-input' />
+                                      <label htmlFor='out' className='form-check-label'>
+                                        No
+                                      </label>
+                                    </div>
+                                    <p>Are you currently taking some medication?</p>
+                                    <div className='form-check ms-3'>
+                                      <Row>
+                                        <Col>
+                                          <input
+                                            type='radio'
+                                            name='medicationRadio'
+                                            value='yes'
+                                            onChange={handleRadioChange}
+                                            className='form-check-input'
+                                          />
+                                          <label htmlFor='yes' className='form-check-label'>
+                                            Yes
+                                          </label>
+                                        </Col>
+                                        <Col>
+                                          <input type='radio'
+                                            name='medicationRadio'
+                                            value={'no'}
+                                            onChange={(e) => setMedication(e.target.value)}
+                                            className='form-check-input' />
+                                          <label htmlFor='out' className='form-check-label'>
+                                            No
+                                          </label>
+                                        </Col>
+                                        {showMedicationInput && (
+                                          <InputType labelText='Specify What are you taking'
+                                            labelFor={'medication'}
+                                            inputType={'text'}
+                                            value={medication}
+                                            onChange={(e) => setMedication(e.target.value)}
+                                          />
+                                        )}
+                                      </Row>
+                                    </div>
+                                    <p>Any known allergies?</p>
+                                    <div className='form-check ms-3'>
+                                      <Row>
+                                        <Col>
+                                          <input
+                                            type='radio'
+                                            name='allergyRadio'
+                                            onChange={handleRadioChangeAlergy}
+                                            className='form-check-input'
+                                          />
+                                          <label htmlFor='yes' className='form-check-label'>
+                                            Yes
+                                          </label>
+                                        </Col>
+                                        <Col>
+                                          <input type='radio'
+                                            name='allergyRadio'
+                                            value={'no'}
+                                            onChange={(e) => setAllergy(e.target.value)}
+                                            className='form-check-input' />
+                                          <label htmlFor='out' className='form-check-label'>
+                                            No
+                                          </label>
+                                        </Col>
+                                        {showAllergyInput && (
+                                          <InputType labelText='What known allergy?'
+                                            labelFor={'allergy'}
+                                            inputType={'text'}
+                                            value={allergy}
+                                            onChange={(e) => setAllergy(e.target.value)}
+                                          />
+                                        )}
+                                      </Row>
+                                    </div>
+                                    <p>Did you have any record/s of illness in the past 3 months?</p>
+                                    <Row>
+                                      <Col>
+                                        <input
+                                          type='radio'
+                                          name='recordRadio'
+                                          value='recordYes'
+                                          onChange={handleRecordYes}
+                                          className='form-check-input'
+                                        />
+                                        <label htmlFor='yes' className='form-check-label'>
+                                          Yes
+                                        </label>
+                                      </Col>
+                                      <Col>
+                                        <input type='radio'
+                                          name='recordRadio'
+                                          value={'no'}
+                                          onChange={(e) => setRecord(e.target.value)}
+                                          className='form-check-input' />
+                                        <label htmlFor='out' className='form-check-label'>
+                                          No
+                                        </label>
+                                      </Col>
+                                      {showRecordInput && (
+                                        <InputType labelText="Like What?"
+                                          labelFor={'record'}
+                                          inputType={'record'}
+                                          value={record}
+                                          onChange={(e) => setRecord(e.target.value)}
+                                        />
+                                      )}
+                                    </Row>
+
                                   </>
                                 )}
                               </>
                             </form>
                           </MDBModalBody>
                           <MDBModalFooter>
+                            <h6 style={{ fontSize: '9px' }}>This data will be protected and not be used to any activity other than this.</h6>
                             <button type='button' className="btn btn-secondary" onClick={toogleAdd}>
                               Close
                             </button>
@@ -501,7 +646,6 @@ const HomePage = () => {
                                 <div className="d-flex">
                                   <div name='eventID' value={eventID}></div>
                                   <div name='clinicID' value={clinic}></div>
-                                  Blood Type: &nbsp;
                                   <div className='form-check ms-3'>
                                     <input type='radio'
                                       name='inRadio'
@@ -515,43 +659,169 @@ const HomePage = () => {
                                 </div>
                                 {user && (
                                   <>
-                                    <select className="form-select"
-                                      aria-label="Default select example"
-                                      onChange={(e) => setBloodGroup(e.target.value)}
-                                    >
-                                      {user && user.description && user.description.length > 0 ? (
-                                        <>
-                                          <option selected>Select</option>
-                                          <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <option selected>Select</option>
-                                          <option value={'O+'}>O+</option>
-                                          <option value={'O-'}>O-</option>
-                                          <option value={'A+'}>A+</option>
-                                          <option value={'A-'}>A-</option>
-                                          <option value={'B+'}>B+</option>
-                                          <option value={'B-'}>B-</option>
-                                          <option value={'AB+'}>AB+</option>
-                                          <option value={'AB-'}>AB-</option>
-                                          <option value={'K'}>K-</option>
-                                        </>
+                                  <InputType labelText="Email"
+                                    labelFor={'email'}
+                                    inputType={'email'}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                  />
+                                  What is Your Blood Type: &nbsp;
+                                  <select className="form-select"
+                                    aria-label="Default select example"
+                                    onChange={(e) => setBloodGroup(e.target.value)}
+                                  >
+                                    {user && user.description && user.description.length > 0 ? (
+                                      <>
+                                        <option selected>Select</option>
+                                        <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option selected>Select</option>
+                                        <option value={'O+'}>O+</option>
+                                        <option value={'O-'}>O-</option>
+                                        <option value={'A+'}>A+</option>
+                                        <option value={'A-'}>A-</option>
+                                        <option value={'B+'}>B+</option>
+                                        <option value={'B-'}>B-</option>
+                                        <option value={'AB+'}>AB+</option>
+                                        <option value={'AB-'}>AB-</option>
+                                        <option value={'K'}>K-</option>
+                                      </>
+                                    )}
+                                  </select>
+                                  <InputType
+                                    labelText={'What is Your Weight?'}
+                                    labelFor={'forWeight'}
+                                    name={'weight'}
+                                    value={weight}
+                                    onChange={(e) => setWeight(e.target.value)}
+                                  />
+                                  <p>Have you ever been Transfused Before?</p>
+                                  <div className='form-check ms-3'>
+                                    <input type='radio'
+                                      name='historyRadio'
+                                      value={'transfused'}
+                                      onChange={(e) => setHistory(e.target.value)}
+                                      className='form-check-input' />
+                                    <label htmlFor='out' className='form-check-label'>
+                                      Yes
+                                    </label>
+                                  </div>
+                                  <div className='form-check ms-3'>
+                                    <input type='radio'
+                                      name='historyRadio'
+                                      value={'no'}
+                                      onChange={(e) => setHistory(e.target.value)}
+                                      className='form-check-input' />
+                                    <label htmlFor='out' className='form-check-label'>
+                                      No
+                                    </label>
+                                  </div>
+                                  <p>Are you currently taking some medication?</p>
+                                  <div className='form-check ms-3'>
+                                    <Row>
+                                      <Col>
+                                        <input
+                                          type='radio'
+                                          name='medicationRadio'
+                                          value='yes'
+                                          onChange={handleRadioChange}
+                                          className='form-check-input'
+                                        />
+                                        <label htmlFor='yes' className='form-check-label'>
+                                          Yes
+                                        </label>
+                                      </Col>
+                                      <Col>
+                                        <input type='radio'
+                                          name='medicationRadio'
+                                          value={'no'}
+                                          onChange={(e) => setMedication(e.target.value)}
+                                          className='form-check-input' />
+                                        <label htmlFor='out' className='form-check-label'>
+                                          No
+                                        </label>
+                                      </Col>
+                                      {showMedicationInput && (
+                                        <InputType labelText='Specify What are you taking'
+                                          labelFor={'medication'}
+                                          inputType={'text'}
+                                          value={medication}
+                                          onChange={(e) => setMedication(e.target.value)}
+                                        />
                                       )}
-                                    </select>
-                                    <InputType labelText="Email"
-                                      labelFor={'email'}
-                                      inputType={'email'}
-                                      value={email}
-                                      onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                    <InputType labelText="Quantity"
-                                      labelFor={'quantity'}
-                                      inputType={'Number'}
-                                      value={quantity}
-                                      onChange={(e) => setQuantity(e.target.value)}
-                                    />
-                                  </>
+                                    </Row>
+                                  </div>
+                                  <p>Any known allergies?</p>
+                                  <div className='form-check ms-3'>
+                                    <Row>
+                                      <Col>
+                                        <input
+                                          type='radio'
+                                          name='allergyRadio'
+                                          onChange={handleRadioChangeAlergy}
+                                          className='form-check-input'
+                                        />
+                                        <label htmlFor='yes' className='form-check-label'>
+                                          Yes
+                                        </label>
+                                      </Col>
+                                      <Col>
+                                        <input type='radio'
+                                          name='allergyRadio'
+                                          value={'no'}
+                                          onChange={(e) => setAllergy(e.target.value)}
+                                          className='form-check-input' />
+                                        <label htmlFor='out' className='form-check-label'>
+                                          No
+                                        </label>
+                                      </Col>
+                                      {showAllergyInput && (
+                                        <InputType labelText='What known allergy?'
+                                          labelFor={'allergy'}
+                                          inputType={'text'}
+                                          value={allergy}
+                                          onChange={(e) => setAllergy(e.target.value)}
+                                        />
+                                      )}
+                                    </Row>
+                                  </div>
+                                  <p>Did you have any record/s of illness in the past 3 months?</p>
+                                  <Row>
+                                    <Col>
+                                      <input
+                                        type='radio'
+                                        name='recordRadio'
+                                        value='recordYes'
+                                        onChange={handleRecordYes}
+                                        className='form-check-input'
+                                      />
+                                      <label htmlFor='yes' className='form-check-label'>
+                                        Yes
+                                      </label>
+                                    </Col>
+                                    <Col>
+                                      <input type='radio'
+                                        name='recordRadio'
+                                        value={'no'}
+                                        onChange={(e) => setRecord(e.target.value)}
+                                        className='form-check-input' />
+                                      <label htmlFor='out' className='form-check-label'>
+                                        No
+                                      </label>
+                                    </Col>
+                                    {showRecordInput && (
+                                      <InputType labelText="Like What?"
+                                        labelFor={'record'}
+                                        inputType={'record'}
+                                        value={record}
+                                        onChange={(e) => setRecord(e.target.value)}
+                                      />
+                                    )}
+                                  </Row>
+
+                                </>
                                 )}
                               </>
                             </form>

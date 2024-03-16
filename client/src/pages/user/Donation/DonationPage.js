@@ -32,11 +32,29 @@ const DonationPage = () => {
   const [quantity, setQuantity] = useState('');
   const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');
+  const [history, setHistory] = useState('');
+  const [medication, setMedication] = useState('');
+  const [record, setRecord] = useState('');
+  const [allergy, setAllergy] = useState('');
+  const [weight, setWeight] = useState('');
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState('');
   const [clinic, setClinic] = useState('65cef1342062882dd7f8f2da');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('')
+
+  const [showMedicationInput, setShowMedicationInput] = useState(false);
+  const handleRadioChange = (e) => {
+    setShowMedicationInput(!showMedicationInput);
+  };
+  const [showRecordInput, setRecordInput] = useState(false);
+  const handleRecordYes = (e) => {
+    setRecordInput(!showRecordInput);
+  };
+  const [showAllergyInput, setAllergyInput] = useState(false);
+  const handleRadioChangeAlergy = (e) => {
+    setAllergyInput(!showAllergyInput);
+  };
 
   const token = localStorage.getItem('token');
 
@@ -88,12 +106,17 @@ const DonationPage = () => {
     formData.append('clinic', clinic);
     formData.append('bloodGroup', bloodGroup);
     formData.append('email', email);
-    formData.append('quantity', quantity);
+    formData.append('history', history);
+    formData.append('medication', medication);
+    formData.append('weight', weight);
+    formData.append('allergy', allergy);
+    formData.append('record', record);
     formData.append('userID', userID);
     formData.append('status', 'pending');
 
     createNewAppointment(formData);
   };
+
   return (
     <>
       <Header sticky />
@@ -196,7 +219,7 @@ const DonationPage = () => {
         <MDBModal tabIndex="-1" open={donateModal} setOpen={setDonateModal}>
           <MDBModalDialog centered size="">
             <MDBModalContent  >
-              <MDBModalHeader>
+              <MDBModalHeader style={{ backgroundColor: '#970707', color: 'white' }}>
                 <MDBModalTitle >Donate</MDBModalTitle>
                 <MDBBtn
                   className="btn-close"
@@ -204,89 +227,193 @@ const DonationPage = () => {
                   onClick={toggleOpen}
                 ></MDBBtn>
               </MDBModalHeader>
-              <MDBModalBody>
+              <MDBModalBody style={{ backgroundColor: '#bd440c', color: 'white'  }}>
                 <form >
-                  <div className="d-flex">
-                    <div name='eventID' value={eventID}></div>
-                    <div name='clinicID' value={clinic}></div>
-                    <Row>
-                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                        BloodType:
-                      </span>
-                    </Row>
-                    <Row style={{ marginLeft: '60%' }}>
+                  <>
+                    <div className="d-flex">
+                      <div name='eventID' value={eventID}></div>
+                      <div name='clinicID' value={clinic}></div>
                       <div className='form-check ms-3'>
                         <input type='radio'
                           name='inRadio'
                           value={'out'}
                           onChange={(e) => setAppointmentType(e.target.value)}
-                          className='form-check-input'
-                          style={{
-                            width: '20px', 
-                            height: '20px',
-                            marginRight: '5px', 
-                            border: '2px solid #007bff', 
-                            borderRadius: '50%' 
-                          }}
-                           />
-                        <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
+                          className='form-check-input' />
+                        <label htmlFor='out' className='form-check-label'>
                           Donate
-                        </span>
+                        </label>
                       </div>
-                    </Row>
-                    <br />
-                  </div>
-                  {user && (
-                    <>
-                      <select className="form-select"
-                        aria-label="Default select example"
-                        onChange={(e) => setBloodGroup(e.target.value)}
-                      >
-                        {user && user.description && user.description.length > 0 ? (
-                          <>
-                            <option selected>Select</option>
-                            <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
-                          </>
-                        ) : (
-                          <>
-                            <option selected>Select</option>
-                            <option value={'O+'}>O+</option>
-                            <option value={'O-'}>O-</option>
-                            <option value={'A+'}>A+</option>
-                            <option value={'A-'}>A-</option>
-                            <option value={'B+'}>B+</option>
-                            <option value={'B-'}>B-</option>
-                            <option value={'AB+'}>AB+</option>
-                            <option value={'AB-'}>AB-</option>
-                            <option value={'K'}>K-</option>
-                          </>
-                        )}
-                      </select>
-                      <br />
-                      <span className="badge bg-secondary" style={{ fontSize: '15px' }}>
-                        Email:
-                      </span>
-                      <InputType
-                        labelFor={'email'}
-                        inputType={'email'}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <br />
-                      <span className="badge bg-secondary" style={{ fontSize: '15px', display: 'inline-flex' }}>
-                        Quantity:
-                      </span>
-                      <InputType
-                        labelFor={'quantity'}
-                        inputType={'Number'}
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                      />
-                    </>
-                  )}
+                    </div>
+                    {user && (
+                      <>
+                        <InputType labelText="Email"
+                          labelFor={'email'}
+                          inputType={'email'}
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        What is Your Blood Type: &nbsp;
+                        <select className="form-select"
+                          aria-label="Default select example"
+                          onChange={(e) => setBloodGroup(e.target.value)}
+                        >
+                          {user && user.description && user.description.length > 0 ? (
+                            <>
+                              <option selected>Select</option>
+                              <option value={user.description[0].bloodType}>{user.description[0].bloodType} </option>
+                            </>
+                          ) : (
+                            <>
+                              <option selected>Select</option>
+                              <option value={'O+'}>O+</option>
+                              <option value={'O-'}>O-</option>
+                              <option value={'A+'}>A+</option>
+                              <option value={'A-'}>A-</option>
+                              <option value={'B+'}>B+</option>
+                              <option value={'B-'}>B-</option>
+                              <option value={'AB+'}>AB+</option>
+                              <option value={'AB-'}>AB-</option>
+                              <option value={'K'}>K-</option>
+                            </>
+                          )}
+                        </select>
+                        <InputType
+                          labelText={'What is Your Weight?'}
+                          labelFor={'forWeight'}
+                          name={'weight'}
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
+                        />
+                        <p>Have you ever Donated Before?</p>
+                        <div className='form-check ms-3'>
+                          <input type='radio'
+                            name='historyRadio'
+                            value={'Donated'}
+                            onChange={(e) => setHistory(e.target.value)}
+                            className='form-check-input' />
+                          <label htmlFor='out' className='form-check-label'>
+                            Yes
+                          </label>
+                        </div>
+                        <div className='form-check ms-3'>
+                          <input type='radio'
+                            name='historyRadio'
+                            value={'No'}
+                            onChange={(e) => setHistory(e.target.value)}
+                            className='form-check-input' />
+                          <label htmlFor='out' className='form-check-label'>
+                            No
+                          </label>
+                        </div>
+                        <p>Are you currently taking some medication?</p>
+                        <div className='form-check ms-3'>
+                          <Row>
+                            <Col>
+                              <input
+                                type='radio'
+                                name='medicationRadio'
+                                value='yes'
+                                onChange={handleRadioChange}
+                                className='form-check-input'
+                              />
+                              <label htmlFor='yes' className='form-check-label'>
+                                Yes
+                              </label>
+                            </Col>
+                            <Col>
+                              <input type='radio'
+                                name='medicationRadio'
+                                value={'No'}
+                                onChange={(e) => setMedication(e.target.value)}
+                                className='form-check-input' />
+                              <label htmlFor='out' className='form-check-label'>
+                                No
+                              </label>
+                            </Col>
+                            {showMedicationInput && (
+                              <InputType labelText='Specify What are you taking'
+                                labelFor={'medication'}
+                                inputType={'text'}
+                                value={medication}
+                                onChange={(e) => setMedication(e.target.value)}
+                              />
+                            )}
+                          </Row>
+                        </div>
+                        <p>Any known allergies?</p>
+                        <div className='form-check ms-3'>
+                          <Row>
+                            <Col>
+                              <input
+                                type='radio'
+                                name='allergyRadio'
+                                onChange={handleRadioChangeAlergy}
+                                className='form-check-input'
+                              />
+                              <label htmlFor='yes' className='form-check-label'>
+                                Yes
+                              </label>
+                            </Col>
+                            <Col>
+                              <input type='radio'
+                                name='allergyRadio'
+                                value={'No'}
+                                onChange={(e) => setAllergy(e.target.value)}
+                                className='form-check-input' />
+                              <label htmlFor='out' className='form-check-label'>
+                                No
+                              </label>
+                            </Col>
+                            {showAllergyInput && (
+                              <InputType labelText='What known allergy?'
+                                labelFor={'allergy'}
+                                inputType={'text'}
+                                value={allergy}
+                                onChange={(e) => setAllergy(e.target.value)}
+                              />
+                            )}
+                          </Row>
+                        </div>
+                        <p>Did you have any record/s of illness in the past 3 months?</p>
+                        <Row>
+                          <Col>
+                            <input
+                              type='radio'
+                              name='recordRadio'
+                              value='recordYes'
+                              onChange={handleRecordYes}
+                              className='form-check-input'
+                            />
+                            <label htmlFor='yes' className='form-check-label'>
+                              Yes
+                            </label>
+                          </Col>
+                          <Col>
+                            <input type='radio'
+                              name='recordRadio'
+                              value={'No'}
+                              onChange={(e) => setRecord(e.target.value)}
+                              className='form-check-input' />
+                            <label htmlFor='out' className='form-check-label'>
+                              No
+                            </label>
+                          </Col>
+                          {showRecordInput && (
+                            <InputType labelText="Like What?"
+                              labelFor={'record'}
+                              inputType={'record'}
+                              value={record}
+                              onChange={(e) => setRecord(e.target.value)}
+                            />
+                          )}
+                        </Row>
+
+                      </>
+                    )}
+                  </>
                 </form>
               </MDBModalBody>
-              <MDBModalFooter>
+              <MDBModalFooter style={{ backgroundColor: '#970707', color: 'white' }}>
                 <button type='button' className="btn btn-secondary" onClick={toggleOpen}>
                   Close
                 </button>

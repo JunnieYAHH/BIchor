@@ -29,9 +29,6 @@ const UpdateProfile = () => {
     const [sex, setSex] = useState('')
     const [birthDate, setBirthDate] = useState('')
     const [bloodType, setBloodType] = useState('')
-    const [year, setYear] = useState('')
-    const [course, setCourse] = useState('')
-    const [weight, setWeight] = useState('')
     const [avatar, setSelectedFiles] = useState([])
 
     const [users, setUsers] = useState([]);
@@ -117,9 +114,6 @@ const UpdateProfile = () => {
         if (sex) formData.append('sex', sex);
         if (birthDate) formData.append('birthDate', birthDate);
         if (bloodType) formData.append('bloodType', bloodType);
-        if (year) formData.append('yearLevel', year);
-        if (course) formData.append('course', course);
-        if (weight) formData.append('weight', weight);
         if (avatar) formData.append('avatar', avatar);
 
 
@@ -128,10 +122,6 @@ const UpdateProfile = () => {
             sex: sex || desc.sex,
             birthDate: birthDate || desc.birthDate,
             bloodType: bloodType || desc.bloodType,
-            year: year || desc.year,
-            course: course || desc.course,
-            weight: weight || desc.weight,
-
         }));
         formData.append('description', JSON.stringify(description));
 
@@ -265,23 +255,6 @@ const UpdateProfile = () => {
                                                                                 </div>
                                                                                 <p>bloodType:<span className="badge bg-secondary">{desc.bloodType}</span></p>
                                                                                 <MDBInput value={bloodType} name={'bloodType'} onChange={(e) => setBloodType(e.target.value)} />
-                                                                                <p>Year:<span className="badge bg-secondary">{desc.year}</span></p>
-                                                                                {/* <MDBInput value={year} name={'year'} onChange={(e) => setYear(e.target.value)} /> */}
-                                                                                <div className="d-flex mb-3">
-                                                                                    <select
-                                                                                        className="form-select"
-                                                                                        value={year} name={'year'} onChange={(e) => setYear(e.target.value)}
-                                                                                    >
-                                                                                        <option value="1st">1st Year</option>
-                                                                                        <option value="2nd">2nd Year</option>
-                                                                                        <option value="3rd">3rd Year</option>
-                                                                                        <option value="4th">4th Year</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <p>Course:<span className="badge bg-secondary">{desc.course}</span></p>
-                                                                                <MDBInput value={course} name={'course'} onChange={(e) => setCourse(e.target.value)} />
-                                                                                <p>Weight:<span className="badge bg-secondary">{desc.weight}</span></p>
-                                                                                <MDBInput value={weight} name={'weight'} onChange={(e) => setWeight(e.target.value)} />
                                                                             </div>
                                                                         ))}
                                                                     </Col>

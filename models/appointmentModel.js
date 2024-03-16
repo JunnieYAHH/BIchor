@@ -16,8 +16,32 @@ const appointmentSchema = new mongoose.Schema({
             return false;
         },
     },
-    quantity: {
-        type: Number,
+    history: {
+        type: String,
+        required: function () {
+            return this.appointmentType !== 'apply';
+        }
+    },
+    medication: {
+        type: String,
+        required: function () {
+            return this.appointmentType !== 'apply';
+        }
+    },
+    allergy: {
+        type: String,
+        required: function () {
+            return this.appointmentType !== 'apply';
+        }
+    },
+    record: {
+        type: String,
+        required: function () {
+            return this.appointmentType !== 'apply';
+        }
+    },
+    weight: {
+        type: String,
         required: function () {
             return this.appointmentType !== 'apply';
         }
