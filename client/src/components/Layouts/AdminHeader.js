@@ -24,7 +24,7 @@ const AdminHeader = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{height:'12%'}}>
                 <div className="container-fluid">
-                    <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                <img src="../assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '90px', height: '80px', borderRadius: '50%'}} />
                     <Link to="/dashboard" className="navbar-brand" style={{ color: 'black' }}>
                         Dashboard
                     </Link>

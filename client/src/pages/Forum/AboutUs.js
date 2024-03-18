@@ -39,7 +39,7 @@ const AboutUs = () => {
             <header className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height:'12%'}}>
                     <div className="container-fluid">
-                        <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                    <img src="../../../assets/images/logoBIchor.png" alt="logotup" id='tuplogo' style={{width: '100px', height: '80px'}}/>
                         {user && user.role !== 'admin' && (
                             <>
                                 <Link to="/" className="navbar-brand" style={{ color: 'black' }}>

@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow, MDBCol as Col } from 'mdb-react-ui-kit';
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
 import axios from 'axios'
+import '../../../index.css'
 
 
 const CreateDonor = () => {

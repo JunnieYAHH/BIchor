@@ -193,7 +193,7 @@ const Forum = () => {
             <header className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height:'12%'}}>
                     <div className="container-fluid">
-                        <img src="../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                    <img src="../assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '100px', height: '80px', borderRadius: '50%'}} />
                         {user && user.role !== 'admin' && (
                             <>
                                 <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
@@ -299,7 +299,7 @@ const Forum = () => {
                                     </center>
                                     <p>___ <a style={{ color: 'red', fontWeight: 'bold' }}>Latest</a> New's _______________________________________________________________________________________________________________</p>
                                     <Card className='px-4' style={{ backgroundColor: 'white', color: 'white', width: '90%' }}>
-                                        <img src="../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '20%', height: '20%', objectFit: 'cover', borderRadius: '100px' }} />
+                                    <img src="../assets/images/BIchor.png" alt="logotup" id="tuplogo" style={{width: '10%', height: '10%', borderRadius: '50%'}} />
                                         <Row>
                                             <Col style={{ justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                                                 <Row>

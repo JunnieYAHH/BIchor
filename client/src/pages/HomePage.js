@@ -160,8 +160,8 @@ const HomePage = () => {
                     <Row className="mb-4">
                       <div className="container">
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <img src="./assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
-                          <div style={{ marginLeft: '20px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                        <img src="./assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '200px', height: '180px', borderRadius: '50%'}} />
+                          <div style={{ marginLeft: '20px', padding: '20px', background: '#f0f0f0', border: '5px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                             <p style={{ fontWeight: 'bold', fontSize: '24px', textAlign: 'center' }}>Technological University of the Philippines, Taguig City</p>
                             <p style={{ textAlign: 'center' }}>Sustaining Lifelines: Enhancing the Blood Donation System for Improved Access, Efficiency, and Awareness </p>
                             <p style={{ textAlign: 'center' }}>- A Comprehensive Study</p>

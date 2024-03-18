@@ -144,7 +144,7 @@ const CreateEvent = () => {
                                                                 </Row>
                                                             </Col>
                                                             <Col>
-                                                                <img src="../../assets/images/systemLOGOMAIN.png" alt="TUP" id='tup' style={{ borderRadius: '50px' }} />
+                                                                <img src="../../assets/images/logoBIchor.png" alt="TUP" id='tup' style={{ borderRadius: '50px' }} />
                                                             </Col>
                                                         </Row>
                                                     </center>

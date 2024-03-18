@@ -36,7 +36,7 @@ const HowToTransfuse = () => {
             <header className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height: '12%' }}>
                     <div className="container-fluid">
-                        <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                    <img src="../../../assets/images/logoBIchor.png" alt="logotup" id='tuplogo' style={{width: '100px', height: '80px'}}/>
                         {user && user.role !== 'admin' && (
                             <>
                                 <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
@@ -152,7 +152,7 @@ const HowToTransfuse = () => {
                                                     <center>
                                                         <div style={{ marginLeft: '40px' }}>
                                                             <Card className='badge bg-white' style={{ fontSize: '20px' }}>
-                                                                <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '30%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
+                                                                <img src="../../../assets/images/logoBIchor.png" classname="img-fluid my-3" alt="banner" style={{ width: '30%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
                                                                 <li className='my-3'>
                                                                     <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
                                                                 </li>
@@ -191,6 +191,7 @@ const HowToTransfuse = () => {
                                             <center>
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/uLydffMNnEY" allowFullScreen width="750" height="450"></iframe>
                                             </center>
+                                            <strong><p className="citation" style={{marginLeft: 120, color: 'maroon'}}>Blood transfusion: Setup and Transfusion (Primary Y Type Tubing). (Jul 11, 2023). <a href="https://www.youtube.com/watch?v=uLydffMNnEY">www.youtube.com</a>. Retrieved March 18, 2024.</p></strong>
                                         </div>
                                         <hr></hr>
                                         <div>
@@ -201,6 +202,7 @@ const HowToTransfuse = () => {
                                             <center>
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/KufB1rabAQU" allowFullScreen width="750" height="450"></iframe>
                                             </center>
+                                            <strong><p className="citation" style={{marginLeft: 120, color: 'maroon'}}>What does a Blood Transfusion look Like? (Sep 7, 2017). <a href="https://www.youtube.com/watch?v=KufB1rabAQU">www.youtube.com</a>. Retrieved March 18, 2024.</p></strong>
                                         </div>
                                     </Card>
                                 </Card>

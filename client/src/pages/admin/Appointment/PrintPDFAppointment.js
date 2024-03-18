@@ -15,6 +15,7 @@ import Barcode from 'react-barcode';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
+
 const PrintPDFAppointment = () => {
     const [appointment, setAppointment] = useState(null);
     const [events, setEvents] = useState([]);
@@ -123,7 +124,7 @@ const PrintPDFAppointment = () => {
                                     <Row className="mb-4">
                                         <div className="container">
                                             <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-                                                <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
+                                            <img src="../assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '20%', height: '20%', borderRadius: '50%'}} />
                                                 <p style={{ margin: '0', fontWeight: 'bold' }}>APPOINTMENT RECEIPT</p>
                                                 <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                             </div>
@@ -183,7 +184,7 @@ const PrintPDFAppointment = () => {
                                                         )}
                                                     </Card>
                                                     <Card style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                                        <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ height: '50%', width: '60%' }} />
+                                                    <img src="./assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '20%', height: '20%', borderRadius: '50%'}} />
                                                         <p><Barcode value={appointment._id} height={30} width={0.7} displayValue={false} /></p>
                                                         <h3 style={{ margin: '0', marginBottom: '10px', color: '#333' }}>Status:</h3>
                                                         {/* <p>{appointment.status}</p> */}

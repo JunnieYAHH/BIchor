@@ -36,7 +36,7 @@ const HowToDonate = () => {
             <header className='header'>
                 <nav className="navbar navbar-expand-lg bg-body-tertiary header" style={{ height:'12%'}}>
                     <div className="container-fluid">
-                        <img src="../../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                    <img src="../../../assets/images/logoBIchor.png" alt="logotup" id='tuplogo' style={{width: '100px', height: '80px'}}/>
                         {user && user.role !== 'admin' && (
                             <>
                                 <Link to="/" className="navbar-brand" style={{ color: 'black' }}>
@@ -152,7 +152,7 @@ const HowToDonate = () => {
                                                     <center>
                                                         <div style={{ marginLeft: '40px' }}>
                                                             <Card className='badge bg-white' style={{ fontSize: '20px' }}>
-                                                                <img src="../../../assets/images/systemLOGOMAIN.png" classname="img-fluid my-3" alt="banner" style={{ width: '50%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
+                                                                <img src="../../../assets/images/logoBIchor.png" classname="img-fluid my-3" alt="banner" style={{ width: '50%', height: '50%', objectFit: 'cover', borderRadius: '60px' }} />
                                                                 <li className='my-3'>
                                                                     <button onClick={() => { window.location.href = '/blood/forum/the-pad/how-to-donate' }} className='button-link'>How To Donate?</button>
                                                                 </li>
@@ -197,6 +197,7 @@ const HowToDonate = () => {
                                             <center>
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/jmhiHKsEUXU" allowFullScreen width="750" height="450"></iframe>
                                             </center>
+                                            <strong><p className="citation" style={{marginLeft: 120, color: 'maroon'}}>Donating Blood for the First Time. (Jun 1, 2022). <a href="https://www.youtube.com/watch?v=jmhiHKsEUXU">www.youtube.com</a>. Retrieved March 18, 2024.</p></strong>
                                         </div>
 
                                         <hr></hr>
@@ -208,6 +209,7 @@ const HowToDonate = () => {
                                             <center>
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/Q55LrC7vijM" allowFullScreen width="750" height="450"></iframe>
                                             </center>
+                                            <strong><p className="citation" style={{marginLeft: 120, color: 'maroon'}}>The Journey of Blood: What happens after you give blood | NHS Give Blood. (Feb 27, 2023). <a href="https://www.youtube.com/watch?v=Q55LrC7vijM">www.youtube.com</a>. Retrieved March 13, 2024.</p></strong>
                                         </div>
 
                                         <hr></hr>
@@ -219,6 +221,7 @@ const HowToDonate = () => {
                                             <center>
                                                 <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/F4fiWZyVsTE" allowFullScreen width="750" height="450"></iframe>
                                             </center>
+                                            <strong><p className="citation" style={{marginLeft: 120, color: 'maroon'}}>6 AMAZING Health Benefits Of DONATING BLOOD You Don’t Know About. (Mar 19, 2023). <a href="https://www.youtube.com/watch?v=F4fiWZyVsTE">www.youtube.com</a>. Retrieved March 18, 2024.</p></strong>
                                         </div>
                                     </Card>
                                 </Card>

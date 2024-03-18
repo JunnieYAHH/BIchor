@@ -28,7 +28,7 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-lg header" style={{ height:'12%'}}> 
                 <div className="container-fluid">
-                    <img src="./assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' />
+                <img src="../assets/images/logoBIchor.png" alt="logotup" id="tuplogo" style={{width: '90px', height: '80px', borderRadius: '50%'}} />
                     {user && user.role !== 'admin' && (
                         <>
                             <Link to="/" className="navbar-brand" style={{ color: 'black' }}>

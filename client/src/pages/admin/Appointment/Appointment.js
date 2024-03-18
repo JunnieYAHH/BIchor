@@ -9,7 +9,7 @@ import { MDBDataTable } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../../components/Layouts/AdminSidebar';
 import Header from '../../../components/Layouts/AdminHeader';
-import '../../../index.css'
+import '../../../index.css';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminHeader from '../../../components/Layouts/AdminHeader';
@@ -438,7 +438,7 @@ const Appointment = () => {
                                 <Row className="mb-4">
                                     <div className="container">
                                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '24px', padding: '20px', background: '#f0f0f0', border: '2px solid #333', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-                                            <img src="../../assets/images/systemLOGOMAIN.png" alt="logotup" id='tuplogo' style={{ width: "20%", height: "20%" }} />
+                                        <img src="../assets/images/BIchor.png" alt="logotup" id="tuplogo" style={{width: '10%', height: '10%', borderRadius: '50%'}} />
                                             <p style={{ margin: '0', fontWeight: 'bold' }}>APPOINTMENTS LIST</p>
                                             <h6 style={{ margin: '0', fontWeight: 'lighter' }}>Technological University of the Philippines, Taguig City</h6>
                                         </div>
